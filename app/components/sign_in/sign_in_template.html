@@ -1,0 +1,17 @@
+<div class="signup-title">
+  <h1 class="signup-title-header">
+    Dylan's <span class="signup-title-two">Portfolio</span>
+  </h1>
+  <br />
+  <p class="signup-title-subcontent">
+    Sign up to enable comments, suggestions, and join discussions 
+  </p>
+</div>
+
+<form name="signin" class="signup-form" data-ng-submit="$ctrl.signin($ctrl.user)">
+  <h3 class="signup-title"> SIGN IN </h3>
+  <input type="text" class="form-control" id="signup-input" required placeholder="Email" data-ng-model="$ctrl.user.email">
+  <input type="password" class="form-control" id="signup-input" required placeholder="Password" data-ng-model="$ctrl.user.password">
+  <button type="submit" class="btn btn-primary" id="signup-button">Sign In</button>
+  <span id="signup-footer">Not registered?<a href="#/signup" class="primary-link">Click here!</a>
+</form>
