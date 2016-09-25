@@ -8,4 +8,13 @@ module.exports = function(app) {
       baseUrl: '<'
     }
   });
+
+  app.controller('NavController', function() {
+    this.isCollapsed = true;
+    this.collapsedClass = this.isCollapsed ? 'collapse': '';
+    this.toggle = function() {
+      this.isCollapsed = !this.isCollapsed;
+      this.collapsedClass = this.isCollapsed ? 'collapse': '';
+    };
+  });
 };

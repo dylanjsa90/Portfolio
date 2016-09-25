@@ -4,6 +4,7 @@
   "description": "Dylan's Portfolio",
   "main": "webpack.config.js",
   "scripts": {
+    "watch": "./node_modules/webpack-dev-server/bin/webpack-dev-server --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,7 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
     "css-loader": "^0.25.0",
+    "express-request-proxy": "^2.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.4",

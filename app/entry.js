@@ -38,12 +38,6 @@ portfolioApp.config(['$routeProvider', ($rp) => {
     template: require('./html/current-projects.html'),
     controller: 'CurrentController'
   })
-  .when('/signup', {
-    template: require('./html/sign-up.html')
-  })
-  .when('/signin', {
-    template: require('./html/sign-in.html')
-  })
   .otherwise({
     redirectTo: '/home'
   });
