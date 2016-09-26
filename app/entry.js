@@ -4,7 +4,7 @@ require('!!fiile?name=[name].[ext]!./html/index.html');
 require('./scss/base.scss');
 
 const angular = require('angular');
-let portfolioApp = angular.module('portfolioApp', [require('angular-route'), require('angular-jwt')]);
+let portfolioApp = angular.module('portfolioApp', [require('angular-route')]);
 
 require('./services')(portfolioApp);
 require('./controllers')(portfolioApp);
@@ -32,11 +32,10 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   })
   .when('/previous-projects', {
     template: require('./html/past-projects.html'),
-    controller: 'PreviousController',
   })
   .when('/current-projects', {
-    template: require('./html/current-projects.html'),
-    controller: 'CurrentController'
+    template: require('./html/current_projects.html'),
+    controller: 'GithubController'
   })
   .otherwise({
     redirectTo: '/home'
