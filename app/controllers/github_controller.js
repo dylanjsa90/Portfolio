@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('GithubController', ['$location', 'Github', function($location, Github) {
+  app.controller('GithubController', ['Github', function(Github) {
     this.loading = false;
     this.toggleText = 'Recent Github Repos';
     this.toggleRepo = false;

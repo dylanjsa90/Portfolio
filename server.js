@@ -14,8 +14,8 @@ const proxyGithub = function(request, response) {
 };
 
 app.get('/github/*', proxyGithub);
-
 app.use(express.static(__dirname + '/build'));
+
 app.get('*', (req, res) => {
   console.log('New request', req.url);
   res.SendFile('index.html', {root: '.'});

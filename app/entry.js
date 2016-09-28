@@ -1,6 +1,6 @@
 'use strict';
 
-require('!!fiile?name=[name].[ext]!./html/index.html');
+require('!!file?name=[name].[ext]!./html/index.html');
 require('./scss/base.scss');
 
 const angular = require('angular');
@@ -30,7 +30,7 @@ portfolioApp.config(['$routeProvider', ($rp) => {
     template: require('./html/about.html'),
   })
   .when('/previous-projects', {
-    template: require('./html/past-projects.html'),
+    template: require('./html/past_projects.html'),
   })
   .when('/current-projects', {
     template: require('./html/current_projects.html'),

@@ -5,6 +5,7 @@ module.exports = function(app) {
   app.factory('Github', ['$window', '$location', '$http', function($window, $location, $http) {
     return {
       repos: {},
+      allRepos: [],
       requestRepos: function() {
         $http.get('/github/users/dylanjsa90/repos?per_page=10&sorted=updated')
           .then((res) => {

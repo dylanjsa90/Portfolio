@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = function(app) {
-  require('./githib_service')(app);
+  require('./github_service')(app);
 };
