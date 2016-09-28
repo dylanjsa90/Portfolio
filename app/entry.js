@@ -28,7 +28,6 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   })
   .when('/about', {
     template: require('./html/about.html'),
-    access: {allowAnonymous: true}
   })
   .when('/previous-projects', {
     template: require('./html/past-projects.html'),
