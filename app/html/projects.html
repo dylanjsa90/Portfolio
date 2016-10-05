@@ -1,26 +1,32 @@
-<div class="past-project-container">
-  <div class="project-container" ng-show="$ctrl.showPi">
-    <h3>Ultimate Pi | September 16th, 2016 | <a href="https://github.com/sendjmoon/Ultimate-Pi">Github Frontend</a> &
-    <a href="https://github.com/dylanjsa90/UltimatePi-api">Github Backend</a> | <a href="http://ultimate-pi.herokuapp.com">Deployed Here</a>
-    <h5>Description</h5>
-    <p>Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>
-    <h5>Project Employs:</h5>
-    <ul>
-      <li>Angular.js</li>
-      <li>Secure authentication system with registration</li>
-      <li>Custom built angular components</li>
-      <li>Sleek and intuitive remote UI</li>
-      <li>Webpack bundling</li>
-      <li>SCSS styling</li>
-      <li>Bootstrap</li>
-      <li>Font-awesome for Icons</li>
-      <li>TDD: Karma w/jasmine for frontend testing</li>
-      <li>TDD: Mocha with chai for backend testing</li>
-      <li>Deployed on Heroku</li>
-    </ul> 
-    
-    </h3>
-  </div>
+<h2>Projects</h2>
+<div>
+  Gallery
+  <ul>
+    <li data-ng-repeat="project in $ctrl.projects"><img data-ng-click="$ctrl.showProject(project)" src="{{project.thumbnailUrl}}"></li>
+  </ul>
+</div>
+
+
+<div class="project-container" ng-show="$ctrl.showPi">
+  <h3>Ultimate Pi | September 16th, 2016 | <a href="https://github.com/sendjmoon/Ultimate-Pi">Github Frontend</a> &
+  <a href="https://github.com/dylanjsa90/UltimatePi-api">Github Backend</a> | <a href="http://ultimate-pi.herokuapp.com">Deployed Here</a></h3>
+ <h5>Description</h5>
+  <p>Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>
+  <h5>Project Employs:</h5>
+  <ul>
+    <li>Angular.js</li>
+    <li>Secure authentication system with registration</li>
+    <li>Custom built angular components</li>
+    <li>Sleek and intuitive remote UI</li>
+    <li>Webpack bundling</li>
+    <li>SCSS styling</li>
+    <li>Bootstrap</li>
+    <li>Font-awesome for Icons</li>
+    <li>TDD: Karma w/jasmine for frontend testing</li>
+    <li>TDD: Mocha with chai for backend testing</li>
+    <li>Deployed on Heroku</li>
+  </ul>   
+</div>
 
   <div class="project-container" ng-show="$ctrl.showSports">
     <h3>Fake Sports Real Money | August 11th, 2016 | <a href="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney">Github Repo</a> |  

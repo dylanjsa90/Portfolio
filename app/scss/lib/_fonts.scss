@@ -3,8 +3,20 @@
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-.navbar-main {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+.intro-subhead {
+  color: #F45A50;
+}
+
+.header, .intro-subhead {
+  font-family: 'Montserrat', san-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.header, .intro-heading {
+  font-size: 6rem;
+  margin-top: 12px;
+  margin-bottom: 15px;
+  font-weight: 400;
+  text-transform: uppercase;
 }

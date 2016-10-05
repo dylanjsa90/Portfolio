@@ -1,0 +1,48 @@
+a {
+  color: $app-link-primary-color;
+}
+
+a:hover {
+  color: $app-link-primary-color-hover;
+}
+
+#navbar-list a {
+  height: 45%;
+  width: 25%;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  text-decoration: none;
+  border-radius: 5px;
+  color: black;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-title a {
+  height: 45%;
+  width: 25%;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  text-decoration: none;
+  border-radius: 5px;
+  color: black;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-title a:hover {
+  color: white;
+  background-color: $app-nav-link-bg-hover;
+}
+#navbar-list a:hover {
+  color: white;
+  background-color: $app-nav-link-bg-hover;
+}
+
+#navbar-list a:active {
+  background-color: $app-nav-link-bg-active;
+}

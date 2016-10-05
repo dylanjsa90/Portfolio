@@ -3,6 +3,16 @@ nav-bar {
   height: 70px;
   margin: 3% 0 3% 0;
   background-color: $app-nav-primary-bg-color;
+  font-family: 'Montserrat', san-serif;
+  font-size: 1.2em;
+}
+
+#navbar-main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .navbar-title {
@@ -19,7 +29,7 @@ nav-bar {
   height: 100%;
 }
 
-.navbar-list {
+#navbar-list {
   height: 70px;
   width: 50%;
   margin: 0 4% 0 0;

@@ -2,7 +2,9 @@
 @import './vendor/font-awesome-4.6.3/scss/font-awesome.scss';
 
 @import "_theme.scss";
+@import "_main.scss";
 @import "_layout.scss";
+@import "_links.scss";
 @import "_nav_responsive.scss";
 @import "_nav.scss";
 @import "_fonts.scss";
@@ -31,14 +33,15 @@
     padding: 2%;
     display: block;
     text-align: center;
-    background-color: black;
+    background-color: white;
+    
   }
 
   #navcol-1.navbar-collapse ul li a:hover {
     background-color: $app-nav-link-bg-hover;
   }
 
-  .navbar-list {
+  #navbar-list {
     display: none;
   }
 
@@ -49,7 +52,7 @@
     height: 100%;
   }
 
-  .navbar.navbar-inverse {
+  .navbar, .navbar-inverse {
     margin-bottom: 0;
     border: none;
     display: flex;
@@ -100,7 +103,7 @@
     }
 
     .nav.navbar-nav {
-      background-color: rgba(0, 0, 0, 1.0);
+      background-color: rgba(0, 0, 0, .4);
     }
 
     .navbar-title {
@@ -115,6 +118,6 @@
       margin: 0;
       padding: 2%;
       display: block;
-      background-color: black;
+      background-color: rgba(0, 0, 0, .4);
     }
   }

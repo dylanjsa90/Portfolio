@@ -9,7 +9,8 @@ module.exports = function(app) {
     
     if (Github.allRepos.length === 0) {
       this.loading = true;
-      Github.requestRepos().then(() => this.loading = false);
+      Github.requestRepos();
+      this.loading = false;
     }
 
     this.getCurrentRepos = function() {

@@ -29,12 +29,13 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   .when('/about', {
     template: require('./html/about.html'),
   })
-  .when('/previous-projects', {
-    template: require('./html/past_projects.html'),
+  .when('/projects', {
+    template: require('./html/projects.html'),
+    controller: 'ProjectController'
   })
-  .when('/current-projects', {
-    template: require('./html/current_projects.html'),
-    controller: 'GithubController'
+  .when('/contact', {
+    template: require('./html/contact.html'),
+    controller: 'ContactController'
   })
   .otherwise({
     redirectTo: '/home'

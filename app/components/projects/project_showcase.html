@@ -1,0 +1,11 @@
+<div class="project-container" data-ng-init="$ctrl.findProjectId()">
+  <a href="#/" class="float-left fa fa-arrow-left">
+  <p class="inline">Back</p>
+  </a>
+
+  <h1>{{$ctrl.currentProject.name}}</h1>
+  <h4>{{projectCtrl.currentProject.description}}</h4>
+  <button type="submit" class="fa fa-list" data-ng-click="projectCtrl.showMore = true"></button>
+  <div data-project data-ng-show="project.showMore"></div>
+  
+</div>
