@@ -2,12 +2,12 @@
 <div>
   Gallery
   <ul>
-    <li data-ng-repeat="project in $ctrl.projects"><img data-ng-click="$ctrl.showProject(project)" src="{{project.thumbnailUrl}}"></li>
+    <!--<li data-ng-repeat="project in $ctrl.projects"><img data-ng-click="$ctrl.showProject(project)" src="{{project.thumbnailUrl}}"></li>-->
   </ul>
 </div>
 
 
-<div class="project-container" ng-show="$ctrl.showPi">
+<div class="project-container" >
   <h3>Ultimate Pi | September 16th, 2016 | <a href="https://github.com/sendjmoon/Ultimate-Pi">Github Frontend</a> &
   <a href="https://github.com/dylanjsa90/UltimatePi-api">Github Backend</a> | <a href="http://ultimate-pi.herokuapp.com">Deployed Here</a></h3>
  <h5>Description</h5>
@@ -31,7 +31,6 @@
   <div class="project-container" ng-show="$ctrl.showSports">
     <h3>Fake Sports Real Money | August 11th, 2016 | <a href="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney">Github Repo</a> |  
     <a href="https://fake-sports-real-money.herokuapp.com">Deployed API</a></h3>
-    <!--TODO add img links of screenshot pages OR possibly iframe the deployed page-->
     <h5>Description</h5>
     <p>Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances
       that they need to pay</p>

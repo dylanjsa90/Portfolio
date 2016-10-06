@@ -7,16 +7,35 @@
   color: #F45A50;
 }
 
-.header, .intro-subhead {
+.intro-subhead, .intro-heading {
   font-family: 'Montserrat', san-serif;
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 0px;
+}
+
+.bio {
+  font-family: 'Montserrat', san-serif;
+  color: $app-about-primary-color;
+}
+
+.skill-container li {
+  color: $app-about-primary-color;
+  text-align: center;
 }
 .header, .intro-heading {
   font-size: 6rem;
   margin-top: 12px;
   margin-bottom: 15px;
-  font-weight: 400;
-  text-transform: uppercase;
+}
+
+
+i.fa-github {
+  font-size: 3rem;
+  color: green;
+}
+
+i.fa-linkedin {
+  font-size: 3rem;
+  color: blue;
 }
