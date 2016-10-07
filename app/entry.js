@@ -35,7 +35,6 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   })
   .when('/contact', {
     template: require('./html/contact.html'),
-    controller: 'ContactController'
   })
   .otherwise({
     redirectTo: '/home'

@@ -17,11 +17,13 @@ nav-bar {
 
 .navbar-title {
   height: 70px;
-  width: 46%;
+  width: 30%;
   margin: 0 0 0 4%;
+  margin-left: 20%;
   display: flex;
   align-items: center;
   color: white;
+  text-align: right;
 }
 
 .navbar-title-content {
@@ -33,6 +35,7 @@ nav-bar {
   height: 70px;
   width: 50%;
   margin: 0 4% 0 0;
+  margin-right: 25%;
   display: flex;
   align-items: center;
   justify-content: flex-end;

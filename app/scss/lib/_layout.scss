@@ -17,13 +17,19 @@
   font-weight: bold; 
 }
 
+.contact-container {
+  width: 35%;
+  margin: 0px auto;
+  background-color: lightblue;
+  
+}
 .about-description {
   color: $app-about-primary-color;
   border: 2px solid black;
   border-radius: 15%;
 }
 
-.home-container .header {
+.home-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,10 +38,13 @@
 .header {
   text-align: center;
   color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .header .intro-wrapper {
-  padding-top: 8em;
   width: 100%;
 }
 
@@ -43,7 +52,6 @@
   text-align: center;
 }
 .project-container li {
-  
   list-style: none;
 
 }
@@ -67,4 +75,24 @@ footer {
 
 .project-thumbnail {
   margin: 10px;
+}
+
+.self-img {
+  border-radius: 50%;
+}
+.profile-image {
+  padding: 0px;
+}
+
+.hidden-xs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-container {
+      position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

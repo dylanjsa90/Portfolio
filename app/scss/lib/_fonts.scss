@@ -20,11 +20,13 @@
   font-size: 18px;
 }
 
-.skill-container li {
-  font-family: 'Montserrat', san-serif;
-  color: $app-about-primary-color;
+
+.main-skill-container h4 {
   text-align: center;
+  font-weight: bolder;
 }
+
+
 .intro-heading {
   font-size: 6rem;
   margin-top: 12px;
@@ -41,3 +43,44 @@ i.fa-linkedin {
   font-size: 3rem;
   color: blue;
 }
+
+.contact-intro {
+  color: darkmagenta;
+  margin-right: 5px;
+}
+
+.contact-info {
+  list-style: none;
+  font-size: 20px;
+  
+}
+
+ul.skills-container li {
+  list-style: none;
+  border: 2px solid darkmagenta;
+  text-align: center;
+  border-radius: 25%;
+  margin: 5px;
+  padding: 5px;
+  font-family: 'Montserrat', san-serif;
+  color: $app-about-primary-color;
+  text-align: center;
+  }
+
+ul.skills-container {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    // justify-content: center;
+    align-items: center;
+    height: 15em;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.skill-container li {
+
+}
+  .skill-category {
+
+  }
