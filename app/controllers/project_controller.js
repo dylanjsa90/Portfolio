@@ -5,6 +5,7 @@ module.exports = function(app) {
     this.showPi = false;
     this.showFakeSports = false;
     this.showNosy = false;
+    this.showTodo = false;
     this.projects = require('../lib/projectData');
     this.projectThumbnails = [];
 
@@ -14,25 +15,36 @@ module.exports = function(app) {
       });
     };
     
-
-    
-    this.showProject = function(project) {
-      if (project.name === 'Ultimate Pi') {
-        this.showPi = true;
-        this.showFakeSports = false;
-        this.showNosy = false;
-      }
-      if (project.name === 'Fake Sports Real Money') {
-        this.showPi = false;
-        this.showFakeSports = true;
-        this.showNosy = false;
-      }
-      if (project.name === 'Nosy Neighbor') {
-        this.showPi = false;
-        this.showFakeSports = false;
-        this.showNosy = true;
-      }
+    this.displayPi = function() {
+      this.showPi = !this.showPi;
+      this.showFakeSports = false;
+      this.showNosy = false;
+      this.showTodo = false;
     };
+
+    this.displayNosyNeighbor = function() {
+      this.showNosy = !this.showNosy;
+      this.showPi = false;
+      this.showFakeSports = false;
+      this.showTodo = false;
+    };  
+
+    this.displayFakeSports = function() {
+      this.showFakeSports = !this.showFakeSports;
+      this.showPi = false;
+      this.showNosy = false;
+      this.showTodo = false;
+    };
+    
+    this.displayTodo = function() {
+      this.showTodo = !this.showTodo;
+      this.showPi = false;
+      this.showNosy = false;
+      this.showFakeSports = false;
+    };
+    
+      
+    
     
   });
 };

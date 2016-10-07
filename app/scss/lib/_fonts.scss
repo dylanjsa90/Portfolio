@@ -17,13 +17,15 @@
 .bio {
   font-family: 'Montserrat', san-serif;
   color: $app-about-primary-color;
+  font-size: 18px;
 }
 
 .skill-container li {
+  font-family: 'Montserrat', san-serif;
   color: $app-about-primary-color;
   text-align: center;
 }
-.header, .intro-heading {
+.intro-heading {
   font-size: 6rem;
   margin-top: 12px;
   margin-bottom: 15px;
@@ -32,7 +34,7 @@
 
 i.fa-github {
   font-size: 3rem;
-  color: green;
+  color: black;
 }
 
 i.fa-linkedin {

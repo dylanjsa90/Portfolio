@@ -1,0 +1,86 @@
+<div class="project-component-container">
+  <h2>Projects</h2>
+    <div class="project-thumbnail-container">
+      <div class="project-thumbnail pi">
+         <img src="../../lib/thumbnails/mobile_remote.jpg" alt="First slide" data-holder-rendered="true" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayPi()">
+      </div>
+      <div class="project-thumbnail nosy">
+        <img src="../../lib/thumbnails/full_list_nosy_neighbor.jpg" alt="Nosy Neighbor preview" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayNosyNeighbor()">  
+      </div>
+      <div class="project-thumbnail fsrm">
+        <img src="../../lib/thumbnails/FSRM.jpg" alt="Fake Sports Real Money" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayFakeSports()">  
+      </div>
+      <div class="project-thumbnail list-manager">
+        <img src="../../lib/thumbnails/Business-Todo-List-icon.png" alt="List manager" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayTodo()">  
+      </div>
+    </div>
+
+  <div class="project-container" data-ng-show="$ctrl.showPi">
+    <h3>Ultimate Pi | September 16th, 2016 | <a href="https://github.com/sendjmoon/Ultimate-Pi">Github Frontend</a> &
+    <a href="https://github.com/dylanjsa90/UltimatePi-api">Github Backend</a> | <a href="http://ultimate-pi.herokuapp.com">Deployed Here</a></h3>
+  <h5>Description</h5>
+    <p>Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>
+    <h5>Project Employs:</h5>
+    <ul>
+      <li>Angular.js</li>
+      <li>Secure authentication system with registration</li>
+      <li>Custom built angular components</li>
+      <li>Sleek and intuitive remote UI</li>
+      <li>Webpack bundling</li>
+      <li>SCSS styling</li>
+      <li>Bootstrap</li>
+      <li>Font-awesome for Icons</li>
+      <li>TDD: Karma w/jasmine for frontend testing</li>
+      <li>TDD: Mocha with chai for backend testing</li>
+      <li>Deployed on Heroku</li>
+    </ul>   
+  </div>
+
+  <div class="project-container" ng-show="$ctrl.showFakeSports">
+    <h3>Fake Sports Real Money | August 11th, 2016 | <a href="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney"><i class="fa fa-github"></i></a> |  
+    <a href="https://fake-sports-real-money.herokuapp.com">Deployed API</a></h3>
+    <h5>Description</h5>
+    <p>Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances
+      that they need to pay</p>
+    <h5>Project Employs: </h5>
+    <ul>
+      <li>Twilio API for daily text reminders</li>
+      <li>Node-mailer for sending the daily email reminders</li>
+      <li>Cron for time tracking and to send daily reminders on overdue users</li>
+      <li>Express middleware</li>
+      <li>TDD</li>
+      <li>Deployed on Heroku</li>
+    </ul>
+  </div>
+
+  <div class="project-container" ng-show="$ctrl.showNosy">
+    <h3>Nosy Neighbor | June 30th, 2016 | <a href="https://github.com/crashtack/301-team-project"><i class="fa fa-github"></i></a> | 
+    <a href="https://projectstage-a6114.firebaseapp.com/">Deployed Here</a></h3>
+    <h5>Description</h5>
+    <p>Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>
+    <h5>Project Employs:</h5>
+    <ul>
+      <li>Single page architecture</li>
+      <li>Google Maps API with Places library</li>  
+      <li>Node.js with Express for the server</li>
+      <li>WebDB for the database (SQLite)</li>
+      <li>City of Seattle API for gathering construction permit data</li>
+      <li>MVC Architecture</li>
+      <li>Deployed on Firebase</li>
+    </ul>
+  </div>
+
+  <div class="project-container" ng-show="$ctrl.showTodo">
+    <h3>Task Manager | September 2016| <a href="https://github.com/dylanjsa90/task-manager"><i class="fa fa-github"></i></a> | 
+    <a href="http://list-task-manager.herokuapp.com/">Deployed Here</a></h3>
+    <h5>Description</h5>
+    <p>A simple full-stack app for managing tasks or Todo lists</p>
+    <h5>Project Employs</h5>
+    <ul>
+      <li>Angular.js</li>
+      <li>User sign-up/sign-in</li>
+      <li>Data persistance with MongoDB</li>
+    </ul>
+  </div>
+</div>
+</div>
