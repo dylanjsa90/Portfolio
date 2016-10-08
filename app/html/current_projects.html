@@ -1,0 +1,17 @@
+<div class="current-project-container" ng-init="$ctrl.getCurrentRepos()">
+  <div class="ajax-spinner" ng-if="$ctrl.loading"></div>
+  <button data-ng-click="$ctrl.toggleView()">{{$ctrl.toggleText}}</button>
+  <div class="github-repos" ng-if="!$ctrl.loading">
+    <h2>Most recent Github Repos: </h2>
+    <ul>
+      <li data-ng-repeat="repo in $ctrl.currentRepos">{{repo.name}}: {{repo.description}} </li>
+    </ul>   
+  </div>
+
+  <div class="in-progress" ng-show="$ctrl.toggleInProgress">
+    <h4>Recently started projects or ideas: </h4>
+    <p>Event Coordinator App</p>
+    <p>Polish and deploy redesigned list app</p>
+  </div>
+  
+</div>
