@@ -24,6 +24,12 @@
 .main-skill-container h4 {
   text-align: center;
   font-weight: bolder;
+  color: dodgerblue;
+  text-decoration: underline;;
+}
+
+.main-skill-container {
+  padding: 1.5%;
 }
 
 
@@ -57,7 +63,6 @@ i.fa-linkedin {
 
 ul.skills-container li {
   list-style: none;
-  border: 2px solid darkmagenta;
   text-align: center;
   border-radius: 25%;
   margin: 5px;
@@ -73,14 +78,11 @@ ul.skills-container {
     flex-wrap: wrap;
     // justify-content: center;
     align-items: center;
-    height: 15em;
     font-size: 18px;
     font-weight: bold;
 }
 
-.skill-container li {
-
+#navcol-1.navbar-collapse ul li a {
+  color: white;
+  background-color: rgba(0, 0, 0, 1.0);
 }
-  .skill-category {
-
-  }

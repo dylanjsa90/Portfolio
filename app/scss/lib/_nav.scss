@@ -12,7 +12,7 @@ nav-bar {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 1.0);
 }
 
 .navbar-title {
@@ -24,11 +24,6 @@ nav-bar {
   align-items: center;
   color: white;
   text-align: right;
-}
-
-.navbar-title-content {
-  width: 100%;
-  height: 100%;
 }
 
 #navbar-list {
