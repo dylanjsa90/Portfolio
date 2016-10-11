@@ -1,9 +1,9 @@
-// a {
-//   color: $app-link-primary-color;
-// }
+a {
+  color: darkblue;
+}
 
 a:hover {
-  color: $app-link-primary-color-hover;
+  color: darkcyan;
 }
 
 #navbar-list a {
@@ -40,13 +40,13 @@ a:hover {
 
 .navbar-title a:hover {
   color: white;
-  background-color: $app-nav-link-bg-hover;
+  background-color: darkblue;
 }
 #navbar-list a:hover {
   color: white;
-  background-color: $app-nav-link-bg-hover;
+  background-color: darkblue;
 }
 
 #navbar-list a:active {
-  background-color: $app-nav-link-bg-active;
+  background-color: darkblue;
 }
