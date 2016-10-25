@@ -2,6 +2,7 @@
 
 module.exports = [
   {
+    id: 1,
     name: 'Ultimate Pi',
     date: 'September 2016',
     description: 'Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote',
@@ -15,6 +16,7 @@ module.exports = [
   },
 
   {
+    id: 2,
     name: 'Fake Sports Real Money',
     date: 'August 2016',
     description: 'Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances that they need to pay',
@@ -26,6 +28,7 @@ module.exports = [
   },
 
   {
+    id: 3,
     name: 'Nosy Neighbor',
     date: 'June 2016',
     description: '',
@@ -34,5 +37,13 @@ module.exports = [
     githubUrl: 'https://github.com/crashtack/301-team-project',
     deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
     thumbnailUrl: require('../lib/images/blue_abstract_background.jpg') 
+  },
+  {
+    id: 4,
+    name: 'Task Manager',
+    description: 'Full-stack web organization that users can create accounts and within each account create and manage tasks or lists and add/remove content from those lists',
+    employs: ['Angular.js', 'Node.js server with express routing', 'Secure authentication with jsonwebtokens', 'SASS styling', 'webpack bundling', 'bootstrap', 'font-awesome icons', 'Deployed on heroku'], 
+    githubUrl: ['https://github.com/dylanjsa90/task-manager'],
+    deployedUrl: 'https://task-list-manager.herokuapp.com',
   }
 ];

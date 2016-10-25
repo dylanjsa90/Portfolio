@@ -5299,8 +5299,7 @@ contact-info {
 .contact-info-container {
   text-align: center;
   margin: 2% auto;
-  border-radius: 30%;
-  background-color: rgba(21, 9, 121, 0.25); }
+  border-radius: 30%; }
 
 .projects-container {
   height: 100%;
@@ -5603,6 +5602,12 @@ ul.skills-container {
 #navcol-1.navbar-collapse ul li a {
   color: white;
   background-color: black; }
+
+.project-description {
+  font-size: 18px; }
+
+ul.employs-list li {
+  font-size: 18px; }
 
 main {
   width: 100%;

@@ -1,7 +1,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProjectController', function() {
+  app.controller('ProjectController', ['$scope', function($scope) {
+    $scope.prev = null;
+    $scope.next = null;
+    // $scope.project = projectService.get({projectId: $routeParams.projectId});
+    // $scope.projects = projectService.query();
+
+
     this.showPi = false;
     this.showFakeSports = false;
     this.showNosy = false;
@@ -43,8 +49,5 @@ module.exports = function(app) {
       this.showFakeSports = false;
     };
     
-      
-    
-    
-  });
+  }]);
 };
