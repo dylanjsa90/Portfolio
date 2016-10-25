@@ -76,7 +76,6 @@ ul.skills-container {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    // justify-content: center;
     align-items: center;
     font-size: 18px;
     font-weight: bold;
@@ -88,5 +87,9 @@ ul.skills-container {
 }
 
 .project-description {
+  font-size: 18px;
+}
+
+ul.employs-list li {
   font-size: 18px;
 }

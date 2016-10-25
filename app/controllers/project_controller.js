@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProjectController', ['$scope', '$routeParams', 'projectService', function($scope, $routeParams, projectService) {
+  app.controller('ProjectController', ['$scope', function($scope) {
     $scope.prev = null;
     $scope.next = null;
     // $scope.project = projectService.get({projectId: $routeParams.projectId});
@@ -49,5 +49,5 @@ module.exports = function(app) {
       this.showFakeSports = false;
     };
     
-  });
+  }]);
 };
