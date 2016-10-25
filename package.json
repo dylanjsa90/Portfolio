@@ -20,6 +20,7 @@
   "homepage": "https://github.com/dylanjsa90/Portfolio#readme",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "autoprefixer": "^6.4.1",
     "babel-core": "^6.14.0",
