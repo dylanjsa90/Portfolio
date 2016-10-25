@@ -32980,6 +32980,7 @@
 
 	module.exports = function (app) {
 	  __webpack_require__(18)(app);
+	  // require('./project_service')(app);
 	};
 
 /***/ },
@@ -33083,7 +33084,13 @@
 	'use strict';
 
 	module.exports = function (app) {
-	  app.controller('ProjectController', function () {
+	  app.controller('ProjectController', ['$scope', function ($scope) {
+	    $scope.prev = null;
+	    $scope.next = null;
+	    // $scope.project = projectService.get({projectId: $routeParams.projectId});
+	    // $scope.projects = projectService.query();
+
+
 	    this.showPi = false;
 	    this.showFakeSports = false;
 	    this.showNosy = false;
@@ -33124,7 +33131,7 @@
 	      this.showNosy = false;
 	      this.showFakeSports = false;
 	    };
-	  });
+	  }]);
 	};
 
 /***/ },
@@ -33134,6 +33141,7 @@
 	'use strict';
 
 	module.exports = [{
+	  id: 1,
 	  name: 'Ultimate Pi',
 	  date: 'September 2016',
 	  description: 'Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote',
@@ -33143,6 +33151,7 @@
 	  thumbnailUrl: __webpack_require__(23)
 
 	}, {
+	  id: 2,
 	  name: 'Fake Sports Real Money',
 	  date: 'August 2016',
 	  description: 'Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances that they need to pay',
@@ -33151,6 +33160,7 @@
 	  deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
 	  thumbnailUrl: __webpack_require__(23)
 	}, {
+	  id: 3,
 	  name: 'Nosy Neighbor',
 	  date: 'June 2016',
 	  description: '',
@@ -33158,6 +33168,13 @@
 	  githubUrl: 'https://github.com/crashtack/301-team-project',
 	  deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
 	  thumbnailUrl: __webpack_require__(11)
+	}, {
+	  id: 4,
+	  name: 'Task Manager',
+	  description: 'Full-stack web organization that users can create accounts and within each account create and manage tasks or lists and add/remove content from those lists',
+	  employs: ['Angular.js', 'Node.js server with express routing', 'Secure authentication with jsonwebtokens', 'SASS styling', 'webpack bundling', 'bootstrap', 'font-awesome icons', 'Deployed on heroku'],
+	  githubUrl: ['https://github.com/dylanjsa90/task-manager'],
+	  deployedUrl: 'https://task-list-manager.herokuapp.com'
 	}];
 
 /***/ },
@@ -33224,7 +33241,7 @@
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div>\n  <h2>Projects</h2>\n    <div class=\"project-thumbnail-container row\">\n      <div class=\"project-thumbnail\">\n         <img src=\"" + __webpack_require__(29) + "\" alt=\"First slide\" data-holder-rendered=\"true\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayPi()\">\n      </div>\n      <div class=\"project-thumbnail nosy\">\n        <img src=\"" + __webpack_require__(30) + "\" alt=\"Nosy Neighbor preview\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayNosyNeighbor()\">  \n      </div>\n      <div class=\"project-thumbnail fsrm\">\n        <img src=\"" + __webpack_require__(31) + "\" alt=\"Fake Sports Real Money\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayFakeSports()\">  \n      </div>\n      <div class=\"project-thumbnail list-manager\">\n        <img src=\"" + __webpack_require__(32) + "\" alt=\"List manager\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayTodo()\">  \n      </div>\n    </div>\n\n  <div class=\"project-container\" data-ng-show=\"$ctrl.showPi\">\n    <h3>Ultimate Pi | September 2016 | <a href=\"https://github.com/sendjmoon/Ultimate-Pi\">Github Frontend</a> &\n    <a href=\"https://github.com/dylanjsa90/UltimatePi-api\" target=\"_blank\">Github Backend</a> | <a href=\"http://ultimate-pi.herokuapp.com\">Deployed Here</a></h3>\n  <h5>Description</h5>\n    <p>Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>\n    <h5>Project Employs:</h5>\n    <ul>\n      <li>Angular.js</li>\n      <li>Secure authentication system with registration</li>\n      <li>Custom built angular components</li>\n      <li>Sleek and intuitive remote UI</li>\n      <li>Webpack bundling</li>\n      <li>SCSS styling</li>\n      <li>Bootstrap</li>\n      <li>Font-awesome for Icons</li>\n      <li>TDD: Karma w/jasmine for frontend testing</li>\n      <li>TDD: Mocha with chai for backend testing</li>\n      <li>Deployed on Heroku</li>\n    </ul>   \n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showFakeSports\">\n    <h3>Fake Sports Real Money | August 2016 | <a href=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\"><i class=\"fa fa-github\"></i></a> |  \n    <a href=\"https://fake-sports-real-money.herokuapp.com\">Deployed API</a></h3>\n    <h5>Description</h5>\n    <p>Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances\n      that they need to pay</p>\n    <h5>Project Employs: </h5>\n    <ul>\n      <li>Twilio API for daily text reminders</li>\n      <li>Node-mailer for sending the daily email reminders</li>\n      <li>Cron for time tracking and to send daily reminders on overdue users</li>\n      <li>Express middleware</li>\n      <li>TDD</li>\n      <li>Deployed on Heroku</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showNosy\">\n    <h3>Nosy Neighbor | June 2016 | <a href=\"https://github.com/crashtack/301-team-project\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://projectstage-a6114.firebaseapp.com/\">Deployed Here</a></h3>\n    <h5>Description</h5>\n    <p>Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>\n    <h5>Project Employs:</h5>\n    <ul>\n      <li>Single page architecture</li>\n      <li>Google Maps API with Places library</li>  \n      <li>Node.js with Express for the server</li>\n      <li>WebDB for the database (SQLite)</li>\n      <li>City of Seattle API for gathering construction permit data</li>\n      <li>MVC Architecture</li>\n      <li>Deployed on Firebase</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showTodo\">\n    <h3>Task Manager | September 2016 | <a href=\"https://github.com/dylanjsa90/task-manager\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"http://list-task-manager.herokuapp.com/\">Deployed Here</a></h3>\n    <h5>Description</h5>\n    <p>A simple full-stack app for managing tasks or Todo lists</p>\n    <h5>Project Employs</h5>\n    <ul>\n      <li>Angular.js</li>\n      <li>User sign-up/sign-in</li>\n      <li>Data persistance with MongoDB</li>\n    </ul>\n  </div>\n</div>\n</div>";
+	module.exports = "<div>\n  <h2>Projects</h2>\n    <div class=\"project-thumbnail-container row\">\n      <div class=\"project-thumbnail\">\n         <img src=\"" + __webpack_require__(29) + "\" alt=\"First slide\" data-holder-rendered=\"true\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayPi()\">\n      </div>\n      <div class=\"project-thumbnail nosy\">\n        <img src=\"" + __webpack_require__(30) + "\" alt=\"Nosy Neighbor preview\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayNosyNeighbor()\">  \n      </div>\n      <div class=\"project-thumbnail fsrm\">\n        <img src=\"" + __webpack_require__(31) + "\" alt=\"Fake Sports Real Money\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayFakeSports()\">  \n      </div>\n      <div class=\"project-thumbnail list-manager\">\n        <img src=\"" + __webpack_require__(32) + "\" alt=\"List manager\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayTodo()\">  \n      </div>\n    </div>\n\n  <div class=\"project-container\" data-ng-show=\"$ctrl.showPi\">\n    <h3>Ultimate Pi | September 2016 | <a href=\"https://github.com/sendjmoon/Ultimate-Pi\">Github Frontend</a> &\n    <a href=\"https://github.com/dylanjsa90/UltimatePi-api\" target=\"_blank\">Github Backend</a> | <a href=\"http://ultimate-pi.herokuapp.com\">Deployed Here</a></h3>\n    <h5>Description</h5>\n    <p class=\"project-description\">Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>\n    <h5>Project Employs:</h5>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Secure authentication system with registration</li>\n      <li>Custom built angular components</li>\n      <li>Sleek and intuitive remote UI</li>\n      <li>Webpack bundling</li>\n      <li>SCSS styling</li>\n      <li>Bootstrap</li>\n      <li>Font-awesome for Icons</li>\n      <li>TDD: Karma w/jasmine for frontend testing</li>\n      <li>TDD: Mocha with chai for backend testing</li>\n      <li>Deployed on Heroku</li>\n    </ul>   \n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showFakeSports\">\n    <h3>Fake Sports Real Money | August 2016 | <a href=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\"><i class=\"fa fa-github\"></i></a> |  \n    <a href=\"https://fake-sports-real-money.herokuapp.com\">Deployed API</a></h3>\n    <h5>Description</h5>\n    <p class=\"project-description\">Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances\n      that they need to pay</p>\n    <h5>Project Employs: </h5>\n    <ul class=\"employs-list\">\n      <li>Twilio API for daily text reminders</li>\n      <li>Node-mailer for sending the daily email reminders</li>\n      <li>Cron for time tracking and to send daily reminders on overdue users</li>\n      <li>Express middleware</li>\n      <li>TDD</li>\n      <li>Deployed on Heroku</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showNosy\">\n    <h3>Nosy Neighbor | June 2016 | <a href=\"https://github.com/crashtack/301-team-project\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://projectstage-a6114.firebaseapp.com/\">Deployed Here</a></h3>\n    <h5>Description</h5>\n    <p class=\"project-description\">Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>\n    <h5>Project Employs:</h5>\n    <ul class=\"employs-list\">\n      <li>Single page architecture</li>\n      <li>Google Maps API with Places library</li>  \n      <li>Node.js with Express for the server</li>\n      <li>WebDB for the database (SQLite)</li>\n      <li>City of Seattle API for gathering construction permit data</li>\n      <li>MVC Architecture</li>\n      <li>Deployed on Firebase</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showTodo\">\n    <h3>Task Manager | September 2016 | <a href=\"https://github.com/dylanjsa90/task-manager\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"http://list-task-manager.herokuapp.com/\">Deployed Here</a></h3>\n    <h5>Description</h5>\n    <p class=\"project-description\">A simple full-stack app for managing tasks or todo lists, users signup and then can create personal lists and add/remove content</p>\n    <h5>Project Employs</h5>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Node.js server with express routing</li>\n      <li>User sign-up/sign-in</li>\n      <li>Data persistance with MongoDB</li>\n    </ul>\n  </div>\n</div>\n</div>";
 
 /***/ },
 /* 29 */
