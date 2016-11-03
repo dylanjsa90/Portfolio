@@ -5188,7 +5188,6 @@ button.list-group-item-danger {
 
 html, body {
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   background-image: url(image/fc2a7fa845709986fd7a825c53614111-blue_abstract_background.jpg);
@@ -5196,6 +5195,22 @@ html, body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed; }
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh; }
+
+#wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  width: 100%; }
 
 .home-container {
   width: 100%;
@@ -5251,9 +5266,15 @@ html, body {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  color: #19242E; }
+  color: black; }
 
 .about-container-secondary {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -5261,16 +5282,20 @@ html, body {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  padding: 10px; }
+  padding: 3px; }
 
 .about-container-secondary h1, h3, h5 {
   text-align: center; }
 
 .about-description {
-  color: #19242E;
+  color: black;
+  background-color: grey;
   border: 2px solid black;
   border-radius: 15%;
   position: inherit; }
+
+.about-title {
+  text-align: center; }
 
 contact-info {
   width: 100%;
@@ -5286,20 +5311,42 @@ contact-info {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
   -webkit-box-flex: 1;
       -ms-flex: 1;
-          flex: 1;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start; }
+          flex: 1; }
+
+.contact {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  height: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.contact-info-container h2 {
+  text-align: center; }
 
 .contact-info-container {
-  text-align: center;
-  margin: 2% auto;
-  border-radius: 30%; }
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
 
 .projects-container {
   height: 100%;
@@ -5390,21 +5437,13 @@ contact-info {
           justify-content: center; }
 
 footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  height: 70px;
   padding: 1rem;
   text-align: center;
-  background-color: lightblue; }
+  background-color: dodgerblue;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: bold; }
 
 a {
   color: darkblue; }
@@ -5474,16 +5513,20 @@ a:hover {
 .navbar.navbar-inverse {
   display: none; }
 
+button.nav-menu-toggle.navbar-toggle {
+  border: 5px solid blue; }
+
 nav-bar {
   width: 100%;
   height: 70px;
-  margin: 3% 0 3% 0;
+  margin: 3% 0 1% 0;
   background-color: #2C2F33;
-  font-family: 'Montserrat', san-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.2em; }
 
 #navbar-main {
   width: 100%;
+  height: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5533,27 +5576,28 @@ nav-bar {
   color: #F45A50; }
 
 .intro-subhead, .intro-heading {
-  font-family: 'Montserrat', san-serif;
+  font-family: 'Merriweather', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0px; }
 
 .bio {
-  font-family: 'Montserrat', san-serif;
-  color: #19242E;
+  font-family: 'Merriweather', sans-serif;
+  color: black;
   font-size: 18px; }
 
-.main-skill-container h4 {
-  text-align: center;
+.skill-title {
   font-weight: bolder;
-  color: dodgerblue;
-  text-decoration: underline; }
+  color: white;
+  text-decoration: underline;
+  background-color: black;
+  padding-right: 5px; }
 
 .main-skill-container {
   padding: 1.5%; }
 
 .intro-heading {
-  font-size: 6rem;
+  font-size: 4rem;
   margin-top: 12px;
   margin-bottom: 15px; }
 
@@ -5571,19 +5615,27 @@ i.fa-linkedin {
 
 .contact-info {
   list-style: none;
-  font-size: 20px; }
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif; }
 
 ul.skills-container li {
   list-style: none;
-  text-align: center;
-  border-radius: 25%;
-  margin: 5px;
-  padding: 5px;
-  font-family: 'Montserrat', san-serif;
-  color: #19242E;
-  text-align: center; }
+  margin: 5px 5px 5px 5px;
+  padding: 0 5px 0 5px;
+  font-family: 'Open Sans', sans-serif; }
 
-ul.skills-container {
+.main-skill-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+.skills-container {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -5597,7 +5649,8 @@ ul.skills-container {
       -ms-flex-align: center;
           align-items: center;
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif; }
 
 #navcol-1.navbar-collapse ul li a {
   color: white;
@@ -5606,37 +5659,19 @@ ul.skills-container {
 .project-description {
   font-size: 18px; }
 
+.project-container {
+  font-family: 'Merriweather', sans-serif; }
+
 ul.employs-list li {
   font-size: 18px; }
 
-main {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row; }
+.selected {
+  border: 2px solid red; }
+
+.nav-selected {
+  color: gold; }
 
 @media (max-width: 768px) {
-  main {
-    width: 100%;
-    height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row; }
   .container-fluid {
     background-color: transparent;
     display: -webkit-box;
@@ -5653,7 +5688,7 @@ main {
   .navbar-collapse {
     background-color: black;
     opacity: 1;
-    margin: 7px 0 0 0;
+    margin: 0 0 0 0;
     height: 100%;
     width: 100%; }
   #navcol-1.navbar-collapse ul li {
@@ -5661,9 +5696,9 @@ main {
     padding: 2%;
     display: block;
     text-align: center;
-    background-color: white; }
+    background-color: black; }
   #navcol-1.navbar-collapse ul li a:hover {
-    background-color: rgba(214, 38, 79, 0.4); }
+    background-color: darkblue; }
   #navbar-list {
     display: none; }
   #navbar-main {
@@ -5698,17 +5733,7 @@ main {
 @media only screen and (min-device-width: 320px) and (max-device-width: 680px) and (-webkit-min-device-pixel-ratio: 2) {
   main {
     width: 100%;
-    height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row; }
+    height: 100%; }
   #navbar-main {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -5738,4 +5763,9 @@ main {
     margin: 0;
     padding: 2%;
     display: block;
-    background-color: black; } }
+    background-color: black; }
+  .about-container-primary {
+    height: 100%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1; } }

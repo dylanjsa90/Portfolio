@@ -1,26 +1,26 @@
 <div>
   <h2>Projects</h2>
     <div class="project-thumbnail-container row">
-      <div class="project-thumbnail">
+      <div class="project-thumbnail" data-ng-class="{'selected': $ctrl.showPi}">
          <img src="../../lib/thumbnails/mobile_remote.jpg" alt="First slide" data-holder-rendered="true" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayPi()">
       </div>
-      <div class="project-thumbnail nosy">
+      <div class="project-thumbnail nosy" data-ng-class="{'selected': $ctrl.showNosy}">
         <img src="../../lib/thumbnails/full_list_nosy_neighbor.jpg" alt="Nosy Neighbor preview" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayNosyNeighbor()">  
       </div>
-      <div class="project-thumbnail fsrm">
+      <div class="project-thumbnail fsrm" data-ng-class="{'selected': $ctrl.showFakeSports}">
         <img src="../../lib/thumbnails/FSRM.jpg" alt="Fake Sports Real Money" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayFakeSports()">  
       </div>
-      <div class="project-thumbnail list-manager">
+      <div class="project-thumbnail list-manager" data-ng-class="{'selected': $ctrl.showTodo}">
         <img src="../../lib/thumbnails/Business-Todo-List-icon.png" alt="List manager" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayTodo()">  
       </div>
     </div>
 
   <div class="project-container" data-ng-show="$ctrl.showPi">
-    <h3>Ultimate Pi | September 2016 | <a href="https://github.com/sendjmoon/Ultimate-Pi">Github Frontend</a> &
-    <a href="https://github.com/dylanjsa90/UltimatePi-api" target="_blank">Github Backend</a> | <a href="http://ultimate-pi.herokuapp.com">Deployed Here</a></h3>
-    <h5>Description</h5>
+    <h2>Ultimate Pi | September 2016 | <a href="https://github.com/sendjmoon/Ultimate-Pi"><i class="fa fa-github"></i> FE</a> &
+    <a href="https://github.com/dylanjsa90/UltimatePi-api" target="_blank"><i class="fa fa-github"></i> BE</a> | <a href="http://ultimate-pi.herokuapp.com">Deployed Here</a></h2>
+    <h3>Description</h3>
     <p class="project-description">Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>
-    <h5>Project Employs:</h5>
+    <h3>Project Employs:</h3>
     <ul class="employs-list">
       <li>Angular.js</li>
       <li>Secure authentication system with registration</li>
@@ -37,12 +37,12 @@
   </div>
 
   <div class="project-container" ng-show="$ctrl.showFakeSports">
-    <h3>Fake Sports Real Money | August 2016 | <a href="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney"><i class="fa fa-github"></i></a> |  
-    <a href="https://fake-sports-real-money.herokuapp.com">Deployed API</a></h3>
-    <h5>Description</h5>
+    <h2>Fake Sports Real Money | August 2016 | <a href="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney"><i class="fa fa-github"></i></a> |  
+    <a href="https://fake-sports-real-money.herokuapp.com">Deployed API</a></h2>
+    <h3>Description</h3>
     <p class="project-description">Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances
       that they need to pay</p>
-    <h5>Project Employs: </h5>
+    <h3>Project Employs: </h3>
     <ul class="employs-list">
       <li>Twilio API for daily text reminders</li>
       <li>Node-mailer for sending the daily email reminders</li>
@@ -54,11 +54,11 @@
   </div>
 
   <div class="project-container" ng-show="$ctrl.showNosy">
-    <h3>Nosy Neighbor | June 2016 | <a href="https://github.com/crashtack/301-team-project" target="_blank"><i class="fa fa-github"></i></a> | 
-    <a href="https://projectstage-a6114.firebaseapp.com/">Deployed Here</a></h3>
-    <h5>Description</h5>
+    <h2>Nosy Neighbor | June 2016 | <a href="https://github.com/crashtack/301-team-project" target="_blank"><i class="fa fa-github"></i></a> | 
+    <a href="https://projectstage-a6114.firebaseapp.com/">Deployed Here</a></h2>
+    <h3>Description</h3>
     <p class="project-description">Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>
-    <h5>Project Employs:</h5>
+    <h3>Project Employs:</h3>
     <ul class="employs-list">
       <li>Single page architecture</li>
       <li>Google Maps API with Places library</li>  
@@ -71,11 +71,11 @@
   </div>
 
   <div class="project-container" ng-show="$ctrl.showTodo">
-    <h3>Task Manager | September 2016 | <a href="https://github.com/dylanjsa90/task-manager" target="_blank"><i class="fa fa-github"></i></a> | 
-    <a href="http://list-task-manager.herokuapp.com/">Deployed Here</a></h3>
-    <h5>Description</h5>
+    <h2>Task Manager | September 2016 | <a href="https://github.com/dylanjsa90/task-manager" target="_blank"><i class="fa fa-github"></i></a> | 
+    <a href="http://list-task-manager.herokuapp.com/">Deployed Here</a></h2>
+    <h3>Description</h3>
     <p class="project-description">A simple full-stack app for managing tasks or todo lists, users signup and then can create personal lists and add/remove content</p>
-    <h5>Project Employs</h5>
+    <h3>Project Employs</h3>
     <ul class="employs-list">
       <li>Angular.js</li>
       <li>Node.js server with express routing</li>
