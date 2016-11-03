@@ -5282,7 +5282,9 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  padding: 3px; }
+  width: 70%;
+  padding: 1px;
+  margin: 1px auto; }
 
 .about-container-secondary h1, h3, h5 {
   text-align: center; }
@@ -5323,6 +5325,8 @@ contact-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
