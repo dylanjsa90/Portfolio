@@ -17,7 +17,7 @@ module.exports = {
   entry: `${__dirname}/app/entry.js`,
   plugins: plugins,
   output: {
-    path: 'build',
+    path: 'docs',
     filename: 'bundle.js'
   },
   postcss: function() {

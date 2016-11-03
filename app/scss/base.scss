@@ -9,22 +9,8 @@
 @import "_nav.scss";
 @import "_fonts.scss";
 
-main {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    flex-direction: row;
-}
 
 @media (max-width: 768px) {
-    main {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: stretch;
-      flex-direction: row;
-    }
   .container-fluid {
     background-color: rgba(0, 0, 0, 0);
     display: flex;
@@ -37,7 +23,7 @@ main {
   .navbar-collapse {
     background-color: black;
     opacity: 1;
-    margin: 7px 0 0 0;
+    margin: 0 0 0 0;
     height: 100%;
     width: 100%;
   }
@@ -47,7 +33,7 @@ main {
     padding: 2%;
     display: block;
     text-align: center;
-    background-color: white;
+    background-color: black;
     
   }
 
@@ -91,9 +77,11 @@ main {
     main {
       width: 100%;
       height: 100%;
-      display: flex;
-      align-items: stretch;
-      flex-direction: row;
+      // min-height: 100vh;
+      // display: flex;
+      // align-items: stretch;
+      // flex-direction: column;
+      // flex: 1;
     }
 
     #navbar-main {
@@ -124,5 +112,10 @@ main {
       padding: 2%;
       display: block;
       background-color: black;
+    }
+
+    .about-container-primary {
+      height: 100%;
+      flex: 1;
     }
   }

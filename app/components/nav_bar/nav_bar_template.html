@@ -1,17 +1,18 @@
-<nav id="navbar-main">
+<nav id="navbar-main" data-ng-init="$ctrl.currentTab()">
+
   <div class="navbar-title">
     <a href="#/home">D/S</a>
   </div>
   <ul id="navbar-list">
-    <a href="#/home"><li>HOME</li></a>
-    <a href="#/about"><li>ABOUT ME</li></a>
-    <a href="#/projects"><li>PROJECTS</li></a>
-    <a href="#/contact"><li>CONTACT</li></a>
+    <a href="#/home"><li data-ng-class="{'nav-selected': $ctrl.home}">HOME</li></a>
+    <a href="#/about"><li data-ng-class="{'nav-selected': $ctrl.about}">ABOUT ME</li></a>
+    <a href="#/projects"><li data-ng-class="{'nav-selected': $ctrl.projects}">PROJECTS</li></a>
+    <a href="#/contact"><li data-ng-class="{'nav-selected': $ctrl.contact}">CONTACT</li></a>
   </ul>
 
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <button class="navbar-toggle" ng-click="$ctrl.toggle()">
+      <button class="navbar-toggle" data-ng-click="$ctrl.toggle()" data-ng-class="{'nav-menu-toggle': $ctrl.isCollapsed === false}">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -23,9 +24,9 @@
 
 <div class="navbar-collapse {{$ctrl.collapsedClass}}" id="navcol-1">
   <ul class="nav navbar-nav">
-    <li class="active" role="presentation"><a href="#/home">HOME</a></li>
-    <li role="presentation"><a href="#/about">ABOUT</a></li>
-    <li role="presentation"><a href="#/projects">PROJECTS</a></li>
-    <li role="presentation"><a href="#/contact">CONTACT</a></li>
+    <li class="active" role="presentation"><a href="#/home" data-ng-click="$ctrl.toggle()">HOME</a></li>
+    <li role="presentation"><a href="#/about" data-ng-click="$ctrl.toggle()">ABOUT</a></li>
+    <li role="presentation"><a href="#/projects" data-ng-click="$ctrl.toggle()">PROJECTS</a></li>
+    <li role="presentation"><a href="#/contact" data-ng-click="$ctrl.toggle()">CONTACT</a></li>
   </ul>
 </div>

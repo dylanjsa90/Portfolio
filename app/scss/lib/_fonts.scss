@@ -8,24 +8,26 @@
 }
 
 .intro-subhead, .intro-heading {
-  font-family: 'Montserrat', san-serif;
+  font-family: 'Merriweather', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0px;
 }
 
 .bio {
-  font-family: 'Montserrat', san-serif;
+  font-family: 'Merriweather', sans-serif;
   color: $app-about-primary-color;
   font-size: 18px;
 }
 
 
-.main-skill-container h4 {
-  text-align: center;
+.skill-title {
+  // text-align: center;
   font-weight: bolder;
-  color: dodgerblue;
-  text-decoration: underline;;
+  color: white;
+  text-decoration: underline;
+  background-color: black;
+  padding-right: 5px;
 }
 
 .main-skill-container {
@@ -34,7 +36,7 @@
 
 
 .intro-heading {
-  font-size: 6rem;
+  font-size: 4rem;
   margin-top: 12px;
   margin-bottom: 15px;
 }
@@ -58,27 +60,35 @@ i.fa-linkedin {
 .contact-info {
   list-style: none;
   font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
   
 }
 
 ul.skills-container li {
   list-style: none;
-  text-align: center;
-  border-radius: 25%;
-  margin: 5px;
-  padding: 5px;
-  font-family: 'Montserrat', san-serif;
-  color: $app-about-primary-color;
-  text-align: center;
+  // text-align: center;
+  // border-radius: 25%;
+  margin: 5px 5px 5px 5px;
+  padding: 0 5px 0 5px;
+  font-family: 'Open Sans', sans-serif;
+  // color: $app-about-primary-color;
+  // text-align: center;
   }
 
-ul.skills-container {
+.main-skill-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.skills-container {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     font-size: 18px;
     font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #navcol-1.navbar-collapse ul li a {
@@ -90,6 +100,18 @@ ul.skills-container {
   font-size: 18px;
 }
 
+.project-container {
+  font-family: 'Merriweather', sans-serif;
+}
+
 ul.employs-list li {
   font-size: 18px;
+}
+
+.selected {
+  border: 2px solid red;
+}
+
+.nav-selected {
+  color: gold;
 }
