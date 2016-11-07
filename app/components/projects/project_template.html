@@ -1,5 +1,5 @@
 <div>
-  <h2>Projects</h2>
+  <h1 class="section-title">Projects</h1>
     <div class="project-thumbnail-container row">
       <div class="project-thumbnail" data-ng-class="{'selected': $ctrl.showPi}">
          <img src="../../lib/thumbnails/mobile_remote.jpg" alt="First slide" data-holder-rendered="true" style="width: 100px; height: 100px;" data-ng-click="$ctrl.displayPi()">
@@ -38,7 +38,7 @@
 
   <div class="project-container" ng-show="$ctrl.showFakeSports">
     <h2>Fake Sports Real Money | August 2016 | <a href="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney"><i class="fa fa-github"></i></a> |  
-    <a title="{{$ctrl.clickToCopy}}" ngclipboard data-clipboard-text="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney" ngclipboard-success="$ctrl.onSuccess(e)" ngclipboard-error="$ctrl.onError(e)">Base API</a></h2>
+    <a title="{{$ctrl.clickToCopy}}" class="click-copy" ngclipboard data-clipboard-text="https://github.com/FakeSportsRealMoney/FakeSportsRealMoney" ngclipboard-success="$ctrl.onSuccess(e)" ngclipboard-error="$ctrl.onError(e)">Base API</a></h2>
     <h3>Description</h3>
     <p class="project-description">Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances
       that they need to pay</p>

@@ -5597,6 +5597,9 @@ nav-bar {
   background-color: black;
   padding-right: 5px; }
 
+.click-copy {
+  cursor: copy; }
+
 .main-skill-container {
   padding: 1.5%; }
 
@@ -5674,6 +5677,11 @@ ul.employs-list li {
 
 .nav-selected {
   color: gold; }
+
+.section-title {
+  color: white;
+  text-align: center;
+  font-family: 'Merriweather'; }
 
 @media (max-width: 768px) {
   .container-fluid {
