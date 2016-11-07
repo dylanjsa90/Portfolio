@@ -4,10 +4,10 @@
     <a href="#/home">D/S</a>
   </div>
   <ul id="navbar-list">
-    <a href="#/home"><li data-ng-class="{'nav-selected': $ctrl.home}">HOME</li></a>
-    <a href="#/about"><li data-ng-class="{'nav-selected': $ctrl.about}">ABOUT ME</li></a>
-    <a href="#/projects"><li data-ng-class="{'nav-selected': $ctrl.projects}">PROJECTS</li></a>
-    <a href="#/contact"><li data-ng-class="{'nav-selected': $ctrl.contact}">CONTACT</li></a>
+    <a data-ng-click="$ctrl.go('home')" ><li data-ng-class="{'nav-selected': $ctrl.home}">HOME</li></a>
+    <a data-ng-click="$ctrl.go('about')" ><li data-ng-class="{'nav-selected': $ctrl.about}">ABOUT ME</li></a>
+    <a data-ng-click="$ctrl.go('projects')" ><li data-ng-class="{'nav-selected': $ctrl.projects}">PROJECTS</li></a>
+    <a data-ng-click="$ctrl.go('contact')" ><li data-ng-class="{'nav-selected': $ctrl.contact}">CONTACT</li></a>
   </ul>
 
   <nav class="navbar navbar-inverse">

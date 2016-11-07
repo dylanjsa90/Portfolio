@@ -26,6 +26,19 @@ module.exports = function(app) {
       if ($location.url().includes('contact')) this.contact = true; 
     };
 
+    this.highlight = function(tab) {
+      this.setToFalse();
+      if (tab === 'home') this.home = true;
+      if (tab === 'about') this.about = true;
+      if (tab === 'projects') this.projects = true;
+      if (tab === 'contact') this.contact = true; 
+    };
+
+    this.go = function(tab) {
+      this.highlight(tab);
+      $location.path(tab);
+    };
+
     this.setToFalse = function() {
       this.home = false;
       this.projects = false;

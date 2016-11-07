@@ -16,6 +16,10 @@ nav-bar {
   background-color: rgba(0, 0, 0, 1.0);
 }
 
+#navbar-list a {
+  cursor: pointer;
+}
+
 .navbar-title {
   height: 70px;
   width: 30%;
