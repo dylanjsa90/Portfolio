@@ -6,6 +6,19 @@ module.exports = function(app) {
     $scope.next = null;
     // $scope.project = projectService.get({projectId: $routeParams.projectId});
     // $scope.projects = projectService.query();
+    this.clickToCopy = 'Click to Copy';
+
+    this.onSuccess = function(e) {
+      this.clickToCopy = 'Copied';
+      console.info('Action:', e.action);
+      console.info('Text:', e.text);
+      console.info('Trigger:', e.trigger);
+      e.clearSelection();
+    };
+
+    this.onError = function(e) {
+      this.clickToCopy = 'Copy Failed, Press your OS keyboard shortcut for copy';
+    };
 
 
     this.showPi = false;

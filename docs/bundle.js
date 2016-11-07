@@ -46,15 +46,17 @@
 
 	'use strict';
 
+	// import tooltip from 'angular-ui-bootstrap/src/tooltip';
+
 	__webpack_require__(1);
 	__webpack_require__(2);
 
 	var angular = __webpack_require__(13);
-	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(15)]);
+	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(15), __webpack_require__(17), 'ngTouch', 'ui.bootstrap']);
 
-	__webpack_require__(17)(portfolioApp);
-	__webpack_require__(19)(portfolioApp);
-	__webpack_require__(24)(portfolioApp);
+	__webpack_require__(26)(portfolioApp);
+	__webpack_require__(28)(portfolioApp);
+	__webpack_require__(33)(portfolioApp);
 
 	portfolioApp.run(['$rootScope', function ($rs) {
 	  $rs.baseUrl = '' + ("http://localhost:3000"), $rs.userConfig = {
@@ -67,15 +69,14 @@
 
 	portfolioApp.config(['$routeProvider', function ($rp) {
 	  $rp.when('/home', {
-	    template: __webpack_require__(38),
-	    access: { allowAnonymous: true }
+	    template: __webpack_require__(47)
 	  }).when('/about', {
-	    template: __webpack_require__(39)
+	    template: __webpack_require__(48)
 	  }).when('/projects', {
-	    template: __webpack_require__(40),
+	    template: __webpack_require__(49),
 	    controller: 'ProjectController'
 	  }).when('/contact', {
-	    template: __webpack_require__(41)
+	    template: __webpack_require__(50)
 	  }).otherwise({
 	    redirectTo: '/home'
 	  });
@@ -32976,15 +32977,844 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*! ngclipboard - v1.1.1 - 2016-02-26
+	* https://github.com/sachinchoolur/ngclipboard
+	* Copyright (c) 2016 Sachin; Licensed MIT */
+	(function() {
+	    'use strict';
+	    var MODULE_NAME = 'ngclipboard';
+	    var angular, Clipboard;
+	    
+	    // Check for CommonJS support
+	    if (typeof module === 'object' && module.exports) {
+	      angular = __webpack_require__(13);
+	      Clipboard = __webpack_require__(18);
+	      module.exports = MODULE_NAME;
+	    } else {
+	      angular = window.angular;
+	      Clipboard = window.Clipboard;
+	    }
+
+	    angular.module(MODULE_NAME, []).directive('ngclipboard', function() {
+	        return {
+	            restrict: 'A',
+	            scope: {
+	                ngclipboardSuccess: '&',
+	                ngclipboardError: '&'
+	            },
+	            link: function(scope, element) {
+	                var clipboard = new Clipboard(element[0]);
+
+	                clipboard.on('success', function(e) {
+	                  scope.$apply(function () {
+	                    scope.ngclipboardSuccess({
+	                      e: e
+	                    });
+	                  });
+	                });
+
+	                clipboard.on('error', function(e) {
+	                  scope.$apply(function () {
+	                    scope.ngclipboardError({
+	                      e: e
+	                    });
+	                  });
+	                });
+
+	            }
+	        };
+	    });
+	}());
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(19), __webpack_require__(21), __webpack_require__(22)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports !== "undefined") {
+	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
+	    } else {
+	        var mod = {
+	            exports: {}
+	        };
+	        factory(mod, global.clipboardAction, global.tinyEmitter, global.goodListener);
+	        global.clipboard = mod.exports;
+	    }
+	})(this, function (module, _clipboardAction, _tinyEmitter, _goodListener) {
+	    'use strict';
+
+	    var _clipboardAction2 = _interopRequireDefault(_clipboardAction);
+
+	    var _tinyEmitter2 = _interopRequireDefault(_tinyEmitter);
+
+	    var _goodListener2 = _interopRequireDefault(_goodListener);
+
+	    function _interopRequireDefault(obj) {
+	        return obj && obj.__esModule ? obj : {
+	            default: obj
+	        };
+	    }
+
+	    function _classCallCheck(instance, Constructor) {
+	        if (!(instance instanceof Constructor)) {
+	            throw new TypeError("Cannot call a class as a function");
+	        }
+	    }
+
+	    var _createClass = function () {
+	        function defineProperties(target, props) {
+	            for (var i = 0; i < props.length; i++) {
+	                var descriptor = props[i];
+	                descriptor.enumerable = descriptor.enumerable || false;
+	                descriptor.configurable = true;
+	                if ("value" in descriptor) descriptor.writable = true;
+	                Object.defineProperty(target, descriptor.key, descriptor);
+	            }
+	        }
+
+	        return function (Constructor, protoProps, staticProps) {
+	            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	            if (staticProps) defineProperties(Constructor, staticProps);
+	            return Constructor;
+	        };
+	    }();
+
+	    function _possibleConstructorReturn(self, call) {
+	        if (!self) {
+	            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	        }
+
+	        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	    }
+
+	    function _inherits(subClass, superClass) {
+	        if (typeof superClass !== "function" && superClass !== null) {
+	            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	        }
+
+	        subClass.prototype = Object.create(superClass && superClass.prototype, {
+	            constructor: {
+	                value: subClass,
+	                enumerable: false,
+	                writable: true,
+	                configurable: true
+	            }
+	        });
+	        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	    }
+
+	    var Clipboard = function (_Emitter) {
+	        _inherits(Clipboard, _Emitter);
+
+	        /**
+	         * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
+	         * @param {Object} options
+	         */
+	        function Clipboard(trigger, options) {
+	            _classCallCheck(this, Clipboard);
+
+	            var _this = _possibleConstructorReturn(this, (Clipboard.__proto__ || Object.getPrototypeOf(Clipboard)).call(this));
+
+	            _this.resolveOptions(options);
+	            _this.listenClick(trigger);
+	            return _this;
+	        }
+
+	        /**
+	         * Defines if attributes would be resolved using internal setter functions
+	         * or custom functions that were passed in the constructor.
+	         * @param {Object} options
+	         */
+
+
+	        _createClass(Clipboard, [{
+	            key: 'resolveOptions',
+	            value: function resolveOptions() {
+	                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	                this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
+	                this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
+	                this.text = typeof options.text === 'function' ? options.text : this.defaultText;
+	            }
+	        }, {
+	            key: 'listenClick',
+	            value: function listenClick(trigger) {
+	                var _this2 = this;
+
+	                this.listener = (0, _goodListener2.default)(trigger, 'click', function (e) {
+	                    return _this2.onClick(e);
+	                });
+	            }
+	        }, {
+	            key: 'onClick',
+	            value: function onClick(e) {
+	                var trigger = e.delegateTarget || e.currentTarget;
+
+	                if (this.clipboardAction) {
+	                    this.clipboardAction = null;
+	                }
+
+	                this.clipboardAction = new _clipboardAction2.default({
+	                    action: this.action(trigger),
+	                    target: this.target(trigger),
+	                    text: this.text(trigger),
+	                    trigger: trigger,
+	                    emitter: this
+	                });
+	            }
+	        }, {
+	            key: 'defaultAction',
+	            value: function defaultAction(trigger) {
+	                return getAttributeValue('action', trigger);
+	            }
+	        }, {
+	            key: 'defaultTarget',
+	            value: function defaultTarget(trigger) {
+	                var selector = getAttributeValue('target', trigger);
+
+	                if (selector) {
+	                    return document.querySelector(selector);
+	                }
+	            }
+	        }, {
+	            key: 'defaultText',
+	            value: function defaultText(trigger) {
+	                return getAttributeValue('text', trigger);
+	            }
+	        }, {
+	            key: 'destroy',
+	            value: function destroy() {
+	                this.listener.destroy();
+
+	                if (this.clipboardAction) {
+	                    this.clipboardAction.destroy();
+	                    this.clipboardAction = null;
+	                }
+	            }
+	        }]);
+
+	        return Clipboard;
+	    }(_tinyEmitter2.default);
+
+	    /**
+	     * Helper function to retrieve attribute value.
+	     * @param {String} suffix
+	     * @param {Element} element
+	     */
+	    function getAttributeValue(suffix, element) {
+	        var attribute = 'data-clipboard-' + suffix;
+
+	        if (!element.hasAttribute(attribute)) {
+	            return;
+	        }
+
+	        return element.getAttribute(attribute);
+	    }
+
+	    module.exports = Clipboard;
+	});
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(20)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports !== "undefined") {
+	        factory(module, require('select'));
+	    } else {
+	        var mod = {
+	            exports: {}
+	        };
+	        factory(mod, global.select);
+	        global.clipboardAction = mod.exports;
+	    }
+	})(this, function (module, _select) {
+	    'use strict';
+
+	    var _select2 = _interopRequireDefault(_select);
+
+	    function _interopRequireDefault(obj) {
+	        return obj && obj.__esModule ? obj : {
+	            default: obj
+	        };
+	    }
+
+	    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+	        return typeof obj;
+	    } : function (obj) {
+	        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	    };
+
+	    function _classCallCheck(instance, Constructor) {
+	        if (!(instance instanceof Constructor)) {
+	            throw new TypeError("Cannot call a class as a function");
+	        }
+	    }
+
+	    var _createClass = function () {
+	        function defineProperties(target, props) {
+	            for (var i = 0; i < props.length; i++) {
+	                var descriptor = props[i];
+	                descriptor.enumerable = descriptor.enumerable || false;
+	                descriptor.configurable = true;
+	                if ("value" in descriptor) descriptor.writable = true;
+	                Object.defineProperty(target, descriptor.key, descriptor);
+	            }
+	        }
+
+	        return function (Constructor, protoProps, staticProps) {
+	            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	            if (staticProps) defineProperties(Constructor, staticProps);
+	            return Constructor;
+	        };
+	    }();
+
+	    var ClipboardAction = function () {
+	        /**
+	         * @param {Object} options
+	         */
+	        function ClipboardAction(options) {
+	            _classCallCheck(this, ClipboardAction);
+
+	            this.resolveOptions(options);
+	            this.initSelection();
+	        }
+
+	        /**
+	         * Defines base properties passed from constructor.
+	         * @param {Object} options
+	         */
+
+
+	        _createClass(ClipboardAction, [{
+	            key: 'resolveOptions',
+	            value: function resolveOptions() {
+	                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	                this.action = options.action;
+	                this.emitter = options.emitter;
+	                this.target = options.target;
+	                this.text = options.text;
+	                this.trigger = options.trigger;
+
+	                this.selectedText = '';
+	            }
+	        }, {
+	            key: 'initSelection',
+	            value: function initSelection() {
+	                if (this.text) {
+	                    this.selectFake();
+	                } else if (this.target) {
+	                    this.selectTarget();
+	                }
+	            }
+	        }, {
+	            key: 'selectFake',
+	            value: function selectFake() {
+	                var _this = this;
+
+	                var isRTL = document.documentElement.getAttribute('dir') == 'rtl';
+
+	                this.removeFake();
+
+	                this.fakeHandlerCallback = function () {
+	                    return _this.removeFake();
+	                };
+	                this.fakeHandler = document.body.addEventListener('click', this.fakeHandlerCallback) || true;
+
+	                this.fakeElem = document.createElement('textarea');
+	                // Prevent zooming on iOS
+	                this.fakeElem.style.fontSize = '12pt';
+	                // Reset box model
+	                this.fakeElem.style.border = '0';
+	                this.fakeElem.style.padding = '0';
+	                this.fakeElem.style.margin = '0';
+	                // Move element out of screen horizontally
+	                this.fakeElem.style.position = 'absolute';
+	                this.fakeElem.style[isRTL ? 'right' : 'left'] = '-9999px';
+	                // Move element to the same position vertically
+	                var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+	                this.fakeElem.addEventListener('focus', window.scrollTo(0, yPosition));
+	                this.fakeElem.style.top = yPosition + 'px';
+
+	                this.fakeElem.setAttribute('readonly', '');
+	                this.fakeElem.value = this.text;
+
+	                document.body.appendChild(this.fakeElem);
+
+	                this.selectedText = (0, _select2.default)(this.fakeElem);
+	                this.copyText();
+	            }
+	        }, {
+	            key: 'removeFake',
+	            value: function removeFake() {
+	                if (this.fakeHandler) {
+	                    document.body.removeEventListener('click', this.fakeHandlerCallback);
+	                    this.fakeHandler = null;
+	                    this.fakeHandlerCallback = null;
+	                }
+
+	                if (this.fakeElem) {
+	                    document.body.removeChild(this.fakeElem);
+	                    this.fakeElem = null;
+	                }
+	            }
+	        }, {
+	            key: 'selectTarget',
+	            value: function selectTarget() {
+	                this.selectedText = (0, _select2.default)(this.target);
+	                this.copyText();
+	            }
+	        }, {
+	            key: 'copyText',
+	            value: function copyText() {
+	                var succeeded = void 0;
+
+	                try {
+	                    succeeded = document.execCommand(this.action);
+	                } catch (err) {
+	                    succeeded = false;
+	                }
+
+	                this.handleResult(succeeded);
+	            }
+	        }, {
+	            key: 'handleResult',
+	            value: function handleResult(succeeded) {
+	                this.emitter.emit(succeeded ? 'success' : 'error', {
+	                    action: this.action,
+	                    text: this.selectedText,
+	                    trigger: this.trigger,
+	                    clearSelection: this.clearSelection.bind(this)
+	                });
+	            }
+	        }, {
+	            key: 'clearSelection',
+	            value: function clearSelection() {
+	                if (this.target) {
+	                    this.target.blur();
+	                }
+
+	                window.getSelection().removeAllRanges();
+	            }
+	        }, {
+	            key: 'destroy',
+	            value: function destroy() {
+	                this.removeFake();
+	            }
+	        }, {
+	            key: 'action',
+	            set: function set() {
+	                var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'copy';
+
+	                this._action = action;
+
+	                if (this._action !== 'copy' && this._action !== 'cut') {
+	                    throw new Error('Invalid "action" value, use either "copy" or "cut"');
+	                }
+	            },
+	            get: function get() {
+	                return this._action;
+	            }
+	        }, {
+	            key: 'target',
+	            set: function set(target) {
+	                if (target !== undefined) {
+	                    if (target && (typeof target === 'undefined' ? 'undefined' : _typeof(target)) === 'object' && target.nodeType === 1) {
+	                        if (this.action === 'copy' && target.hasAttribute('disabled')) {
+	                            throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
+	                        }
+
+	                        if (this.action === 'cut' && (target.hasAttribute('readonly') || target.hasAttribute('disabled'))) {
+	                            throw new Error('Invalid "target" attribute. You can\'t cut text from elements with "readonly" or "disabled" attributes');
+	                        }
+
+	                        this._target = target;
+	                    } else {
+	                        throw new Error('Invalid "target" value, use a valid Element');
+	                    }
+	                }
+	            },
+	            get: function get() {
+	                return this._target;
+	            }
+	        }]);
+
+	        return ClipboardAction;
+	    }();
+
+	    module.exports = ClipboardAction;
+	});
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	function select(element) {
+	    var selectedText;
+
+	    if (element.nodeName === 'SELECT') {
+	        element.focus();
+
+	        selectedText = element.value;
+	    }
+	    else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+	        element.focus();
+	        element.setSelectionRange(0, element.value.length);
+
+	        selectedText = element.value;
+	    }
+	    else {
+	        if (element.hasAttribute('contenteditable')) {
+	            element.focus();
+	        }
+
+	        var selection = window.getSelection();
+	        var range = document.createRange();
+
+	        range.selectNodeContents(element);
+	        selection.removeAllRanges();
+	        selection.addRange(range);
+
+	        selectedText = selection.toString();
+	    }
+
+	    return selectedText;
+	}
+
+	module.exports = select;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	function E () {
+	  // Keep this empty so it's easier to inherit from
+	  // (via https://github.com/lipsmack from https://github.com/scottcorgan/tiny-emitter/issues/3)
+	}
+
+	E.prototype = {
+	  on: function (name, callback, ctx) {
+	    var e = this.e || (this.e = {});
+
+	    (e[name] || (e[name] = [])).push({
+	      fn: callback,
+	      ctx: ctx
+	    });
+
+	    return this;
+	  },
+
+	  once: function (name, callback, ctx) {
+	    var self = this;
+	    function listener () {
+	      self.off(name, listener);
+	      callback.apply(ctx, arguments);
+	    };
+
+	    listener._ = callback
+	    return this.on(name, listener, ctx);
+	  },
+
+	  emit: function (name) {
+	    var data = [].slice.call(arguments, 1);
+	    var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
+	    var i = 0;
+	    var len = evtArr.length;
+
+	    for (i; i < len; i++) {
+	      evtArr[i].fn.apply(evtArr[i].ctx, data);
+	    }
+
+	    return this;
+	  },
+
+	  off: function (name, callback) {
+	    var e = this.e || (this.e = {});
+	    var evts = e[name];
+	    var liveEvents = [];
+
+	    if (evts && callback) {
+	      for (var i = 0, len = evts.length; i < len; i++) {
+	        if (evts[i].fn !== callback && evts[i].fn._ !== callback)
+	          liveEvents.push(evts[i]);
+	      }
+	    }
+
+	    // Remove event from queue to prevent memory leak
+	    // Suggested by https://github.com/lazd
+	    // Ref: https://github.com/scottcorgan/tiny-emitter/commit/c6ebfaa9bc973b33d110a84a307742b7cf94c953#commitcomment-5024910
+
+	    (liveEvents.length)
+	      ? e[name] = liveEvents
+	      : delete e[name];
+
+	    return this;
+	  }
+	};
+
+	module.exports = E;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var is = __webpack_require__(23);
+	var delegate = __webpack_require__(24);
+
+	/**
+	 * Validates all params and calls the right
+	 * listener function based on its target type.
+	 *
+	 * @param {String|HTMLElement|HTMLCollection|NodeList} target
+	 * @param {String} type
+	 * @param {Function} callback
+	 * @return {Object}
+	 */
+	function listen(target, type, callback) {
+	    if (!target && !type && !callback) {
+	        throw new Error('Missing required arguments');
+	    }
+
+	    if (!is.string(type)) {
+	        throw new TypeError('Second argument must be a String');
+	    }
+
+	    if (!is.fn(callback)) {
+	        throw new TypeError('Third argument must be a Function');
+	    }
+
+	    if (is.node(target)) {
+	        return listenNode(target, type, callback);
+	    }
+	    else if (is.nodeList(target)) {
+	        return listenNodeList(target, type, callback);
+	    }
+	    else if (is.string(target)) {
+	        return listenSelector(target, type, callback);
+	    }
+	    else {
+	        throw new TypeError('First argument must be a String, HTMLElement, HTMLCollection, or NodeList');
+	    }
+	}
+
+	/**
+	 * Adds an event listener to a HTML element
+	 * and returns a remove listener function.
+	 *
+	 * @param {HTMLElement} node
+	 * @param {String} type
+	 * @param {Function} callback
+	 * @return {Object}
+	 */
+	function listenNode(node, type, callback) {
+	    node.addEventListener(type, callback);
+
+	    return {
+	        destroy: function() {
+	            node.removeEventListener(type, callback);
+	        }
+	    }
+	}
+
+	/**
+	 * Add an event listener to a list of HTML elements
+	 * and returns a remove listener function.
+	 *
+	 * @param {NodeList|HTMLCollection} nodeList
+	 * @param {String} type
+	 * @param {Function} callback
+	 * @return {Object}
+	 */
+	function listenNodeList(nodeList, type, callback) {
+	    Array.prototype.forEach.call(nodeList, function(node) {
+	        node.addEventListener(type, callback);
+	    });
+
+	    return {
+	        destroy: function() {
+	            Array.prototype.forEach.call(nodeList, function(node) {
+	                node.removeEventListener(type, callback);
+	            });
+	        }
+	    }
+	}
+
+	/**
+	 * Add an event listener to a selector
+	 * and returns a remove listener function.
+	 *
+	 * @param {String} selector
+	 * @param {String} type
+	 * @param {Function} callback
+	 * @return {Object}
+	 */
+	function listenSelector(selector, type, callback) {
+	    return delegate(document.body, selector, type, callback);
+	}
+
+	module.exports = listen;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	/**
+	 * Check if argument is a HTML element.
+	 *
+	 * @param {Object} value
+	 * @return {Boolean}
+	 */
+	exports.node = function(value) {
+	    return value !== undefined
+	        && value instanceof HTMLElement
+	        && value.nodeType === 1;
+	};
+
+	/**
+	 * Check if argument is a list of HTML elements.
+	 *
+	 * @param {Object} value
+	 * @return {Boolean}
+	 */
+	exports.nodeList = function(value) {
+	    var type = Object.prototype.toString.call(value);
+
+	    return value !== undefined
+	        && (type === '[object NodeList]' || type === '[object HTMLCollection]')
+	        && ('length' in value)
+	        && (value.length === 0 || exports.node(value[0]));
+	};
+
+	/**
+	 * Check if argument is a string.
+	 *
+	 * @param {Object} value
+	 * @return {Boolean}
+	 */
+	exports.string = function(value) {
+	    return typeof value === 'string'
+	        || value instanceof String;
+	};
+
+	/**
+	 * Check if argument is a function.
+	 *
+	 * @param {Object} value
+	 * @return {Boolean}
+	 */
+	exports.fn = function(value) {
+	    var type = Object.prototype.toString.call(value);
+
+	    return type === '[object Function]';
+	};
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var closest = __webpack_require__(25);
+
+	/**
+	 * Delegates event to a selector.
+	 *
+	 * @param {Element} element
+	 * @param {String} selector
+	 * @param {String} type
+	 * @param {Function} callback
+	 * @param {Boolean} useCapture
+	 * @return {Object}
+	 */
+	function delegate(element, selector, type, callback, useCapture) {
+	    var listenerFn = listener.apply(this, arguments);
+
+	    element.addEventListener(type, listenerFn, useCapture);
+
+	    return {
+	        destroy: function() {
+	            element.removeEventListener(type, listenerFn, useCapture);
+	        }
+	    }
+	}
+
+	/**
+	 * Finds closest match and invokes callback.
+	 *
+	 * @param {Element} element
+	 * @param {String} selector
+	 * @param {String} type
+	 * @param {Function} callback
+	 * @return {Function}
+	 */
+	function listener(element, selector, type, callback) {
+	    return function(e) {
+	        e.delegateTarget = closest(e.target, selector);
+
+	        if (e.delegateTarget) {
+	            callback.call(element, e);
+	        }
+	    }
+	}
+
+	module.exports = delegate;
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	/**
+	 * A polyfill for Element.matches()
+	 */
+	if (Element && !Element.prototype.matches) {
+	    var proto = Element.prototype;
+
+	    proto.matches = proto.matchesSelector ||
+	                    proto.mozMatchesSelector ||
+	                    proto.msMatchesSelector ||
+	                    proto.oMatchesSelector ||
+	                    proto.webkitMatchesSelector;
+	}
+
+	/**
+	 * Finds the closest parent that matches a selector.
+	 *
+	 * @param {Element} element
+	 * @param {String} selector
+	 * @return {Function}
+	 */
+	function closest (element, selector) {
+	    while (element && element !== document) {
+	        if (element.matches(selector)) return element;
+	        element = element.parentNode;
+	    }
+	}
+
+	module.exports = closest;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(18)(app);
+	  __webpack_require__(27)(app);
 	  // require('./project_service')(app);
 	};
 
 /***/ },
-/* 18 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33018,18 +33848,18 @@
 	};
 
 /***/ },
-/* 19 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(20)(app);
-	  __webpack_require__(21)(app);
+	  __webpack_require__(29)(app);
+	  __webpack_require__(30)(app);
 	};
 
 /***/ },
-/* 20 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33078,7 +33908,7 @@
 	};
 
 /***/ },
-/* 21 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33089,13 +33919,30 @@
 	    $scope.next = null;
 	    // $scope.project = projectService.get({projectId: $routeParams.projectId});
 	    // $scope.projects = projectService.query();
+	    $scope.dynamicTooltip = 'Hello, World!';
+	    $scope.placement = {
+	      options: ['top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right', 'left', 'left-top', 'left-bottom', 'right', 'right-top', 'right-bottom'],
+	      selected: 'top'
+	    };
 
+	    this.onSuccess = function (e) {
+	      console.info('Action:', e.action);
+	      console.info('Text:', e.text);
+	      console.info('Trigger:', e.trigger);
+
+	      e.clearSelection();
+	    };
+
+	    this.onError = function (e) {
+	      console.error('Action:', e.action);
+	      console.error('Trigger:', e.trigger);
+	    };
 
 	    this.showPi = false;
 	    this.showFakeSports = false;
 	    this.showNosy = false;
 	    this.showTodo = false;
-	    this.projects = __webpack_require__(22);
+	    this.projects = __webpack_require__(31);
 	    this.projectThumbnails = [];
 
 	    this.populateThumbnails = function () {
@@ -33135,7 +33982,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33148,7 +33995,7 @@
 	  employs: ['Angular.js', 'Node.js server', 'Express Routing', 'Secure authentication system with registration', 'Custom built angular components', 'Sleek and intuitive remote UI', 'Webpack bundling', 'SCSS styling', 'Bootstrap', 'Font-awesome for Icons', 'TDD: Karma w/jasmine and Mocha w/Chai for backend testing', 'Deployed on Heroku'],
 	  githubUrl: ['https://github.com/sendjmoon/Ultimate-Pi', 'https://github.com/dylanjsa90/UltimatePi-api'],
 	  deployedUrl: 'http://ultimate-pi.herokuapp.com',
-	  thumbnailUrl: __webpack_require__(23)
+	  thumbnailUrl: __webpack_require__(32)
 
 	}, {
 	  id: 2,
@@ -33158,7 +34005,7 @@
 	  employs: ['Twilio API for daily text reminders', 'Node-mailer for sending daily email reminders', 'Cron for constant time tracking', 'Express middleware', 'Mocha/Chai Testing', 'Deployed on Heroku'],
 	  githubUrl: ['https://github.com/FakeSportsRealMoney/FakeSportsRealMoney'],
 	  deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
-	  thumbnailUrl: __webpack_require__(23)
+	  thumbnailUrl: __webpack_require__(32)
 	}, {
 	  id: 3,
 	  name: 'Nosy Neighbor',
@@ -33178,26 +34025,26 @@
 	}];
 
 /***/ },
-/* 23 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/e3c78811f3ddd46f81b26a440f51d695-abstract-blue-light-vector-background.jpg";
 
 /***/ },
-/* 24 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(25)(app);
-	  __webpack_require__(27)(app);
-	  __webpack_require__(33)(app);
+	  __webpack_require__(34)(app);
 	  __webpack_require__(36)(app);
+	  __webpack_require__(42)(app);
+	  __webpack_require__(45)(app);
 	};
 
 /***/ },
-/* 25 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33205,7 +34052,7 @@
 	module.exports = function (app) {
 	  app.component('navBar', {
 	    controller: 'NavController',
-	    template: __webpack_require__(26)
+	    template: __webpack_require__(35)
 	  });
 
 	  app.controller('NavController', ['$location', function ($location) {
@@ -33238,78 +34085,10 @@
 	};
 
 /***/ },
-/* 26 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav id=\"navbar-main\" data-ng-init=\"$ctrl.currentTab()\">\n\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">D/S</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a href=\"#/home\"><li data-ng-class=\"{'nav-selected': $ctrl.home}\">HOME</li></a>\n    <a href=\"#/about\"><li data-ng-class=\"{'nav-selected': $ctrl.about}\">ABOUT ME</li></a>\n    <a href=\"#/projects\"><li data-ng-class=\"{'nav-selected': $ctrl.projects}\">PROJECTS</li></a>\n    <a href=\"#/contact\"><li data-ng-class=\"{'nav-selected': $ctrl.contact}\">CONTACT</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a href=\"#/home\" data-ng-click=\"$ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a href=\"#/about\" data-ng-click=\"$ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a href=\"#/projects\" data-ng-click=\"$ctrl.toggle()\">PROJECTS</a></li>\n    <li role=\"presentation\"><a href=\"#/contact\" data-ng-click=\"$ctrl.toggle()\">CONTACT</a></li>\n  </ul>\n</div>";
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function (app) {
-	  app.component('project', {
-	    template: __webpack_require__(28),
-	    controller: 'ProjectController'
-	  });
-	};
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<div>\n  <h2>Projects</h2>\n    <div class=\"project-thumbnail-container row\">\n      <div class=\"project-thumbnail\" data-ng-class=\"{'selected': $ctrl.showPi}\">\n         <img src=\"" + __webpack_require__(29) + "\" alt=\"First slide\" data-holder-rendered=\"true\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayPi()\">\n      </div>\n      <div class=\"project-thumbnail nosy\" data-ng-class=\"{'selected': $ctrl.showNosy}\">\n        <img src=\"" + __webpack_require__(30) + "\" alt=\"Nosy Neighbor preview\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayNosyNeighbor()\">  \n      </div>\n      <div class=\"project-thumbnail fsrm\" data-ng-class=\"{'selected': $ctrl.showFakeSports}\">\n        <img src=\"" + __webpack_require__(31) + "\" alt=\"Fake Sports Real Money\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayFakeSports()\">  \n      </div>\n      <div class=\"project-thumbnail list-manager\" data-ng-class=\"{'selected': $ctrl.showTodo}\">\n        <img src=\"" + __webpack_require__(32) + "\" alt=\"List manager\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayTodo()\">  \n      </div>\n    </div>\n\n  <div class=\"project-container\" data-ng-show=\"$ctrl.showPi\">\n    <h2>Ultimate Pi | September 2016 | <a href=\"https://github.com/sendjmoon/Ultimate-Pi\"><i class=\"fa fa-github\"></i> FE</a> &\n    <a href=\"https://github.com/dylanjsa90/UltimatePi-api\" target=\"_blank\"><i class=\"fa fa-github\"></i> BE</a> | <a href=\"http://ultimate-pi.herokuapp.com\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>\n    <h3>Project Employs:</h3>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Secure authentication system with registration</li>\n      <li>Custom built angular components</li>\n      <li>Sleek and intuitive remote UI</li>\n      <li>Webpack bundling</li>\n      <li>SCSS styling</li>\n      <li>Bootstrap</li>\n      <li>Font-awesome for Icons</li>\n      <li>TDD: Karma w/jasmine for frontend testing</li>\n      <li>TDD: Mocha with chai for backend testing</li>\n      <li>Deployed on Heroku</li>\n    </ul>   \n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showFakeSports\">\n    <h2>Fake Sports Real Money | August 2016 | <a href=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\"><i class=\"fa fa-github\"></i></a> |  \n    <a href=\"https://fake-sports-real-money.herokuapp.com\">Deployed API</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances\n      that they need to pay</p>\n    <h3>Project Employs: </h3>\n    <ul class=\"employs-list\">\n      <li>Twilio API for daily text reminders</li>\n      <li>Node-mailer for sending the daily email reminders</li>\n      <li>Cron for time tracking and to send daily reminders on overdue users</li>\n      <li>Express middleware</li>\n      <li>TDD</li>\n      <li>Deployed on Heroku</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showNosy\">\n    <h2>Nosy Neighbor | June 2016 | <a href=\"https://github.com/crashtack/301-team-project\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://projectstage-a6114.firebaseapp.com/\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>\n    <h3>Project Employs:</h3>\n    <ul class=\"employs-list\">\n      <li>Single page architecture</li>\n      <li>Google Maps API with Places library</li>  \n      <li>Node.js with Express for the server</li>\n      <li>WebDB for the database (SQLite)</li>\n      <li>City of Seattle API for gathering construction permit data</li>\n      <li>MVC Architecture</li>\n      <li>Deployed on Firebase</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showTodo\">\n    <h2>Task Manager | September 2016 | <a href=\"https://github.com/dylanjsa90/task-manager\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"http://list-task-manager.herokuapp.com/\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">A simple full-stack app for managing tasks or todo lists, users signup and then can create personal lists and add/remove content</p>\n    <h3>Project Employs</h3>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Node.js server with express routing</li>\n      <li>User sign-up/sign-in</li>\n      <li>Data persistance with MongoDB</li>\n    </ul>\n  </div>\n</div>\n</div>";
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function (app) {
-	  app.component('contactInfo', {
-	    template: __webpack_require__(34),
-	    controller: function controller() {}
-	  });
-	};
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<div class=\"contact-info-container\">\n  <h2>Contact</h2>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(35) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://github.com/dylanjsa90/Portfolio/blob/master/dylan-sanders-CV.pdf\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></a></span></li>\n      </ul>\n  </div>\n</div>";
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/8b8eb5ad28c7cd3fbf84bbfd460a13f9-profile-edit.jpg";
 
 /***/ },
 /* 36 */
@@ -33318,37 +34097,105 @@
 	'use strict';
 
 	module.exports = function (app) {
-	  app.component('footerComponent', {
-	    template: __webpack_require__(37)
+	  app.component('project', {
+	    template: __webpack_require__(37),
+	    controller: 'ProjectController'
 	  });
 	};
 
 /***/ },
 /* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<div>\n  <h2>Projects</h2>\n    <div class=\"project-thumbnail-container row\">\n      <div class=\"project-thumbnail\" data-ng-class=\"{'selected': $ctrl.showPi}\">\n         <img src=\"" + __webpack_require__(38) + "\" alt=\"First slide\" data-holder-rendered=\"true\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayPi()\">\n      </div>\n      <div class=\"project-thumbnail nosy\" data-ng-class=\"{'selected': $ctrl.showNosy}\">\n        <img src=\"" + __webpack_require__(39) + "\" alt=\"Nosy Neighbor preview\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayNosyNeighbor()\">  \n      </div>\n      <div class=\"project-thumbnail fsrm\" data-ng-class=\"{'selected': $ctrl.showFakeSports}\">\n        <img src=\"" + __webpack_require__(40) + "\" alt=\"Fake Sports Real Money\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayFakeSports()\">  \n      </div>\n      <div class=\"project-thumbnail list-manager\" data-ng-class=\"{'selected': $ctrl.showTodo}\">\n        <img src=\"" + __webpack_require__(41) + "\" alt=\"List manager\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayTodo()\">  \n      </div>\n    </div>\n\n  <div class=\"project-container\" data-ng-show=\"$ctrl.showPi\">\n    <h2>Ultimate Pi | September 2016 | <a href=\"https://github.com/sendjmoon/Ultimate-Pi\"><i class=\"fa fa-github\"></i> FE</a> &\n    <a href=\"https://github.com/dylanjsa90/UltimatePi-api\" target=\"_blank\"><i class=\"fa fa-github\"></i> BE</a> | <a href=\"http://ultimate-pi.herokuapp.com\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>\n    <h3>Project Employs:</h3>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Secure authentication system with registration</li>\n      <li>Custom built angular components</li>\n      <li>Sleek and intuitive remote UI</li>\n      <li>Webpack bundling</li>\n      <li>SCSS styling</li>\n      <li>Bootstrap</li>\n      <li>Font-awesome for Icons</li>\n      <li>TDD: Karma w/jasmine for frontend testing</li>\n      <li>TDD: Mocha with chai for backend testing</li>\n      <li>Deployed on Heroku</li>\n    </ul>   \n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showFakeSports\">\n    <h2>Fake Sports Real Money | August 2016 | <a href=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\"><i class=\"fa fa-github\"></i></a> |  \n    <a ngclipboard data-clipboard-text=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\" ngclipboard-success=\"$ctrl.onSuccess(e)\" ngclipboard-error=\"$ctrl.onError(e)\"><a href=\"#\" uib-tooltip=\"Click To Copy To Clipboard\">Base API</a></a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances\n      that they need to pay</p>\n    <h3>Project Employs: </h3>\n    <ul class=\"employs-list\">\n      <li>Twilio API for daily text reminders</li>\n      <li>Node-mailer for sending the daily email reminders</li>\n      <li>Cron for time tracking and to send daily reminders on overdue users</li>\n      <li>Express middleware</li>\n      <li>TDD</li>\n      <li>Deployed on Heroku</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showNosy\">\n    <h2>Nosy Neighbor | June 2016 | <a href=\"https://github.com/crashtack/301-team-project\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://projectstage-a6114.firebaseapp.com/\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>\n    <h3>Project Employs:</h3>\n    <ul class=\"employs-list\">\n      <li>Single page architecture</li>\n      <li>Google Maps API with Places library</li>  \n      <li>Node.js with Express for the server</li>\n      <li>WebDB for the database (SQLite)</li>\n      <li>City of Seattle API for gathering construction permit data</li>\n      <li>MVC Architecture</li>\n      <li>Deployed on Firebase</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showTodo\">\n    <h2>Task Manager | September 2016 | <a href=\"https://github.com/dylanjsa90/task-manager\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"http://list-task-manager.herokuapp.com/\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">A simple full-stack app for managing tasks or todo lists, users signup and then can create personal lists and add/remove content</p>\n    <h3>Project Employs</h3>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Node.js server with express routing</li>\n      <li>User sign-up/sign-in</li>\n      <li>Data persistance with MongoDB</li>\n    </ul>\n  </div>\n</div>\n</div>";
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  app.component('contactInfo', {
+	    template: __webpack_require__(43),
+	    controller: function controller() {}
+	  });
+	};
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<div class=\"contact-info-container\">\n  <h2>Contact</h2>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(44) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://github.com/dylanjsa90/Portfolio/raw/master/dylan-sanders-CV.pdf\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></a></span></li>\n      </ul>\n  </div>\n</div>";
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/8b8eb5ad28c7cd3fbf84bbfd460a13f9-profile-edit.jpg";
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  app.component('footerComponent', {
+	    template: __webpack_require__(46)
+	  });
+	};
+
+/***/ },
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer id=\"footer\">\n  <div class=\"container\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></p> \n  </div>\n</footer>";
 
 /***/ },
-/* 38 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"https://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
 
 /***/ },
-/* 39 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"about-container-primary\">\n  <h1 class=\"about-title\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n\n    <div class=\"row\">\n      <div class=\"about-description col-sm-4\">\n        <h3>Bio</h3>\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>        \n      <h3>Technical Skills</h3>    \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Proficient</li>  \n          <li>Node.js</li>\n          <li>Angular.js</li>\n          <li>Javascript</li>\n          <li>MongoDB</li>\n          <li>HTML5 \n          <li>CSS/SASS</li>\n          <li>jQuery</li>\n          <li>RESTful API</li> \n        </ul> \n      </div> \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n        </ul>   \n      </div>  \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Interests</li> \n          <li>D3 (Data-visualization tools)</li>\n          <li>Python</li>\n          <li>Django</li>\n          <li>React</li>\n        </ul> \n      </div>\n    </div>\n  </div>\n      \n</div>";
 
 /***/ },
-/* 40 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"projects-container\">\n  <project class=\"project-component-container\"></project>\n</div>";
 
 /***/ },
-/* 41 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"contact-container\">\n  <contact-info class=\"contact-container\"></contact-info>  \n</div>";
