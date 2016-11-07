@@ -5543,6 +5543,9 @@ nav-bar {
           flex-direction: row;
   background-color: black; }
 
+#navbar-list a {
+  cursor: pointer; }
+
 .navbar-title {
   height: 70px;
   width: 30%;
