@@ -48,3 +48,17 @@ a:hover {
 #navbar-list a:active {
   background-color: darkblue;
 }
+
+.about-links {
+  list-style: none;
+  display: inline;
+  font-size: 200%;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: darkblue;
+  &:hover {
+    text-decoration: underline;
+    color: black;
+    cursor: pointer;
+  }
+}

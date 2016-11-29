@@ -36,25 +36,22 @@
   justify-content: center;
   flex-direction: column;
   flex: 1;
-  width: 70%;
   padding: 1px;
   margin: 1px auto;
+  text-align: center;
 }
 
-.about-container-secondary h1, h3, h5 {
-  text-align: center;
+.bio {
+  font-size: 150%;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .about-description {
   color: $app-about-primary-color;
-  background-color: grey;
-  border: 2px solid black;
-  border-radius: 15%;
-  position: inherit;
-}
-
-.about-title {
+  width: 80%;
+  margin: 0px auto;
   text-align: center;
+  position: inherit;
 }
 
 contact-info {
