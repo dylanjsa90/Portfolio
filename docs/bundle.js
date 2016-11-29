@@ -69,14 +69,14 @@
 
 	portfolioApp.config(['$routeProvider', function ($rp) {
 	  $rp.when('/home', {
-	    template: __webpack_require__(51)
+	    template: __webpack_require__(53)
 	  }).when('/about', {
-	    template: __webpack_require__(52)
+	    template: __webpack_require__(54)
 	  }).when('/projects', {
-	    template: __webpack_require__(53),
+	    template: __webpack_require__(55),
 	    controller: 'ProjectController'
 	  }).when('/contact', {
-	    template: __webpack_require__(54)
+	    template: __webpack_require__(56)
 	  }).otherwise({
 	    redirectTo: '/home'
 	  });
@@ -42423,6 +42423,7 @@
 	  __webpack_require__(40)(app);
 	  __webpack_require__(46)(app);
 	  __webpack_require__(49)(app);
+	  __webpack_require__(51)(app);
 	};
 
 /***/ },
@@ -42545,7 +42546,7 @@
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"contact-info-container\">\n  <h1 class=\"section-title\">Contact</h1>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(48) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://github.com/dylanjsa90/Portfolio/raw/master/dylan-sanders-CV.pdf\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></a></span></li>\n      </ul>\n  </div>\n</div>";
+	module.exports = "<div class=\"contact-info-container\">\n  <h1 class=\"section-title\">Contact</h1>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(48) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></a></span></li>\n      </ul>\n  </div>\n</div>";
 
 /***/ },
 /* 48 */
@@ -42560,7 +42561,23 @@
 	'use strict';
 
 	module.exports = function (app) {
-	  app.component('footerComponent', {
+	  app.controller('AboutController', function () {
+	    this.showBio = false;
+	    this.showSkills = false;
+
+	    this.toggleBio = function () {
+	      this.showSkills = false;
+	      this.showBio = !this.showBio;
+	    };
+
+	    this.toggleSkills = function () {
+	      this.showBio = false;
+	      this.showSkills = !this.showSkills;
+	    };
+	  });
+
+	  app.component('aboutComponent', {
+	    controller: 'AboutController',
 	    template: __webpack_require__(50)
 	  });
 	};
@@ -42569,28 +42586,46 @@
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "<footer id=\"footer\">\n  <div class=\"container\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></p> \n  </div>\n</footer>";
+	module.exports = "<div class=\"about-container-primary\">\n  <h1 class=\"section-title text-center\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n    <ul class=\"text-center\">\n      <li class=\"about-links\" data-ng-click=\"$ctrl.toggleBio()\" data-ng-class=\"{'tab-selected': $ctrl.showBio}\">Bio</li> \n      <li class=\"about-links\" data-ng-click=\"$ctrl.toggleSkills()\" data-ng-class=\"{'tab-selected': $ctrl.showSkills}\">Skills</li>\n    </ul>\n\n    <div class=\"container bio-container\" data-ng-show=\"$ctrl.showBio\">\n      <div class=\"about-description\">\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>\n    </div>\n\n    <div class=\"container skills-container\" data-ng-show=\"$ctrl.showSkills\">\n\n    <h3 class=\"text-center\">Technical Skills:</h3>    \n    <div class=\"row\">\n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Proficient</li>  \n          <li>Node.js</li>\n          <li>Angular.js</li>\n          <li>Javascript</li>\n          <li>MongoDB</li>\n          <li>HTML5 \n          <li>CSS/SASS</li>\n          <li>jQuery</li>\n          <li>RESTful API</li> \n        </ul> \n      </div> \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n            <li>React</li>\n            <li>Ruby On Rails</li>\n        </ul>   \n      </div>  \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Interests/Stretch Goals</li> \n          <li>D3 (Data-visualization tools)</li>\n          <li>Python</li>\n          <li>Django</li>\n        </ul> \n      </div>\n    </div>\n  </div>\n  </div>        \n  </div>\n      \n</div>";
 
 /***/ },
 /* 51 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"https://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
+	'use strict';
+
+	module.exports = function (app) {
+	  app.component('footerComponent', {
+	    template: __webpack_require__(52)
+	  });
+	};
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"about-container-primary\">\n  <h1 class=\"section-title\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n\n    <div class=\"row\">\n      <div class=\"about-description col-sm-4\">\n        <h3>Bio</h3>\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>        \n      <h3>Technical Skills</h3>    \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Proficient</li>  \n          <li>Node.js</li>\n          <li>Angular.js</li>\n          <li>Javascript</li>\n          <li>MongoDB</li>\n          <li>HTML5 \n          <li>CSS/SASS</li>\n          <li>jQuery</li>\n          <li>RESTful API</li> \n        </ul> \n      </div> \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n        </ul>   \n      </div>  \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Interests</li> \n          <li>D3 (Data-visualization tools)</li>\n          <li>Python</li>\n          <li>Django</li>\n          <li>React</li>\n        </ul> \n      </div>\n    </div>\n  </div>\n      \n</div>";
+	module.exports = "<footer id=\"footer\">\n  <div class=\"container\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></p> \n  </div>\n</footer>";
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"projects-container\">\n  <project class=\"project-component-container\"></project>\n</div>";
+	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"https://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
 
 /***/ },
 /* 54 */
+/***/ function(module, exports) {
+
+	module.exports = "<about-component></about-component>\n\n<!--<div class=\"about-container-primary\">\n  <h1 class=\"section-title\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n\n    <div class=\"row\">\n      <div class=\"about-description col-sm-4\">\n        <h3>Bio</h3>\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>        \n      <h3>Technical Skills</h3>    \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Proficient</li>  \n          <li>Node.js</li>\n          <li>Angular.js</li>\n          <li>Javascript</li>\n          <li>MongoDB</li>\n          <li>HTML5 \n          <li>CSS/SASS</li>\n          <li>jQuery</li>\n          <li>RESTful API</li> \n        </ul> \n      </div> \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n        </ul>   \n      </div>  \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Interests</li> \n          <li>D3 (Data-visualization tools)</li>\n          <li>Python</li>\n          <li>Django</li>\n          <li>React</li>\n        </ul> \n      </div>\n    </div>\n  </div>\n      \n</div>-->";
+
+/***/ },
+/* 55 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"projects-container\">\n  <project class=\"project-component-container\"></project>\n</div>";
+
+/***/ },
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"contact-container\">\n  <contact-info class=\"contact-container\"></contact-info>  \n</div>";

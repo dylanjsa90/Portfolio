@@ -5282,22 +5282,20 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  width: 70%;
   padding: 1px;
-  margin: 1px auto; }
-
-.about-container-secondary h1, h3, h5 {
+  margin: 1px auto;
   text-align: center; }
+
+.bio {
+  font-size: 150%;
+  font-family: 'Open Sans', sans-serif; }
 
 .about-description {
   color: black;
-  background-color: grey;
-  border: 2px solid black;
-  border-radius: 15%;
+  width: 80%;
+  margin: 0px auto;
+  text-align: center;
   position: inherit; }
-
-.about-title {
-  text-align: center; }
 
 contact-info {
   width: 100%;
@@ -5508,6 +5506,18 @@ a:hover {
 #navbar-list a:active {
   background-color: darkblue; }
 
+.about-links {
+  list-style: none;
+  display: inline;
+  font-size: 200%;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: darkblue; }
+  .about-links:hover {
+    text-decoration: underline;
+    color: black;
+    cursor: pointer; }
+
 .container-fluid {
   background: none; }
 
@@ -5680,6 +5690,9 @@ ul.employs-list li {
 
 .nav-selected {
   color: gold; }
+
+.tab-selected {
+  text-decoration: underline; }
 
 .section-title {
   color: white;
