@@ -42610,7 +42610,7 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"https://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
+	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
 
 /***/ },
 /* 54 */
