@@ -45,38 +45,34 @@ module.exports = function(app) {
       this.currentId = project;
       (this.projectId === project) ? this.projectId = undefined : this.projectId = project;
     };
-
-    this.showProject = function(id) {
-      console.log('id: ' + id);
-    }
     
-    this.displayPi = function() {
-      this.showPi = !this.showPi;
-      this.showFakeSports = false;
-      this.showNosy = false;
-      this.showTodo = false;
-    };
+    // this.displayPi = function() {
+    //   this.showPi = !this.showPi;
+    //   this.showFakeSports = false;
+    //   this.showNosy = false;
+    //   this.showTodo = false;
+    // };
 
-    this.displayNosyNeighbor = function() {
-      this.showNosy = !this.showNosy;
-      this.showPi = false;
-      this.showFakeSports = false;
-      this.showTodo = false;
-    };  
+    // this.displayNosyNeighbor = function() {
+    //   this.showNosy = !this.showNosy;
+    //   this.showPi = false;
+    //   this.showFakeSports = false;
+    //   this.showTodo = false;
+    // };  
 
-    this.displayFakeSports = function() {
-      this.showFakeSports = !this.showFakeSports;
-      this.showPi = false;
-      this.showNosy = false;
-      this.showTodo = false;
-    };
+    // this.displayFakeSports = function() {
+    //   this.showFakeSports = !this.showFakeSports;
+    //   this.showPi = false;
+    //   this.showNosy = false;
+    //   this.showTodo = false;
+    // };
     
-    this.displayTodo = function() {
-      this.showTodo = !this.showTodo;
-      this.showPi = false;
-      this.showNosy = false;
-      this.showFakeSports = false;
-    };
+    // this.displayTodo = function() {
+    //   this.showTodo = !this.showTodo;
+    //   this.showPi = false;
+    //   this.showNosy = false;
+    //   this.showFakeSports = false;
+    // };
     
   }]);
 };
