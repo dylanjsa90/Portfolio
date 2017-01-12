@@ -11,7 +11,7 @@ module.exports = [
       'Deployed on Heroku'],
     githubUrl: ['https://github.com/sendjmoon/Ultimate-Pi', 'https://github.com/dylanjsa90/UltimatePi-api'],
     deployedUrl: 'http://ultimate-pi.herokuapp.com',
-    thumbnailUrl: require('../lib/images/abstract-blue-light-vector-background.jpg')
+    thumbnailUrl: '../../lib/thumbnails/mobile_remote.jpg'
     
   },
 
@@ -24,7 +24,7 @@ module.exports = [
     'Express middleware', 'Mocha/Chai Testing', 'Deployed on Heroku'],
     githubUrl: ['https://github.com/FakeSportsRealMoney/FakeSportsRealMoney'],
     deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
-    thumbnailUrl: require('../lib/images/abstract-blue-light-vector-background.jpg')
+    thumbnailUrl: '../../lib/thumbnails/FSRM.jpg'
   },
 
   {
@@ -36,7 +36,7 @@ module.exports = [
     'City of Seattle API for data', 'Deployed on Firebase'],
     githubUrl: 'https://github.com/crashtack/301-team-project',
     deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
-    thumbnailUrl: require('../lib/images/blue_abstract_background.jpg') 
+    thumbnailUrl: '../../lib/full_list_nosy_neighbor.jpg' 
   },
   {
     id: 4,
@@ -45,5 +45,6 @@ module.exports = [
     employs: ['Angular.js', 'Node.js server with express routing', 'Secure authentication with jsonwebtokens', 'SASS styling', 'webpack bundling', 'bootstrap', 'font-awesome icons', 'Deployed on heroku'], 
     githubUrl: ['https://github.com/dylanjsa90/task-manager'],
     deployedUrl: 'https://task-list-manager.herokuapp.com',
+    thumbnailUrl: '../../lib/thumbnails/Business-Todo-List-icon.png'
   }
 ];
