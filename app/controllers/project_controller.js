@@ -26,13 +26,15 @@ module.exports = function(app) {
     this.showNosy = false;
     this.showTodo = false;
     this.projects = require('../lib/projectData');
-    this.projectThumbnails = [];
 
-    this.populateThumbnails = function() {
-      this.projects.forEach(function(p) {
-        this.projectThumbnails.push({thumbnailUrl: p.thumbnailUrl, name: p.name});
-      });
-    };
+    // this.thumbnailStyle = {'height': '100px', 'width': '100px'};
+    // this.projectThumbnails = [];
+
+    // this.populateThumbnails = function() {
+    //   this.projects.forEach(function(p) {
+    //     this.projectThumbnails.push({thumbnailUrl: p.thumbnailUrl, name: p.name});
+    //   });
+    // };
     
     this.displayPi = function() {
       this.showPi = !this.showPi;

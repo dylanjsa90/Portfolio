@@ -1,11 +1,12 @@
-<div class="project-container" data-ng-init="$ctrl.findProjectId()">
-  <a href="#/" class="float-left fa fa-arrow-left">
-  <p class="inline">Back</p>
-  </a>
+<div class="project-container">
+  <h1 class="section-title">Projects</h1>
+  <div class="project-thumbnail-container row">
+    <div ng-repeat="project in $ctrl.projects">
+      <img src="project.thumbnailUrl" class="project-thumbnail" alt="project thumbnail" data-ng-click="$ctrl.showProject()" data-project="project">
+    </div>
+  </div>
 
-  <h1>{{$ctrl.currentProject.name}}</h1>
-  <h4>{{projectCtrl.currentProject.description}}</h4>
-  <button type="submit" class="fa fa-list" data-ng-click="projectCtrl.showMore = true"></button>
-  <div data-project data-ng-show="project.showMore"></div>
-  
+  <div class="project-container" data-ng-repeat="project in $ctrl.projects">
+    <project project-data="project"></project>
+  </div>
 </div>
