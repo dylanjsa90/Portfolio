@@ -1,12 +1,12 @@
 <div class="project-container">
   <h1 class="section-title">Projects</h1>
   <div class="project-thumbnail-container row">
-    <div ng-repeat="project in $ctrl.projects">
-      <img src="project.thumbnailUrl" class="project-thumbnail" alt="project thumbnail" data-ng-click="$ctrl.showProject()" data-project="project">
+    <div ng-repeat="projectThumb in $ctrl.projects">
+      <img ng-src="{{projectThumb.thumbnailUrl}}" class="project-thumbnail" alt="project thumbnail" data-ng-class="{'selected': $ctrl.projectId == $index}" ng-bind="projectThumb.name" data-ng-click="$ctrl.toggleThumbnail($index);" data-project="project">
     </div>
   </div>
 
   <div class="project-container" data-ng-repeat="project in $ctrl.projects">
-    <project project-data="project"></project>
+    <project project-data="project" id="$ctrl.projectId" ng-show="$ctrl.projectId == $index"></project>
   </div>
 </div>

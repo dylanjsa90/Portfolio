@@ -2,8 +2,11 @@
 
 module.exports = function(app) {
   app.controller('ProjectController', ['$scope', function($scope) {
-    $scope.prev = null;
-    $scope.next = null;
+    this.loadThumbnail = function(thumbPath) {
+      return require(thumbPath);
+    };
+
+    this.currentId = 0;
     // $scope.project = projectService.get({projectId: $routeParams.projectId});
     // $scope.projects = projectService.query();
     this.clickToCopy = 'Click to Copy';
@@ -25,6 +28,7 @@ module.exports = function(app) {
     this.showFakeSports = false;
     this.showNosy = false;
     this.showTodo = false;
+    this.projectId;
     this.projects = require('../lib/projectData');
 
     // this.thumbnailStyle = {'height': '100px', 'width': '100px'};
@@ -35,6 +39,16 @@ module.exports = function(app) {
     //     this.projectThumbnails.push({thumbnailUrl: p.thumbnailUrl, name: p.name});
     //   });
     // };
+    this.toggleThumbnail = function(project) {
+      console.log('Project: ' + project);
+      this.selected = !this.selected;
+      this.currentId = project;
+      (this.projectId === project) ? this.projectId = undefined : this.projectId = project;
+    };
+
+    this.showProject = function(id) {
+      console.log('id: ' + id);
+    }
     
     this.displayPi = function() {
       this.showPi = !this.showPi;

@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   
-  app.component('projects-component', {
+  app.component('projectsComponent', {
     template: require('./project_showcase.html'),
     controller: 'ProjectController',
   });

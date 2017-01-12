@@ -1,10 +1,10 @@
 <div class="project-container">
-  <h2>{{project.name}} | {{project.date}} | <a href="{{project.githubUrl[0]}}" target="_blank"><i class="fa fa-github"></i></a> | 
-  <a href="{{project.deployedUrl}}" target="_blank">Deployed Here</a></h2>
+  <h2>{{$ctrl.project.name}} | {{$ctrl.project.date}} | <a ng-href="{{$ctrl.project.githubUrl[0]}}" target="_blank"><i class="fa fa-github"></i></a> | 
+  <a ng-href="{{$ctrl.project.deployedUrl}}" target="_blank">Deployed Here</a></h2>
   <h3>Description</h3>
-  <p class="project-description">{{project.description}</p>
+  <p class="project-description">{{$ctrl.project.description}}</p>
   <h3>Project employs:</h3>
   <ul class="employs-list">
-    <li data-ng-repeat="property in project.employ">{{property}}</li>
+    <li data-ng-repeat="property in $ctrl.project.employs">{{property}}</li>
   </ul>
 </div>
