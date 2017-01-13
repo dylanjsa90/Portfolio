@@ -16,6 +16,10 @@ module.exports = function(app) {
       previousProject: function(index) {
         if (index === 0) return projects[projects.length - 1];
         return projects[index - 1];
+      },
+
+      getAtIndex: function(index) {
+        return projects[index];
       } 
     };
 

@@ -1,14 +1,21 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProjectController', ['projectService', function(projectService) {
-    this.projects = projectService.getAll();
+  app.controller('ProjectController', ['projectService',  function(projectService) {
+    this.projectThumbnails = projectService.getAll();
     this.projectId;
     this.projectActive = false;
+    this.projects = []
+    ;
     this.loadThumbnail = function(thumbPath) {
       return require(thumbPath);
     };
     
+    this.viewProject = function(index) {
+      this.projects.push(projectService.getAtIndex(index));
+      this.projectId = index;
+    };
+
     this.toggleThumbnail = function(project) {
       (this.projectId === project) ? this.projectId = undefined : this.projectId = project;
       this.projectActive = true;
@@ -16,10 +23,12 @@ module.exports = function(app) {
 
     this.next = function() {
       this.projectId = projectService.nextProject(this.projectId).id;
+      this.projects[0] = projectService.getAtIndex(this.projectId);
     };
 
     this.prev = function() {
       this.projectId = projectService.previousProject(this.projectId).id;
+      this.projects[0] = projectService.getAtIndex(this.projectId);
     };
 
     this.clickToCopy = 'Click to Copy';
