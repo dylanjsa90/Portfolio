@@ -20,7 +20,7 @@
   "homepage": "https://github.com/dylanjsa90/Portfolio#readme",
   "dependencies": {
     "angular": "^1.5.8",
-    "angular-animate": "^1.5.8",
+    "angular-animate": "^1.6.1",
     "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-touch": "^1.5.8",
