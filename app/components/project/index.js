@@ -3,7 +3,6 @@
 module.exports = (app) => {
   app.controller('projectController', function() {
     this.project = this.projectData;
-    
   });
 
   app.component('project', {
@@ -11,6 +10,7 @@ module.exports = (app) => {
     template: require('./project_template.html'),
     bindings: {
       projectData: '<',
+      id: '<'
     }
   });
 };

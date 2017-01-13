@@ -60,7 +60,7 @@ i.fa-linkedin {
   margin-right: 5px;
 }
 
-.contact-info {
+.contact-info li {
   list-style: none;
   font-size: 20px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -101,6 +101,8 @@ ul.skills-container li {
 
 .project-description {
   font-size: 18px;
+  width: 80%;
+  margin: auto;
 }
 
 .project-container {

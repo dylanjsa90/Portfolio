@@ -65,29 +65,23 @@ contact-info {
   display: flex;
   flex-direction: column;
   flex: 1;
+  h2 { 
+    text-align: center;
+  } 
 }
 
 .contact {
-  align-items: flex-start;
+  align-items: center;
   height: 60%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-}
 
-.contact-info-container h2 {
-  text-align: center;
+  img {
+    border-radius: 50%;
+  }
 }
-
-.contact-info-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 
 .projects-container {
   height: 100%;
@@ -96,26 +90,19 @@ contact-info {
   flex-direction: column;
   align-items: stretch;
   flex: 1;
+  
+  li {
+    list-style: none;
+  }
 }
 
-.project-component-container {
+.project-wrapper {
+  width: 90%;
+  margin: auto;
   text-align: center;
-  flex: 1;
-  align-items: stretch;
-  flex-direction: column;
-}
-.projects-container li {
-  list-style: none;
-}
-
-.project-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.project-containers h1, h3, h5 {
-  font-weight: bold; 
+  h1, h3, h5 {
+    font-weight: bold;
+  }
 }
 
 .project-thumbnail-container {
@@ -128,15 +115,26 @@ contact-info {
 
 .project-thumbnail {
   margin: 5px;
+  border-radius: 3px;
   border: 1px solid black;
+  height: 75px;
+  width: 75px;
+  
 }
 
-.self-img {
-  border-radius: 50%;
-}
+.project-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: auto;
+  margin-top: 10px;
+  i {
+    font-size: 200%;
+      &:hover {
+        cursor: pointer;
+      }
+  }
 
-.profile-image {
-  padding: 0px;
 }
 
 .hidden-xs {
