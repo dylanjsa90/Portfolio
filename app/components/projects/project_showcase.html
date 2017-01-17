@@ -7,7 +7,7 @@
   </div>
   <div class="project-controls" ng-show="$ctrl.projectActive">
     <a ng-click="$ctrl.prev()"><i class="fa fa-arrow-circle-left"></i></a>
-    <a ng-click="$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = [];"><i class="fa fa-undo"></i></a>
+    <a ng-click="$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()"><i class="fa fa-undo"></i></a>
     <a ng-click="$ctrl.next()"><i class="fa fa-arrow-circle-right"></i></a>
   </div>
 

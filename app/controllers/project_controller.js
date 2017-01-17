@@ -4,13 +4,16 @@ module.exports = function(app) {
   app.controller('ProjectController', ['projectService',  function(projectService) {
     this.projectThumbnails = projectService.getAll();
     this.skillText = 'Technical Skills';
-
     this.projectId;
     this.projectActive = false;
     this.projects = [];
-    
-
     this.skills = projectService.getProficient();
+
+    this.resetSkills = function() {
+      this.skills = projectService.getProficient();
+      this.skillText = 'Technical Skills';
+    };
+    
     this.toggleSkills = function() {
       (this.skills.length > 0) ? this.skills = [] : this.skills = projectService.getProficient();
     };
@@ -35,22 +38,17 @@ module.exports = function(app) {
       this.projectId = projectService.nextProject(this.projectId).id;
       this.projects[0] = projectService.getAtIndex(this.projectId);
       this.skills = this.projects[0].skills;
-      // this.showSkills = true;
     };
 
     this.prev = function() {
       this.projectId = projectService.previousProject(this.projectId).id;
       this.projects[0] = projectService.getAtIndex(this.projectId);
       this.skills = this.projects[0].skills;
-      // this.showSkills = true;
     };
 
     this.clickToCopy = 'Click to Copy';
     this.onSuccess = function(e) {
       this.clickToCopy = 'Copied';
-      console.info('Action:', e.action);
-      console.info('Text:', e.text);
-      console.info('Trigger:', e.trigger);
       e.clearSelection();
     };
 

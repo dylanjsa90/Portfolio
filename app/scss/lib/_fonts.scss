@@ -20,9 +20,7 @@
   font-size: 18px;
 }
 
-
 .skill-title {
-  // text-align: center;
   font-weight: bolder;
   color: white;
   text-decoration: underline;
@@ -38,7 +36,6 @@
 .main-skill-container {
   padding: 1.5%;
 }
-
 
 .intro-heading {
   font-size: 4rem;
@@ -58,7 +55,7 @@ i.fa-linkedin {
 }
 
 i.fa-codepen {
-  font-size: 150%;
+  font-size: 100%;
 }
 
 .contact-intro {
@@ -75,13 +72,9 @@ i.fa-codepen {
 
 ul.skills-container li {
   list-style: none;
-  // text-align: center;
-  // border-radius: 25%;
   margin: 2px;
   padding: 0 5px 0 5px;
   font-family: 'Open Sans', sans-serif;
-  // color: $app-about-primary-color;
-  // text-align: center;
   }
 
 .main-skill-container {

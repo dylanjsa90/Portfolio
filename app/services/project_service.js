@@ -25,15 +25,8 @@ module.exports = function(app) {
       getProficient: function() {
         return ['Angular.js', 'Node.js', 'JavaScript', 'MongoDB', 'HTML5', 'CSS/SASS/SCSS', 'jQuery', 'RESTful Architecture', 'Webpack', 'Unit Testing', 'Bootstrap']; 
       },
-      getIntermediate: function() {
-        return ['Java', 'SQL', 'React'];
-      }
     };
 
     return projectService;
-    
-    // return $resource('data/:projectId.json', {}, {
-    //   query: {method: 'GET', params: {projectId:'projects'}, isArray:true}
-    // });
   });
 };
