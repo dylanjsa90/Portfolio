@@ -45,7 +45,3 @@ module.exports = function(app) {
     };
   }]);
 };
-
-// Current not using projectService
-// this.project = projectService.get({projectId: $routeParams.projectId});
-// this.projects = projectService.query();
