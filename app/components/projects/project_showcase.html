@@ -10,6 +10,21 @@
     <a ng-click="$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = [];"><i class="fa fa-undo"></i></a>
     <a ng-click="$ctrl.next()"><i class="fa fa-arrow-circle-right"></i></a>
   </div>
+
+  <h3 ng-click="$ctrl.toggleSkills()" class="skill-link">{{$ctrl.skillText}}</h3>
+  <div ng-show="$ctrl.skills.length > 0" class="skill-div">
+        <ul class="skills-container">
+          <li class="skill-title" ng-hide="$ctrl.projectActive">Proficient</li>  
+          <li data-ng-repeat="skill in $ctrl.skills">{{skill}}</li> 
+        </ul> 
+
+        <ul class="skills-container" ng-hide="$ctrl.projects.length !== 0">
+            <li class="skill-title">Intermediate</li> 
+            <li>Java</li>
+            <li>SQL</li>
+            <li>React</li>
+        </ul>   
+  </div>
   <div class="project-wrapper" data-ng-repeat="project in $ctrl.projects">
     <project project-data="project" id="$ctrl.projectId" class="fade"></project>
   </div>

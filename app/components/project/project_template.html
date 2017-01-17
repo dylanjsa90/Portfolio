@@ -1,5 +1,5 @@
 <div>
-  <h2>{{$ctrl.project.name}} | {{$ctrl.project.date}} | <a ng-href="{{$ctrl.project.githubUrl[0]}}" target="_blank"><i class="fa fa-github"></i></a> | 
+  <h2>{{$ctrl.project.name}} | {{$ctrl.project.date}} | <a ng-repeat="(key, url) in $ctrl.project.urls" ng-href="{{url}}" target="_blank"><i class="fa {{key}}"></i></a> | 
   <a ng-href="{{$ctrl.project.deployedUrl}}" target="_blank">Deployed Here</a></h2>
   <h3>Description</h3>
   <p class="project-description">{{$ctrl.project.description}}</p>

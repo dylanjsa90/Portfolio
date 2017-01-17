@@ -137,6 +137,20 @@ contact-info {
 
 }
 
+.skill-div {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+}
+
+.skill-link {
+    margin-top: 30px;
+    text-align: center;
+    cursor: pointer;
+    color: grey;
+    text-decoration: underline;
+}
+
 .hidden-xs {
   display: flex;
   flex-direction: column;
@@ -152,4 +166,8 @@ footer {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: bold;
+}
+
+.hh {
+  background-color: brown;
 }

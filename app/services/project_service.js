@@ -20,7 +20,14 @@ module.exports = function(app) {
 
       getAtIndex: function(index) {
         return projects[index];
-      } 
+      }, 
+
+      getProficient: function() {
+        return ['Angular.js', 'Node.js', 'JavaScript', 'MongoDB', 'HTML5', 'CSS/SASS/SCSS', 'jQuery', 'RESTful Architecture', 'Webpack', 'Unit Testing', 'Bootstrap']; 
+      },
+      getIntermediate: function() {
+        return ['Java', 'SQL', 'React'];
+      }
     };
 
     return projectService;
