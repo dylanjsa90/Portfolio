@@ -55,8 +55,8 @@
 	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(15), __webpack_require__(17), __webpack_require__(26), __webpack_require__(28)]);
 
 	__webpack_require__(30)(portfolioApp);
-	__webpack_require__(32)(portfolioApp);
-	__webpack_require__(37)(portfolioApp);
+	__webpack_require__(40)(portfolioApp);
+	__webpack_require__(43)(portfolioApp);
 
 	portfolioApp.run(['$rootScope', function ($rs) {
 	  $rs.baseUrl = '' + ("http://localhost:3000"), $rs.userConfig = {
@@ -69,14 +69,14 @@
 
 	portfolioApp.config(['$routeProvider', function ($rp) {
 	  $rp.when('/home', {
-	    template: __webpack_require__(53)
+	    template: __webpack_require__(57)
 	  }).when('/about', {
-	    template: __webpack_require__(54)
+	    template: __webpack_require__(58)
 	  }).when('/projects', {
-	    template: __webpack_require__(55),
+	    template: __webpack_require__(59),
 	    controller: 'ProjectController'
 	  }).when('/contact', {
-	    template: __webpack_require__(56)
+	    template: __webpack_require__(60)
 	  }).otherwise({
 	    redirectTo: '/home'
 	  });
@@ -103,12 +103,7 @@
 /* 8 */,
 /* 9 */,
 /* 10 */,
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/fc2a7fa845709986fd7a825c53614111-blue_abstract_background.jpg";
-
-/***/ },
+/* 11 */,
 /* 12 */,
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
@@ -42196,42 +42191,44 @@
 	'use strict';
 
 	module.exports = function (app) {
+	  // require('./github_service')(app);
 	  __webpack_require__(31)(app);
-	  // require('./project_service')(app);
 	};
 
 /***/ },
 /* 31 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  app.factory('Github', ['$window', '$location', '$http', function ($window, $location, $http) {
-	    return {
-	      repos: {},
-	      allRepos: [],
-	      requestRepos: function requestRepos() {
-	        var _this = this;
-
-	        $http.get('/github/users/dylanjsa90/repos?per_page=10&sorted=updated').then(function (res) {
-	          console.log('res.data ' + res.data);
-	          _this.allRepos = res.data;
-	        }).catch(function (err) {
-	          console.log('Error: ' + err);
-	        });
-	        return this.allRepos;
+	  app.factory('projectService', function () {
+	    var projects = __webpack_require__(32);
+	    var projectService = {
+	      getAll: function getAll() {
+	        return projects;
+	      },
+	      nextProject: function nextProject(index) {
+	        if (index === projects.length - 1) return projects[0];
+	        return projects[index + 1];
 	      },
 
-	      withAttr: function withAttr(attr) {
-	        if (this.allRepos.length === 0 || !this.allRepos) this.requestRepos();
-	        return this.allRepos.filter(function (r) {
-	          return r[attr];
-	        });
-	      }
+	      previousProject: function previousProject(index) {
+	        if (index === 0) return projects[projects.length - 1];
+	        return projects[index - 1];
+	      },
 
+	      getAtIndex: function getAtIndex(index) {
+	        return projects[index];
+	      },
+
+	      getProficient: function getProficient() {
+	        return ['Angular.js', 'Node.js', 'JavaScript', 'MongoDB', 'HTML5', 'CSS/SASS/SCSS', 'jQuery', 'RESTful Architecture', 'Webpack', 'Unit Testing', 'Bootstrap'];
+	      }
 	    };
-	  }]);
+
+	    return projectService;
+	  });
 	};
 
 /***/ },
@@ -42240,13 +42237,139 @@
 
 	'use strict';
 
-	module.exports = function (app) {
-	  __webpack_require__(33)(app);
-	  __webpack_require__(34)(app);
-	};
+	module.exports = [{
+	  id: 0,
+	  name: 'Ultimate Pi',
+	  date: 'September 2016',
+	  description: 'Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote',
+	  employs: ['Angular.js', 'Node.js server', 'Express Routing', 'Secure authentication system with registration', 'Custom built angular components', 'Sleek and intuitive remote UI', 'Webpack bundling', 'SCSS styling', 'Bootstrap', 'Font-awesome for Icons', 'TDD: Karma w/jasmine and Mocha w/Chai for backend testing', 'Deployed on Heroku'],
+	  skills: ['Angular.js', 'Node.js', 'Express.js', 'Webpack', 'SCSS', 'Bootstrap', 'HTML5', 'MongoDB', 'JavaScript', 'RESTful Architecture', 'Unit Testing'],
+	  deployedUrl: 'http://ultimate-pi.herokuapp.com',
+	  urls: { 'fa-github': 'https://github.com/sendjmoon/Ultimate-Pi', 'fa-github-square': 'https://github.com/dylanjsa90/UltimatePi-api' },
+	  thumbnailUrl: __webpack_require__(33)
+
+	}, {
+	  id: 1,
+	  name: 'Fake Sports Real Money',
+	  date: 'August 2016',
+	  description: 'Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances that they need to pay',
+	  employs: ['Twilio API for daily text reminders', 'Node-mailer for sending daily email reminders', 'Cron for constant time tracking', 'Express middleware', 'Mocha/Chai Testing', 'Deployed on Heroku'],
+	  skills: ['Node.js', 'Express.js', 'Unit testing', 'RESTful Architecture'],
+	  githubUrl: ['https://github.com/FakeSportsRealMoney/FakeSportsRealMoney'],
+	  deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
+	  urls: { 'fa-github': 'https://github.com/FakeSportsRealMoney/FakeSportsRealMoney' },
+	  thumbnailUrl: __webpack_require__(34)
+	}, {
+	  id: 2,
+	  name: 'Nosy Neighbor',
+	  date: 'June 2016',
+	  description: 'Responsive web application for checking new construction and development in areas and neighborhoods within Seattle',
+	  employs: ['Single Page Architecture', 'Google Maps API w/Places library for autocompletion', 'Node.js w/Express for the server', 'WebDB for the database', 'City of Seattle API for data', 'Deployed on Firebase'],
+	  skills: ['Node.js', 'Express.js', 'CSS', 'HTML5', 'JavaScript', 'RESTful Architecture'],
+	  githubUrl: 'https://github.com/crashtack/301-team-project',
+	  deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
+	  urls: { 'fa-github': 'https://github.com/crashtack/301-team-project' },
+	  thumbnailUrl: __webpack_require__(35)
+	}, {
+	  id: 3,
+	  name: 'Task Manager',
+	  date: 'September 2016',
+	  description: 'Full-stack web organization that users can create accounts and within each account create and manage tasks or lists and add/remove content from those lists',
+	  employs: ['Angular.js', 'Node.js server with express routing', 'Secure authentication with jsonwebtokens', 'SASS styling', 'webpack bundling', 'bootstrap', 'font-awesome icons', 'Deployed on heroku'],
+	  skills: ['Angular.js', 'Node.js', 'Express.js', 'SCSS', 'Webpack', 'Bootstrap', 'JavaScript'],
+	  githubUrl: ['https://github.com/dylanjsa90/task-manager'],
+	  urls: { 'fa-github': 'https://github.com/dylanjsa90/task-manager' },
+	  deployedUrl: 'https://task-list-manager.herokuapp.com',
+	  thumbnailUrl: __webpack_require__(36)
+	}, {
+
+	  id: 4,
+	  name: 'Famous Quote Generator',
+	  date: 'January 2017',
+	  description: 'A simple single page web application that generates a random quote either from the famous or movie category from the Mashape API',
+	  employs: ['jQuery', 'SCSS', 'Bootstrap', 'Font Awesome icons'],
+	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
+	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/jybbPa' },
+	  deployedUrl: 'http://codepen.io/dylansa90/full/jybbPa',
+	  thumbnailUrl: __webpack_require__(37)
+
+	}, {
+	  id: 5,
+	  name: 'Local Weather',
+	  date: 'January 2017',
+	  description: 'A single page web application that displays the users local weather in standard or metric as well as the conditions',
+	  employs: ['Weather API', 'Ipinfo.io API for users location', 'Font Awesome icons'],
+	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
+	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/LxpGmj/' },
+	  deployedUrl: 'http://codepen.io/dylansa90/full/LxpGmj/',
+	  thumbnailUrl: __webpack_require__(38)
+	}, {
+	  id: 6,
+	  name: 'Wikipedia Explorer',
+	  date: 'January 2017',
+	  description: 'A singe page web application that uses the Wikipedia API to allow users to search entries or randomly select one',
+	  employs: ['Font Awesome Icons', 'Wikipedia API'],
+	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
+	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/NdGReZ/' },
+	  deployedUrl: 'http://codepen.io/dylansa90/full/NdGReZ/',
+	  thumbnailUrl: __webpack_require__(39)
+	}];
 
 /***/ },
 /* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/d3370610b0b07f3ef9ca98a2b866f829-famous_quote.jpg";
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/1c4ee3dee0b58f6062b0b4073f87f73d-local_weather.jpg";
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/f950cffcba0f4531b5cc86777cd6f12d-wikipedia.jpg";
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  __webpack_require__(41)(app);
+	  __webpack_require__(42)(app);
+	};
+
+/***/ },
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -42295,139 +42418,86 @@
 	};
 
 /***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
+/* 42 */
+/***/ function(module, exports) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  app.controller('ProjectController', ['$scope', function ($scope) {
-	    $scope.prev = null;
-	    $scope.next = null;
-	    // $scope.project = projectService.get({projectId: $routeParams.projectId});
-	    // $scope.projects = projectService.query();
-	    this.clickToCopy = 'Click to Copy';
+	  app.controller('ProjectController', ['projectService', function (projectService) {
+	    this.projectThumbnails = projectService.getAll();
+	    this.skillText = 'Technical Skills';
+	    this.projectId;
+	    this.projectActive = false;
+	    this.projects = [];
+	    this.skills = projectService.getProficient();
 
+	    this.resetSkills = function () {
+	      this.skills = projectService.getProficient();
+	      this.skillText = 'Technical Skills';
+	    };
+
+	    this.toggleSkills = function () {
+	      this.skills.length > 0 ? this.skills = [] : this.skills = projectService.getProficient();
+	    };
+
+	    this.loadThumbnail = function (thumbPath) {
+	      return thumbPath;
+	    };
+
+	    this.viewProject = function (index) {
+	      this.projects.push(projectService.getAtIndex(index));
+	      this.skills = this.projects[0].skills;
+	      this.skillText = 'This project uses the following skills:';
+	      this.projectId = index;
+	    };
+
+	    this.toggleThumbnail = function (project) {
+	      this.projectId === project ? this.projectId = undefined : this.projectId = project;
+	      this.projectActive = this.projectId !== undefined;
+	    };
+
+	    this.next = function () {
+	      this.projectId = projectService.nextProject(this.projectId).id;
+	      this.projects[0] = projectService.getAtIndex(this.projectId);
+	      this.skills = this.projects[0].skills;
+	    };
+
+	    this.prev = function () {
+	      this.projectId = projectService.previousProject(this.projectId).id;
+	      this.projects[0] = projectService.getAtIndex(this.projectId);
+	      this.skills = this.projects[0].skills;
+	    };
+
+	    this.clickToCopy = 'Click to Copy';
 	    this.onSuccess = function (e) {
 	      this.clickToCopy = 'Copied';
-	      console.info('Action:', e.action);
-	      console.info('Text:', e.text);
-	      console.info('Trigger:', e.trigger);
 	      e.clearSelection();
 	    };
 
 	    this.onError = function (e) {
 	      this.clickToCopy = 'Copy Failed, Press your OS keyboard shortcut for copy';
 	    };
-
-	    this.showPi = false;
-	    this.showFakeSports = false;
-	    this.showNosy = false;
-	    this.showTodo = false;
-	    this.projects = __webpack_require__(35);
-	    this.projectThumbnails = [];
-
-	    this.populateThumbnails = function () {
-	      this.projects.forEach(function (p) {
-	        this.projectThumbnails.push({ thumbnailUrl: p.thumbnailUrl, name: p.name });
-	      });
-	    };
-
-	    this.displayPi = function () {
-	      this.showPi = !this.showPi;
-	      this.showFakeSports = false;
-	      this.showNosy = false;
-	      this.showTodo = false;
-	    };
-
-	    this.displayNosyNeighbor = function () {
-	      this.showNosy = !this.showNosy;
-	      this.showPi = false;
-	      this.showFakeSports = false;
-	      this.showTodo = false;
-	    };
-
-	    this.displayFakeSports = function () {
-	      this.showFakeSports = !this.showFakeSports;
-	      this.showPi = false;
-	      this.showNosy = false;
-	      this.showTodo = false;
-	    };
-
-	    this.displayTodo = function () {
-	      this.showTodo = !this.showTodo;
-	      this.showPi = false;
-	      this.showNosy = false;
-	      this.showFakeSports = false;
-	    };
 	  }]);
 	};
 
 /***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = [{
-	  id: 1,
-	  name: 'Ultimate Pi',
-	  date: 'September 2016',
-	  description: 'Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote',
-	  employs: ['Angular.js', 'Node.js server', 'Express Routing', 'Secure authentication system with registration', 'Custom built angular components', 'Sleek and intuitive remote UI', 'Webpack bundling', 'SCSS styling', 'Bootstrap', 'Font-awesome for Icons', 'TDD: Karma w/jasmine and Mocha w/Chai for backend testing', 'Deployed on Heroku'],
-	  githubUrl: ['https://github.com/sendjmoon/Ultimate-Pi', 'https://github.com/dylanjsa90/UltimatePi-api'],
-	  deployedUrl: 'http://ultimate-pi.herokuapp.com',
-	  thumbnailUrl: __webpack_require__(36)
-
-	}, {
-	  id: 2,
-	  name: 'Fake Sports Real Money',
-	  date: 'August 2016',
-	  description: 'Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances that they need to pay',
-	  employs: ['Twilio API for daily text reminders', 'Node-mailer for sending daily email reminders', 'Cron for constant time tracking', 'Express middleware', 'Mocha/Chai Testing', 'Deployed on Heroku'],
-	  githubUrl: ['https://github.com/FakeSportsRealMoney/FakeSportsRealMoney'],
-	  deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
-	  thumbnailUrl: __webpack_require__(36)
-	}, {
-	  id: 3,
-	  name: 'Nosy Neighbor',
-	  date: 'June 2016',
-	  description: '',
-	  employs: ['Single Page Architecture', 'Google Maps API w/Places library for autocompletion', 'Node.js w/Express for the server', 'WebDB for the database', 'City of Seattle API for data', 'Deployed on Firebase'],
-	  githubUrl: 'https://github.com/crashtack/301-team-project',
-	  deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
-	  thumbnailUrl: __webpack_require__(11)
-	}, {
-	  id: 4,
-	  name: 'Task Manager',
-	  description: 'Full-stack web organization that users can create accounts and within each account create and manage tasks or lists and add/remove content from those lists',
-	  employs: ['Angular.js', 'Node.js server with express routing', 'Secure authentication with jsonwebtokens', 'SASS styling', 'webpack bundling', 'bootstrap', 'font-awesome icons', 'Deployed on heroku'],
-	  githubUrl: ['https://github.com/dylanjsa90/task-manager'],
-	  deployedUrl: 'https://task-list-manager.herokuapp.com'
-	}];
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/e3c78811f3ddd46f81b26a440f51d695-abstract-blue-light-vector-background.jpg";
-
-/***/ },
-/* 37 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(38)(app);
-	  __webpack_require__(40)(app);
+	  __webpack_require__(44)(app);
 	  __webpack_require__(46)(app);
-	  __webpack_require__(49)(app);
-	  __webpack_require__(51)(app);
+	  __webpack_require__(48)(app);
+	  __webpack_require__(50)(app);
+	  __webpack_require__(53)(app);
+	  __webpack_require__(55)(app);
 	};
 
 /***/ },
-/* 38 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42435,7 +42505,7 @@
 	module.exports = function (app) {
 	  app.component('navBar', {
 	    controller: 'NavController',
-	    template: __webpack_require__(39)
+	    template: __webpack_require__(45)
 	  });
 
 	  app.controller('NavController', ['$location', function ($location) {
@@ -42481,53 +42551,10 @@
 	};
 
 /***/ },
-/* 39 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav id=\"navbar-main\" data-ng-init=\"$ctrl.currentTab()\">\n\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">D/S</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a data-ng-click=\"$ctrl.go('home')\" ><li data-ng-class=\"{'nav-selected': $ctrl.home}\">HOME</li></a>\n    <a data-ng-click=\"$ctrl.go('about')\" ><li data-ng-class=\"{'nav-selected': $ctrl.about}\">ABOUT ME</li></a>\n    <a data-ng-click=\"$ctrl.go('projects')\" ><li data-ng-class=\"{'nav-selected': $ctrl.projects}\">PROJECTS</li></a>\n    <a data-ng-click=\"$ctrl.go('contact')\" ><li data-ng-class=\"{'nav-selected': $ctrl.contact}\">CONTACT</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a href=\"#/home\" data-ng-click=\"$ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a href=\"#/about\" data-ng-click=\"$ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a href=\"#/projects\" data-ng-click=\"$ctrl.toggle()\">PROJECTS</a></li>\n    <li role=\"presentation\"><a href=\"#/contact\" data-ng-click=\"$ctrl.toggle()\">CONTACT</a></li>\n  </ul>\n</div>";
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function (app) {
-	  app.component('project', {
-	    template: __webpack_require__(41),
-	    controller: 'ProjectController'
-	  });
-	};
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<div>\n  <h1 class=\"section-title\">Projects</h1>\n    <div class=\"project-thumbnail-container row\">\n      <div class=\"project-thumbnail\" data-ng-class=\"{'selected': $ctrl.showPi}\">\n         <img src=\"" + __webpack_require__(42) + "\" alt=\"First slide\" data-holder-rendered=\"true\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayPi()\">\n      </div>\n      <div class=\"project-thumbnail nosy\" data-ng-class=\"{'selected': $ctrl.showNosy}\">\n        <img src=\"" + __webpack_require__(43) + "\" alt=\"Nosy Neighbor preview\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayNosyNeighbor()\">  \n      </div>\n      <div class=\"project-thumbnail fsrm\" data-ng-class=\"{'selected': $ctrl.showFakeSports}\">\n        <img src=\"" + __webpack_require__(44) + "\" alt=\"Fake Sports Real Money\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayFakeSports()\">  \n      </div>\n      <div class=\"project-thumbnail list-manager\" data-ng-class=\"{'selected': $ctrl.showTodo}\">\n        <img src=\"" + __webpack_require__(45) + "\" alt=\"List manager\" style=\"width: 100px; height: 100px;\" data-ng-click=\"$ctrl.displayTodo()\">  \n      </div>\n    </div>\n\n  <div class=\"project-container\" data-ng-show=\"$ctrl.showPi\">\n    <h2>Ultimate Pi | September 2016 | <a href=\"https://github.com/sendjmoon/Ultimate-Pi\"><i class=\"fa fa-github\"></i> FE</a> &\n    <a href=\"https://github.com/dylanjsa90/UltimatePi-api\" target=\"_blank\"><i class=\"fa fa-github\"></i> BE</a> | <a href=\"http://ultimate-pi.herokuapp.com\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Full-Stack responsive web app that enables the client to use a configured Raspberry Pi as an IR remote</p>\n    <h3>Project Employs:</h3>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Secure authentication system with registration</li>\n      <li>Custom built angular components</li>\n      <li>Sleek and intuitive remote UI</li>\n      <li>Webpack bundling</li>\n      <li>SCSS styling</li>\n      <li>Bootstrap</li>\n      <li>Font-awesome for Icons</li>\n      <li>TDD: Karma w/jasmine for frontend testing</li>\n      <li>TDD: Mocha with chai for backend testing</li>\n      <li>Deployed on Heroku</li>\n    </ul>   \n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showFakeSports\">\n    <h2>Fake Sports Real Money | August 2016 | <a href=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\"><i class=\"fa fa-github\"></i></a> |  \n    <a title=\"{{$ctrl.clickToCopy}}\" class=\"click-copy\" ngclipboard data-clipboard-text=\"https://github.com/FakeSportsRealMoney/FakeSportsRealMoney\" ngclipboard-success=\"$ctrl.onSuccess(e)\" ngclipboard-error=\"$ctrl.onError(e)\">Base API</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Pure node.js app for fantasy sports league commissioners which after initial setup will send a daily text and email reminder to members with overdue balances\n      that they need to pay</p>\n    <h3>Project Employs: </h3>\n    <ul class=\"employs-list\">\n      <li>Twilio API for daily text reminders</li>\n      <li>Node-mailer for sending the daily email reminders</li>\n      <li>Cron for time tracking and to send daily reminders on overdue users</li>\n      <li>Express middleware</li>\n      <li>TDD</li>\n      <li>Deployed on Heroku</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showNosy\">\n    <h2>Nosy Neighbor | June 2016 | <a href=\"https://github.com/crashtack/301-team-project\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://projectstage-a6114.firebaseapp.com/\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">Responsive web application for checking new construction and development in areas and neighborhoods within Seattle</p>\n    <h3>Project Employs:</h3>\n    <ul class=\"employs-list\">\n      <li>Single page architecture</li>\n      <li>Google Maps API with Places library</li>  \n      <li>Node.js with Express for the server</li>\n      <li>WebDB for the database (SQLite)</li>\n      <li>City of Seattle API for gathering construction permit data</li>\n      <li>MVC Architecture</li>\n      <li>Deployed on Firebase</li>\n    </ul>\n  </div>\n\n  <div class=\"project-container\" ng-show=\"$ctrl.showTodo\">\n    <h2>Task Manager | September 2016 | <a href=\"https://github.com/dylanjsa90/task-manager\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"http://list-task-manager.herokuapp.com/\">Deployed Here</a></h2>\n    <h3>Description</h3>\n    <p class=\"project-description\">A simple full-stack app for managing tasks or todo lists, users signup and then can create personal lists and add/remove content</p>\n    <h3>Project Employs</h3>\n    <ul class=\"employs-list\">\n      <li>Angular.js</li>\n      <li>Node.js server with express routing</li>\n      <li>User sign-up/sign-in</li>\n      <li>Data persistance with MongoDB</li>\n    </ul>\n  </div>\n</div>\n</div>";
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
 
 /***/ },
 /* 46 */
@@ -42536,99 +42563,132 @@
 	'use strict';
 
 	module.exports = function (app) {
-	  app.component('contactInfo', {
+	  app.controller('projectController', function () {
+	    this.project = this.projectData;
+	  });
+
+	  app.component('project', {
+	    controller: 'projectController',
 	    template: __webpack_require__(47),
-	    controller: function controller() {}
+	    bindings: {
+	      projectData: '<',
+	      id: '<'
+	    }
 	  });
 	};
 
 /***/ },
 /* 47 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	module.exports = "<div class=\"contact-info-container\">\n  <h1 class=\"section-title\">Contact</h1>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(48) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></a></span></li>\n      </ul>\n  </div>\n</div>";
+	module.exports = "<div>\n  <h2>{{$ctrl.project.name}} | {{$ctrl.project.date}} | \n    <a style=\"margin-right: 3px; margin-left: 3px;\" ng-repeat=\"(key, url) in $ctrl.project.urls\" ng-href=\"{{url}}\" target=\"_blank\"><i class=\"project-link fa {{key}}\"></i></a> | \n  <a ng-href=\"{{$ctrl.project.deployedUrl}}\" target=\"_blank\">Deployed</a></h2>\n  <h3>Description</h3>\n  <p class=\"project-description\">{{$ctrl.project.description}}</p>\n  <h3>Project employs</h3>\n  <ul class=\"employs-list\">\n    <li data-ng-repeat=\"property in $ctrl.project.employs\">{{property}}</li>\n  </ul>\n</div>";
 
 /***/ },
 /* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/8b8eb5ad28c7cd3fbf84bbfd460a13f9-profile-edit.jpg";
+	'use strict';
+
+	module.exports = function (app) {
+	  app.component('projectsComponent', {
+	    template: __webpack_require__(49),
+	    controller: 'ProjectController'
+	  });
+	};
 
 /***/ },
 /* 49 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"projects-container\">\n  <h1 class=\"section-title\" ng-hide=\"$ctrl.projectActive\">Projects</h1>\n  <div class=\"project-thumbnail-container\" ng-hide=\"$ctrl.projectActive\">\n    <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n      <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n    </div>\n  </div>\n  <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n    <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n    <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()\"><i class=\"fa fa-undo\"></i></a>\n    <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n  </div>\n\n  <h3 ng-click=\"$ctrl.toggleSkills()\" class=\"skill-link\">{{$ctrl.skillText}}</h3>\n  <div ng-show=\"$ctrl.skills.length > 0\" class=\"skill-div\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\" ng-hide=\"$ctrl.projectActive\">Proficient</li>  \n          <li data-ng-repeat=\"skill in $ctrl.skills\">{{skill}}</li> \n        </ul> \n\n        <ul class=\"skills-container\" ng-hide=\"$ctrl.projects.length !== 0\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n            <li>React</li>\n        </ul>   \n  </div>\n  <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n    <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n  </div>\n</div>";
+
+/***/ },
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  app.controller('AboutController', function () {
-	    this.showBio = false;
-	    this.showSkills = false;
-
-	    this.toggleBio = function () {
-	      this.showSkills = false;
-	      this.showBio = !this.showBio;
-	    };
-
-	    this.toggleSkills = function () {
-	      this.showBio = false;
-	      this.showSkills = !this.showSkills;
-	    };
-	  });
-
-	  app.component('aboutComponent', {
-	    controller: 'AboutController',
-	    template: __webpack_require__(50)
+	  app.component('contactInfo', {
+	    template: __webpack_require__(51),
+	    controller: function controller() {}
 	  });
 	};
 
 /***/ },
-/* 50 */
-/***/ function(module, exports) {
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"about-container-primary\">\n  <h1 class=\"section-title text-center\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n    <ul class=\"text-center\">\n      <li class=\"about-links\" data-ng-click=\"$ctrl.toggleBio()\" data-ng-class=\"{'tab-selected': $ctrl.showBio}\">Bio</li> \n      <li class=\"about-links\" data-ng-click=\"$ctrl.toggleSkills()\" data-ng-class=\"{'tab-selected': $ctrl.showSkills}\">Skills</li>\n    </ul>\n\n    <div class=\"container bio-container\" data-ng-show=\"$ctrl.showBio\">\n      <div class=\"about-description\">\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>\n    </div>\n\n    <div class=\"container skills-container\" data-ng-show=\"$ctrl.showSkills\">\n\n    <h3 class=\"text-center\">Technical Skills:</h3>    \n    <div class=\"row\">\n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Proficient</li>  \n          <li>Node.js</li>\n          <li>Angular.js</li>\n          <li>Javascript</li>\n          <li>MongoDB</li>\n          <li>HTML5 \n          <li>CSS/SASS</li>\n          <li>jQuery</li>\n          <li>RESTful API</li> \n        </ul> \n      </div> \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n            <li>React</li>\n            <li>Ruby On Rails</li>\n        </ul>   \n      </div>  \n      <div class=\"col-sm-8 skills-container\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\">Interests/Stretch Goals</li> \n          <li>D3 (Data-visualization tools)</li>\n          <li>Python</li>\n          <li>Django</li>\n        </ul> \n      </div>\n    </div>\n  </div>\n  </div>        \n  </div>\n      \n</div>";
+	module.exports = "<div class=\"contact-info-container\">\n  <h1 class=\"section-title\">Contact</h1>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(52) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n        <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n      </ul>\n  </div>\n</div>";
 
 /***/ },
-/* 51 */
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/8b8eb5ad28c7cd3fbf84bbfd460a13f9-profile-edit.jpg";
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  app.controller('AboutController', function () {});
+
+	  app.component('aboutComponent', {
+	    controller: 'AboutController',
+	    template: __webpack_require__(54)
+	  });
+	};
+
+/***/ },
+/* 54 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"about-container-primary\">\n  <h1 class=\"section-title text-center\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n    <div class=\"container bio-container\">\n      <div class=\"about-description\">\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>\n    </div>\n  </div>        \n</div>";
+
+/***/ },
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('footerComponent', {
-	    template: __webpack_require__(52)
+	    template: __webpack_require__(56)
 	  });
 	};
-
-/***/ },
-/* 52 */
-/***/ function(module, exports) {
-
-	module.exports = "<footer id=\"footer\">\n  <div class=\"container\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a></p> \n  </div>\n</footer>";
-
-/***/ },
-/* 53 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
-
-/***/ },
-/* 54 */
-/***/ function(module, exports) {
-
-	module.exports = "<about-component></about-component>\n";
-
-/***/ },
-/* 55 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"projects-container\">\n  <project class=\"project-component-container\"></project>\n</div>";
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"contact-container\">\n  <contact-info class=\"contact-container\"></contact-info>  \n</div>";
+	module.exports = "<footer id=\"footer\">\n  <div class=\"container\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\" target=\"_blank\"><i class=\"fa fa-linkedin\"></i> | </a>\n    <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a>\n    </p> \n  </div>\n</footer>";
+
+/***/ },
+/* 57 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+	module.exports = "<about-component></about-component>\n";
+
+/***/ },
+/* 59 */
+/***/ function(module, exports) {
+
+	module.exports = "<projects-component></projects-component>\n";
+
+/***/ },
+/* 60 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"contact-container\">\n  <contact-info></contact-info>  \n</div>";
 
 /***/ }
 /******/ ]);

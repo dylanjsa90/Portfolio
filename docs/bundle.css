@@ -5314,11 +5314,13 @@ contact-info {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1; }
+  .contact-container h2 {
+    text-align: center; }
 
 .contact {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 60%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5332,23 +5334,8 @@ contact-info {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center; }
-
-.contact-info-container h2 {
-  text-align: center; }
-
-.contact-info-container {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
+  .contact img {
+    border-radius: 50%; }
 
 .projects-container {
   height: 100%;
@@ -5366,38 +5353,15 @@ contact-info {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1; }
+  .projects-container li {
+    list-style: none; }
 
-.project-component-container {
-  text-align: center;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-              -ms-grid-row-align: stretch;
-          align-items: stretch;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column; }
-
-.projects-container li {
-  list-style: none; }
-
-.project-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch; }
-
-.project-containers h1, h3, h5 {
-  font-weight: bold; }
+.project-wrapper {
+  width: 90%;
+  margin: auto;
+  text-align: center; }
+  .project-wrapper h1, .project-wrapper h3, .project-wrapper h5 {
+    font-weight: bold; }
 
 .project-thumbnail-container {
   display: -webkit-box;
@@ -5418,13 +5382,36 @@ contact-info {
 
 .project-thumbnail {
   margin: 5px;
-  border: 1px solid black; }
+  border-radius: 3px;
+  border: 1px solid black;
+  height: 75px;
+  width: 75px; }
 
-.self-img {
-  border-radius: 50%; }
+.project-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 60%;
+  margin: auto;
+  margin-top: 10px; }
+  .project-controls i {
+    font-size: 200%; }
+    .project-controls i:hover {
+      cursor: pointer; }
 
-.profile-image {
-  padding: 0px; }
+.skill-div {
+  text-align: center;
+  width: 80%;
+  margin: auto; }
+
+.skill-link {
+  margin-top: 30px;
+  text-align: center;
+  cursor: pointer;
+  color: grey;
+  text-decoration: underline; }
 
 .hidden-xs {
   display: -webkit-box;
@@ -5444,8 +5431,10 @@ footer {
   text-align: center;
   background-color: dodgerblue;
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-size: 150%;
   font-weight: bold; }
+  footer i {
+    font-size: 3rem; }
 
 a {
   color: darkblue; }
@@ -5607,7 +5596,9 @@ nav-bar {
   font-weight: bolder;
   color: white;
   text-decoration: underline;
-  background-color: black;
+  background-color: darkblue;
+  opacity: .5;
+  border-radius: 5px;
   padding-right: 5px; }
 
 .click-copy {
@@ -5629,18 +5620,21 @@ i.fa-linkedin {
   font-size: 3rem;
   color: blue; }
 
+i.fa-codepen {
+  font-size: 100%; }
+
 .contact-intro {
   color: darkmagenta;
   margin-right: 5px; }
 
-.contact-info {
+.contact-info li {
   list-style: none;
   font-size: 20px;
   font-family: 'Source Sans Pro', sans-serif; }
 
 ul.skills-container li {
   list-style: none;
-  margin: 5px 5px 5px 5px;
+  margin: 2px;
   padding: 0 5px 0 5px;
   font-family: 'Open Sans', sans-serif; }
 
@@ -5668,7 +5662,7 @@ ul.skills-container li {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   font-family: 'Open Sans', sans-serif; }
 
@@ -5677,13 +5671,16 @@ ul.skills-container li {
   background-color: black; }
 
 .project-description {
-  font-size: 18px; }
+  font-size: 18px;
+  width: 80%;
+  margin: auto; }
 
 .project-container {
   font-family: 'Merriweather', sans-serif; }
 
 ul.employs-list li {
-  font-size: 18px; }
+  font-size: 18px;
+  text-align: center; }
 
 .selected {
   border: 2px solid red; }
@@ -5700,6 +5697,8 @@ ul.employs-list li {
   font-family: 'Merriweather'; }
 
 @media (max-width: 768px) {
+  .skill-div {
+    width: 100%; }
   .container-fluid {
     background-color: transparent;
     display: -webkit-box;

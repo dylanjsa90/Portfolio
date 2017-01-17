@@ -1,66 +1,59 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProjectController', ['$scope', function($scope) {
-    $scope.prev = null;
-    $scope.next = null;
-    // $scope.project = projectService.get({projectId: $routeParams.projectId});
-    // $scope.projects = projectService.query();
-    this.clickToCopy = 'Click to Copy';
+  app.controller('ProjectController', ['projectService',  function(projectService) {
+    this.projectThumbnails = projectService.getAll();
+    this.skillText = 'Technical Skills';
+    this.projectId;
+    this.projectActive = false;
+    this.projects = [];
+    this.skills = projectService.getProficient();
 
+    this.resetSkills = function() {
+      this.skills = projectService.getProficient();
+      this.skillText = 'Technical Skills';
+    };
+    
+    this.toggleSkills = function() {
+      (this.skills.length > 0) ? this.skills = [] : this.skills = projectService.getProficient();
+    };
+
+    this.loadThumbnail = function(thumbPath) {
+      return (thumbPath);
+    };
+    
+    this.viewProject = function(index) {
+      this.projects.push(projectService.getAtIndex(index));
+      this.skills = this.projects[0].skills;
+      this.skillText = 'This project uses the following skills:';
+      this.projectId = index;
+    };
+
+    this.toggleThumbnail = function(project) {
+      (this.projectId === project) ? this.projectId = undefined : this.projectId = project;
+      this.projectActive = this.projectId !== undefined;
+    };
+
+    this.next = function() {
+      this.projectId = projectService.nextProject(this.projectId).id;
+      this.projects[0] = projectService.getAtIndex(this.projectId);
+      this.skills = this.projects[0].skills;
+    };
+
+    this.prev = function() {
+      this.projectId = projectService.previousProject(this.projectId).id;
+      this.projects[0] = projectService.getAtIndex(this.projectId);
+      this.skills = this.projects[0].skills;
+    };
+
+    this.clickToCopy = 'Click to Copy';
     this.onSuccess = function(e) {
       this.clickToCopy = 'Copied';
-      console.info('Action:', e.action);
-      console.info('Text:', e.text);
-      console.info('Trigger:', e.trigger);
       e.clearSelection();
     };
 
     this.onError = function(e) {
       this.clickToCopy = 'Copy Failed, Press your OS keyboard shortcut for copy';
     };
-
-
-    this.showPi = false;
-    this.showFakeSports = false;
-    this.showNosy = false;
-    this.showTodo = false;
-    this.projects = require('../lib/projectData');
-    this.projectThumbnails = [];
-
-    this.populateThumbnails = function() {
-      this.projects.forEach(function(p) {
-        this.projectThumbnails.push({thumbnailUrl: p.thumbnailUrl, name: p.name});
-      });
-    };
-    
-    this.displayPi = function() {
-      this.showPi = !this.showPi;
-      this.showFakeSports = false;
-      this.showNosy = false;
-      this.showTodo = false;
-    };
-
-    this.displayNosyNeighbor = function() {
-      this.showNosy = !this.showNosy;
-      this.showPi = false;
-      this.showFakeSports = false;
-      this.showTodo = false;
-    };  
-
-    this.displayFakeSports = function() {
-      this.showFakeSports = !this.showFakeSports;
-      this.showPi = false;
-      this.showNosy = false;
-      this.showTodo = false;
-    };
-    
-    this.displayTodo = function() {
-      this.showTodo = !this.showTodo;
-      this.showPi = false;
-      this.showNosy = false;
-      this.showFakeSports = false;
-    };
-    
   }]);
 };

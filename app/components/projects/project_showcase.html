@@ -1,11 +1,31 @@
-<div class="project-container" data-ng-init="$ctrl.findProjectId()">
-  <a href="#/" class="float-left fa fa-arrow-left">
-  <p class="inline">Back</p>
-  </a>
+<div class="projects-container">
+  <h1 class="section-title" ng-hide="$ctrl.projectActive">Projects</h1>
+  <div class="project-thumbnail-container" ng-hide="$ctrl.projectActive">
+    <div ng-repeat="projectThumb in $ctrl.projectThumbnails">
+      <img ng-src="{{projectThumb.thumbnailUrl}}" class="project-thumbnail thumbnail" alt="project thumbnail" data-ng-class="{'selected': $ctrl.projectId == $index}" ng-bind="projectThumb.name" data-ng-click="$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)" data-project="project">
+    </div>
+  </div>
+  <div class="project-controls" ng-show="$ctrl.projectActive">
+    <a ng-click="$ctrl.prev()"><i class="fa fa-arrow-circle-left"></i></a>
+    <a ng-click="$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()"><i class="fa fa-undo"></i></a>
+    <a ng-click="$ctrl.next()"><i class="fa fa-arrow-circle-right"></i></a>
+  </div>
 
-  <h1>{{$ctrl.currentProject.name}}</h1>
-  <h4>{{projectCtrl.currentProject.description}}</h4>
-  <button type="submit" class="fa fa-list" data-ng-click="projectCtrl.showMore = true"></button>
-  <div data-project data-ng-show="project.showMore"></div>
-  
+  <h3 ng-click="$ctrl.toggleSkills()" class="skill-link">{{$ctrl.skillText}}</h3>
+  <div ng-show="$ctrl.skills.length > 0" class="skill-div">
+        <ul class="skills-container">
+          <li class="skill-title" ng-hide="$ctrl.projectActive">Proficient</li>  
+          <li data-ng-repeat="skill in $ctrl.skills">{{skill}}</li> 
+        </ul> 
+
+        <ul class="skills-container" ng-hide="$ctrl.projects.length !== 0">
+            <li class="skill-title">Intermediate</li> 
+            <li>Java</li>
+            <li>SQL</li>
+            <li>React</li>
+        </ul>   
+  </div>
+  <div class="project-wrapper" data-ng-repeat="project in $ctrl.projects">
+    <project project-data="project" id="$ctrl.projectId" class="fade"></project>
+  </div>
 </div>

@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.component('project', {
-    template: require('./project_template.html'),
+  app.component('projectsComponent', {
+    template: require('./project_showcase.html'),
     controller: 'ProjectController',
   });
-  
 };

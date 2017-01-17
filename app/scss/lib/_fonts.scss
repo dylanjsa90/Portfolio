@@ -20,13 +20,13 @@
   font-size: 18px;
 }
 
-
 .skill-title {
-  // text-align: center;
   font-weight: bolder;
   color: white;
   text-decoration: underline;
-  background-color: black;
+  background-color: darkblue;
+  opacity: .5;
+  border-radius: 5px;
   padding-right: 5px;
 }
 
@@ -36,7 +36,6 @@
 .main-skill-container {
   padding: 1.5%;
 }
-
 
 .intro-heading {
   font-size: 4rem;
@@ -55,12 +54,16 @@ i.fa-linkedin {
   color: blue;
 }
 
+i.fa-codepen {
+  font-size: 100%;
+}
+
 .contact-intro {
   color: darkmagenta;
   margin-right: 5px;
 }
 
-.contact-info {
+.contact-info li {
   list-style: none;
   font-size: 20px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -69,13 +72,9 @@ i.fa-linkedin {
 
 ul.skills-container li {
   list-style: none;
-  // text-align: center;
-  // border-radius: 25%;
-  margin: 5px 5px 5px 5px;
+  margin: 2px;
   padding: 0 5px 0 5px;
   font-family: 'Open Sans', sans-serif;
-  // color: $app-about-primary-color;
-  // text-align: center;
   }
 
 .main-skill-container {
@@ -89,7 +88,7 @@ ul.skills-container li {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     font-family: 'Open Sans', sans-serif;
 }
@@ -101,6 +100,8 @@ ul.skills-container li {
 
 .project-description {
   font-size: 18px;
+  width: 80%;
+  margin: auto;
 }
 
 .project-container {
@@ -109,6 +110,7 @@ ul.skills-container li {
 
 ul.employs-list li {
   font-size: 18px;
+  text-align: center;
 }
 
 .selected {
