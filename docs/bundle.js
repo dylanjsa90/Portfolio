@@ -51,12 +51,12 @@
 	__webpack_require__(1);
 	__webpack_require__(2);
 
-	var angular = __webpack_require__(13);
-	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(15), __webpack_require__(17), __webpack_require__(26), __webpack_require__(28)]);
+	var angular = __webpack_require__(14);
+	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(16), __webpack_require__(18), __webpack_require__(27), __webpack_require__(29)]);
 
-	__webpack_require__(30)(portfolioApp);
-	__webpack_require__(40)(portfolioApp);
-	__webpack_require__(43)(portfolioApp);
+	__webpack_require__(31)(portfolioApp);
+	__webpack_require__(41)(portfolioApp);
+	__webpack_require__(44)(portfolioApp);
 
 	portfolioApp.run(['$rootScope', function ($rs) {
 	  $rs.baseUrl = '' + ("http://localhost:3000"), $rs.userConfig = {
@@ -105,15 +105,16 @@
 /* 10 */,
 /* 11 */,
 /* 12 */,
-/* 13 */
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(14);
+	__webpack_require__(15);
 	module.exports = angular;
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	/**
@@ -31886,15 +31887,15 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(16);
+	__webpack_require__(17);
 	module.exports = 'ngRoute';
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -32969,7 +32970,7 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! ngclipboard - v1.1.1 - 2016-02-26
@@ -32982,8 +32983,8 @@
 	    
 	    // Check for CommonJS support
 	    if (typeof module === 'object' && module.exports) {
-	      angular = __webpack_require__(13);
-	      Clipboard = __webpack_require__(18);
+	      angular = __webpack_require__(14);
+	      Clipboard = __webpack_require__(19);
 	      module.exports = MODULE_NAME;
 	    } else {
 	      angular = window.angular;
@@ -33023,12 +33024,12 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(19), __webpack_require__(21), __webpack_require__(22)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(20), __webpack_require__(22), __webpack_require__(23)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -33213,12 +33214,12 @@
 	});
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(20)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(21)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -33447,7 +33448,7 @@
 	});
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -33486,7 +33487,7 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	function E () {
@@ -33558,11 +33559,11 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(23);
-	var delegate = __webpack_require__(24);
+	var is = __webpack_require__(24);
+	var delegate = __webpack_require__(25);
 
 	/**
 	 * Validates all params and calls the right
@@ -33659,7 +33660,7 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	/**
@@ -33714,10 +33715,10 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(25);
+	var closest = __webpack_require__(26);
 
 	/**
 	 * Delegates event to a selector.
@@ -33764,7 +33765,7 @@
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -33798,15 +33799,15 @@
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(27);
+	__webpack_require__(28);
 	module.exports = 'ngTouch';
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/**
@@ -34547,16 +34548,16 @@
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(29);
+	__webpack_require__(30);
 
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports) {
 
 	/*
@@ -42185,25 +42186,25 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
 
 /***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function (app) {
-	  // require('./github_service')(app);
-	  __webpack_require__(31)(app);
-	};
-
-/***/ },
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
+	  // require('./github_service')(app);
+	  __webpack_require__(32)(app);
+	};
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
 	  app.factory('projectService', function () {
-	    var projects = __webpack_require__(32);
+	    var projects = __webpack_require__(33);
 	    var projectService = {
 	      getAll: function getAll() {
 	        return projects;
@@ -42232,7 +42233,7 @@
 	};
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42246,7 +42247,7 @@
 	  skills: ['Angular.js', 'Node.js', 'Express.js', 'Webpack', 'SCSS', 'Bootstrap', 'HTML5', 'MongoDB', 'JavaScript', 'RESTful Architecture', 'Unit Testing'],
 	  deployedUrl: 'http://ultimate-pi.herokuapp.com',
 	  urls: { 'fa-github': 'https://github.com/sendjmoon/Ultimate-Pi', 'fa-github-square': 'https://github.com/dylanjsa90/UltimatePi-api' },
-	  thumbnailUrl: __webpack_require__(33)
+	  thumbnailUrl: __webpack_require__(34)
 
 	}, {
 	  id: 1,
@@ -42258,7 +42259,7 @@
 	  githubUrl: ['https://github.com/FakeSportsRealMoney/FakeSportsRealMoney'],
 	  deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
 	  urls: { 'fa-github': 'https://github.com/FakeSportsRealMoney/FakeSportsRealMoney' },
-	  thumbnailUrl: __webpack_require__(34)
+	  thumbnailUrl: __webpack_require__(35)
 	}, {
 	  id: 2,
 	  name: 'Nosy Neighbor',
@@ -42269,7 +42270,7 @@
 	  githubUrl: 'https://github.com/crashtack/301-team-project',
 	  deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
 	  urls: { 'fa-github': 'https://github.com/crashtack/301-team-project' },
-	  thumbnailUrl: __webpack_require__(35)
+	  thumbnailUrl: __webpack_require__(36)
 	}, {
 	  id: 3,
 	  name: 'Task Manager',
@@ -42280,7 +42281,7 @@
 	  githubUrl: ['https://github.com/dylanjsa90/task-manager'],
 	  urls: { 'fa-github': 'https://github.com/dylanjsa90/task-manager' },
 	  deployedUrl: 'https://task-list-manager.herokuapp.com',
-	  thumbnailUrl: __webpack_require__(36)
+	  thumbnailUrl: __webpack_require__(37)
 	}, {
 
 	  id: 4,
@@ -42291,7 +42292,7 @@
 	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
 	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/jybbPa' },
 	  deployedUrl: 'http://codepen.io/dylansa90/full/jybbPa',
-	  thumbnailUrl: __webpack_require__(37)
+	  thumbnailUrl: __webpack_require__(38)
 
 	}, {
 	  id: 5,
@@ -42302,7 +42303,7 @@
 	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
 	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/LxpGmj/' },
 	  deployedUrl: 'http://codepen.io/dylansa90/full/LxpGmj/',
-	  thumbnailUrl: __webpack_require__(38)
+	  thumbnailUrl: __webpack_require__(39)
 	}, {
 	  id: 6,
 	  name: 'Wikipedia Explorer',
@@ -42312,64 +42313,64 @@
 	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
 	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/NdGReZ/' },
 	  deployedUrl: 'http://codepen.io/dylansa90/full/NdGReZ/',
-	  thumbnailUrl: __webpack_require__(39)
+	  thumbnailUrl: __webpack_require__(40)
 	}];
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
 
 /***/ },
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
+	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
 
 /***/ },
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
+	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
 
 /***/ },
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
+	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
 
 /***/ },
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/d3370610b0b07f3ef9ca98a2b866f829-famous_quote.jpg";
+	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
 
 /***/ },
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/1c4ee3dee0b58f6062b0b4073f87f73d-local_weather.jpg";
+	module.exports = __webpack_require__.p + "image/d3370610b0b07f3ef9ca98a2b866f829-famous_quote.jpg";
 
 /***/ },
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "image/f950cffcba0f4531b5cc86777cd6f12d-wikipedia.jpg";
+	module.exports = __webpack_require__.p + "image/1c4ee3dee0b58f6062b0b4073f87f73d-local_weather.jpg";
 
 /***/ },
 /* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	module.exports = function (app) {
-	  __webpack_require__(41)(app);
-	  __webpack_require__(42)(app);
-	};
+	module.exports = __webpack_require__.p + "image/f950cffcba0f4531b5cc86777cd6f12d-wikipedia.jpg";
 
 /***/ },
 /* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  __webpack_require__(42)(app);
+	  __webpack_require__(43)(app);
+	};
+
+/***/ },
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -42418,7 +42419,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -42482,22 +42483,22 @@
 	};
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(44)(app);
-	  __webpack_require__(46)(app);
-	  __webpack_require__(48)(app);
-	  __webpack_require__(50)(app);
+	  __webpack_require__(45)(app);
+	  __webpack_require__(47)(app);
+	  __webpack_require__(49)(app);
+	  __webpack_require__(51)(app);
 	  __webpack_require__(53)(app);
 	  __webpack_require__(55)(app);
 	};
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42505,7 +42506,7 @@
 	module.exports = function (app) {
 	  app.component('navBar', {
 	    controller: 'NavController',
-	    template: __webpack_require__(45)
+	    template: __webpack_require__(46)
 	  });
 
 	  app.controller('NavController', ['$location', function ($location) {
@@ -42551,13 +42552,13 @@
 	};
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav id=\"navbar-main\" data-ng-init=\"$ctrl.currentTab()\">\n\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">D/S</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a data-ng-click=\"$ctrl.go('home')\" ><li data-ng-class=\"{'nav-selected': $ctrl.home}\">HOME</li></a>\n    <a data-ng-click=\"$ctrl.go('about')\" ><li data-ng-class=\"{'nav-selected': $ctrl.about}\">ABOUT ME</li></a>\n    <a data-ng-click=\"$ctrl.go('projects')\" ><li data-ng-class=\"{'nav-selected': $ctrl.projects}\">PROJECTS</li></a>\n    <a data-ng-click=\"$ctrl.go('contact')\" ><li data-ng-class=\"{'nav-selected': $ctrl.contact}\">CONTACT</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a href=\"#/home\" data-ng-click=\"$ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a href=\"#/about\" data-ng-click=\"$ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a href=\"#/projects\" data-ng-click=\"$ctrl.toggle()\">PROJECTS</a></li>\n    <li role=\"presentation\"><a href=\"#/contact\" data-ng-click=\"$ctrl.toggle()\">CONTACT</a></li>\n  </ul>\n</div>";
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42569,7 +42570,7 @@
 
 	  app.component('project', {
 	    controller: 'projectController',
-	    template: __webpack_require__(47),
+	    template: __webpack_require__(48),
 	    bindings: {
 	      projectData: '<',
 	      id: '<'
@@ -42578,54 +42579,48 @@
 	};
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n  <h2>{{$ctrl.project.name}} | {{$ctrl.project.date}} | \n    <a style=\"margin-right: 3px; margin-left: 3px;\" ng-repeat=\"(key, url) in $ctrl.project.urls\" ng-href=\"{{url}}\" target=\"_blank\"><i class=\"project-link fa {{key}}\"></i></a> | \n  <a ng-href=\"{{$ctrl.project.deployedUrl}}\" target=\"_blank\">Deployed</a></h2>\n  <h3>Description</h3>\n  <p class=\"project-description\">{{$ctrl.project.description}}</p>\n  <h3>Project employs</h3>\n  <ul class=\"employs-list\">\n    <li data-ng-repeat=\"property in $ctrl.project.employs\">{{property}}</li>\n  </ul>\n</div>";
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('projectsComponent', {
-	    template: __webpack_require__(49),
+	    template: __webpack_require__(50),
 	    controller: 'ProjectController'
 	  });
 	};
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"projects-container\">\n  <h1 class=\"section-title\" ng-hide=\"$ctrl.projectActive\">Projects</h1>\n  <div class=\"project-thumbnail-container\" ng-hide=\"$ctrl.projectActive\">\n    <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n      <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n    </div>\n  </div>\n  <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n    <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n    <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()\"><i class=\"fa fa-undo\"></i></a>\n    <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n  </div>\n\n  <h3 ng-click=\"$ctrl.toggleSkills()\" class=\"skill-link\">{{$ctrl.skillText}}</h3>\n  <div ng-show=\"$ctrl.skills.length > 0\" class=\"skill-div\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\" ng-hide=\"$ctrl.projectActive\">Proficient</li>  \n          <li data-ng-repeat=\"skill in $ctrl.skills\">{{skill}}</li> \n        </ul> \n\n        <ul class=\"skills-container\" ng-hide=\"$ctrl.projects.length !== 0\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n            <li>React</li>\n        </ul>   \n  </div>\n  <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n    <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n  </div>\n</div>";
+	module.exports = "<div class=\"container\">\n  <h1 class=\"section-title\" ng-hide=\"$ctrl.projectActive\">Projects</h1>\n  <div class=\"project-thumbnail-container\" ng-hide=\"$ctrl.projectActive\">\n    <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n      <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n    </div>\n  </div>\n  <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n    <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n    <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()\"><i class=\"fa fa-undo\"></i></a>\n    <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n  </div>\n\n  <h3 ng-click=\"$ctrl.toggleSkills()\" class=\"skill-link\">{{$ctrl.skillText}}</h3>\n  <div ng-show=\"$ctrl.skills.length > 0\" class=\"skill-div\">\n        <ul class=\"skills-container\">\n          <li class=\"skill-title\" ng-hide=\"$ctrl.projectActive\">Proficient</li>  \n          <li data-ng-repeat=\"skill in $ctrl.skills\">{{skill}}</li> \n        </ul> \n\n        <ul class=\"skills-container\" ng-hide=\"$ctrl.projects.length !== 0\">\n            <li class=\"skill-title\">Intermediate</li> \n            <li>Java</li>\n            <li>SQL</li>\n            <li>React</li>\n        </ul>   \n  </div>\n  <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n    <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n  </div>\n</div>";
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('contactInfo', {
-	    template: __webpack_require__(51),
+	    template: __webpack_require__(52),
 	    controller: function controller() {}
 	  });
 	};
 
 /***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<div class=\"contact-info-container\">\n  <h1 class=\"section-title\">Contact</h1>\n  <div class=\"contact\">\n    <img class=\"self-img\" src=\"" + __webpack_require__(52) + "\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n        <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n      </ul>\n  </div>\n</div>";
-
-/***/ },
 /* 52 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	module.exports = __webpack_require__.p + "image/8b8eb5ad28c7cd3fbf84bbfd460a13f9-profile-edit.jpg";
+	module.exports = "<div class=\"contact-wrapper\">\n  <div class=\"contact\">\n    <h1 class=\"section-title\">Contact</h1>\n    <div class=\"headshot\"></div>\n    <!--<img class=\"self-img\" src=\"../../lib/images/profile-edit.jpg\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">-->\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n        <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n      </ul>\n  </div>\n</div>";
 
 /***/ },
 /* 53 */
@@ -42646,7 +42641,7 @@
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"about-container-primary\">\n  <h1 class=\"section-title text-center\">ABOUT ME</h1>\n  <div class=\"about-container-secondary container\">\n    <div class=\"container bio-container\">\n      <div class=\"about-description\">\n        <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n      </div>\n    </div>\n  </div>        \n</div>";
+	module.exports = "<div class=\"container\">\n  <h1 class=\"section-title text-center\">ABOUT ME</h1>\n  <p class=\"bio\">I am full-stack software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n</div>";
 
 /***/ },
 /* 55 */
@@ -42670,25 +42665,25 @@
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"home-container\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n\n";
+	module.exports = "<nav-bar></nav-bar>\n<div class=\"component-wrapper\">\n  <header class=\"header-container\">\n  <div class=\"intro-wrapper hidden-xs\">\n    <h4 class=\"intro-subhead\">Software Developer</h4>\n    <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n    <div class=\"links\">\n      <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n      <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n      <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n      \n      </div>\n    </div>\n  </header>\n</div>\n<footer-component class=\"footer\"></footer-component>\n\n";
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = "<about-component></about-component>\n";
+	module.exports = "<nav-bar></nav-bar>\n<div class=\"component-wrapper\">\n  <about-component></about-component>\n</div>\n<footer-component class=\"footer\"></footer-component>\n";
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = "<projects-component></projects-component>\n";
+	module.exports = "<nav-bar></nav-bar>\n<div class=\"component-wrapper\">\n  <projects-component></projects-component>\n</div>\n<footer-component class=\"footer\"></footer-component>\n";
 
 /***/ },
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"contact-container\">\n  <contact-info></contact-info>  \n</div>";
+	module.exports = "<nav-bar></nav-bar>\n<div class=\"component-wrapper\">\n  <contact-info></contact-info>  \n</div>\n<footer-component class=\"footer\"></footer-component>";
 
 /***/ }
 /******/ ]);
