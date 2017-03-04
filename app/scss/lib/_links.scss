@@ -21,25 +21,19 @@ a:hover {
 }
 
 .navbar-title a {
-  margin-left: 30%;
-  height: 45%;
   font-weight: bold;
-  width: 25%;
-  min-width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  text-decoration: none;
-  border-radius: 5px;
-  color: white;
-  transition: background-color 0.2s ease;
+  font-size: 200%;
+  font-family: 'Merriweather';
+  border-radius: 10px;
+  color: black;
+  padding: 10px;
+  transition: background-color 0.15s ease;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
-.navbar-title a:hover {
-  color: white;
-  background-color: darkblue;
-}
 #navbar-list a:hover {
   color: white;
   background-color: darkblue;

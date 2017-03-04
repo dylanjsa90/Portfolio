@@ -8,6 +8,14 @@ nav-bar {
   align-items: center;
   flex-direction: row;
   justify-content: space-around;
+  .navbar-title {
+    color: black;
+    background-color: white;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 }
 
 #navbar-list a {
@@ -22,8 +30,9 @@ nav-bar {
   a {
     cursor: pointer;
   }
-  li {
+  a > li {
     padding-top: 5px;
     border-top: 1px solid black;
+    color: black;
   }
 }
