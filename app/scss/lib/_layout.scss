@@ -21,74 +21,37 @@
   margin-top: 4%;
 }
 
-.about-container-primary {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  flex: 1;
-  color: $app-about-primary-color;  
-}
-
-.about-container-secondary {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex: 1;
-  padding: 1px;
-  margin: 1px auto;
-  text-align: center;
-}
-
 .bio {
   font-size: 150%;
   font-family: 'Open Sans', sans-serif;
 }
 
-.about-description {
-  color: $app-about-primary-color;
-  width: 80%;
+.contact-wrapper {
+  width: 60%;
   margin: 0px auto;
-  text-align: center;
-  position: inherit;
-}
-
-contact-info {
-  width: 100%;
-  height: 100%;
-}
-
-.contact-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  h2 { 
-    text-align: center;
-  } 
 }
 
 .contact {
-  align-items: center;
-  height: 60%;
+  margin: 0px 5% 0px 5%;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
-  img {
+  justify-content: space-between;
+  align-items: center;
+  .headshot {
+    background-image: url('../lib/images/profile-edit.jpg');
+    background-position: center;
+    background-size: cover;
     border-radius: 50%;
+    width: 24rem;
+    height: 24rem;
   }
 }
 
 .projects-container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  flex: 1;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: stretch;
+  // flex: 1;
   li {
     list-style: none;
   }
