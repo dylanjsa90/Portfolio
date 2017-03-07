@@ -26,6 +26,7 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   $rp
   .when('/home', {
     template: require('./html/home.html'),
+    contoller: 'NavController'
   })
   .when('/about', {
     template: require('./html/about.html'),

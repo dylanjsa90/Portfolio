@@ -1,11 +1,3 @@
-a {
-  // color: darkblue;
-}
-
-a:hover {
-  // color: darkcyan;
-}
-
 #navbar-list a {
   font-weight: bold;
   min-width: 100px;
@@ -13,8 +5,14 @@ a:hover {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius: 5px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin: 0px 5px 0px 5px;
   transition: background-color 0.2s ease;
+}
+
+#navbar-list a.nav-selected {
+  border-top: 3px solid black;
 }
 
 .navbar-title a {
@@ -24,6 +22,7 @@ a:hover {
   border-radius: 10px;
   color: black;
   padding: 10px;
+  margin-left: 20px;
   transition: background-color 0.15s ease;
   &:hover {
     background-color: black;
@@ -33,7 +32,7 @@ a:hover {
 
 #navbar-list a:hover {
   color: white;
-  background-color: darkblue;
+  background-color: black;
 }
 
 .about-links {

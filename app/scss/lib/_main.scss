@@ -15,10 +15,35 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  // width: 100%;
 }
 
 li {
   list-style: none;
+}
+
+i {
+  font-size: 3rem;
+}
+
+footer {
+  padding: 1rem;
+  color: white;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 120%;
+  font-weight: bold;
+  i {
+    font-size: 3rem;  
+  }
+}
+
+projects-component {
+  background-color: white;
+}
+
+contact-info {
+  width: 100%;
 }
 .component-wrapper {
   flex: 1;

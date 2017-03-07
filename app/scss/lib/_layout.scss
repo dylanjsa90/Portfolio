@@ -3,31 +3,39 @@
   background-color: rgba(255, 255, 255, .5);
 }
 
-// .header-container .intro-wrapper {
-//   width: 100%;
-// }
-
 .header-container {
   text-align: center;
-  display: flex;
-  flex: 1;
-  align-items: stretch;
-  flex-direction: column;
   color: white;
   margin-top: 4%;
 }
 
-.bio {
-  font-size: 150%;
-  font-family: 'Open Sans', sans-serif;
+.home-nav {
+  margin: 10% auto;
+  ul {
+    text-align: center;
+    font-family: 'Merriweather';
+    font-size: 140%;
+    color: black;
+    li {
+      background-color: rgba(255, 255, 255, .5);
+      display: inline;
+    }
+    .home-links {
+      cursor: pointer;
+    }
+  }
 }
 
 .contact-wrapper {
-  width: 60%;
+  // width: 100%;
   margin: 0px auto;
+  // padding: 5% 0px 5% 0px;
+  background-color: rgba(0, 0, 0, .75);
+  color: white;
 }
 
 .contact {
+  // width: 60%;
   margin: 0px 5% 0px 5%;
   display: flex;
   flex-direction: row;
@@ -44,13 +52,28 @@
 }
 
 .project-wrapper {
-  width: 90%;
-  margin: auto;
-  text-align: center;
+  width: 100%;
+  // margin: auto;
+  // text-align: center;
   h1, h3, h5 {
     font-weight: bold;
   }
 }
+
+.projects-component {
+  background-color: white;
+  color: black;
+  div.container {
+    background-color: grey;
+  }
+
+}
+
+.project-component {
+  display: flex;
+  align-items: center; 
+}
+
 
 .project-thumbnail-container {
   display: flex;
@@ -68,6 +91,16 @@
   width: 75px;
 }
 
+
+.project-image {
+  background-position: center;
+  background-size: cover;
+  // border-radius: 50%;
+  width: 30rem;
+  height: 30rem;
+}
+
+
 .project-controls {
   display: flex;
   justify-content: space-around;
@@ -80,7 +113,6 @@
         cursor: pointer;
       }
   }
-
 }
 
 .skill-div {
@@ -93,25 +125,6 @@
     margin-top: 30px;
     text-align: center;
     cursor: pointer;
-    color: grey;
+    // color: grey;
     text-decoration: underline;
-}
-
-.hidden-xs {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-
-footer {
-  padding: 1rem;
-  color: white;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 150%;
-  font-weight: bold;
-  i {
-    font-size: 3rem;  
-  }
 }

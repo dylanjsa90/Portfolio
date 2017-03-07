@@ -17,7 +17,8 @@
 .bio {
   font-family: 'Merriweather', sans-serif;
   color: $app-about-primary-color;
-  font-size: 18px;
+  font-size: 130%;
+  
 }
 
 .skill-title {
@@ -30,55 +31,21 @@
   padding-right: 5px;
 }
 
-.click-copy {
-  cursor: copy;
-}
-.main-skill-container {
-  padding: 1.5%;
-}
-
 .intro-heading {
   font-size: 4rem;
   margin-top: 12px;
   margin-bottom: 15px;
 }
 
-
-i.fa-github {
-  font-size: 3rem;
-}
-
-i.fa-linkedin {
-  font-size: 3rem;
-}
-
-i.fa-codepen {
-  font-size: 3rem;
-}
-
 .contact-intro {
-  color: darkmagenta;
+  // color: black;
   margin-right: 5px;
 }
 
 .contact-info li {
   list-style: none;
-  font-size: 20px;
-  font-family: 'Source Sans Pro', sans-serif;
-  
-}
-
-ul.skills-container li {
-  list-style: none;
-  margin: 2px;
-  padding: 0 5px 0 5px;
-  font-family: 'Open Sans', sans-serif;
-  }
-
-.main-skill-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  font-size: 130%;
+  font-family: 'Source Sans Pro', sans-serif; 
 }
 
 .skills-container {
@@ -89,6 +56,11 @@ ul.skills-container li {
     font-size: 16px;
     font-weight: bold;
     font-family: 'Open Sans', sans-serif;
+    li {
+      margin: 2px;
+      padding: 0 5px 0 5px;
+      font-family: 'Open Sans', sans-serif;
+    }
 }
 
 #navcol-1.navbar-collapse ul li a {
@@ -102,27 +74,13 @@ ul.skills-container li {
   margin: auto;
 }
 
-.project-container {
-  font-family: 'Merriweather', sans-serif;
-}
-
 ul.employs-list li {
-  font-size: 18px;
-  text-align: center;
+  font-size: 120%;
+  // text-align: center;
 }
 
 .selected {
   border: 2px solid red;
-}
-
-.nav-selected {
-  color: gold;
-  border-top: 3px solid black;
-}
-
-.tab-selected {
-  text-decoration: underline;
-
 }
 
 .section-title {

@@ -51,8 +51,8 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
-    .navbar-title {
+    justify-content: space-between;
+    .navbar-title a {
       color: black;
       background-color: white;
       &:hover {
@@ -68,12 +68,40 @@
     display: flex;
     background-color: rgba(0, 0, 0, 0);
   }
+  
+  .contact-wrapper {
+    width: 100%;
+  }
 
-
-  .navbar-title-content {
-    margin: 0;
+  .contact {
+    background-color: rgba(0, 0, 0, .75);
+    color: white;
+    margin: 0px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    h1.section-title {
+      color: white;
+    }
+    .headshot {
+      background-image: url('../lib/images/profile-edit.jpg');
+      background-position: center;
+      background-size: cover;
+      border-radius: 50%;
+      width: 24rem;
+      height: 24rem;
+    }
+  }
+
+  ul.contact-info {
+    // background-color: rgba(0, 0, 0, .75);
+    padding-left: 20px;
+    // color: white;
+  }
+
+  .project-image {
+    display: none;
   }
 }
 
@@ -90,8 +118,8 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
-    .navbar-title {
+    justify-content: space-between;
+    .navbar-title a {
       color: black;
       background-color: white;
       &:hover {
@@ -115,15 +143,11 @@
       background-color: rgba(0, 0, 0, 1.0);
     }
 
-    .navbar-title {
-      // width: 90%;
-    }
-
     #navcol-1.navbar-collapse ul li {
       margin: 0;
       padding: 2%;
       display: block;
-      background-color: black;
+      // background-color: blue;
     }
 
     .about-container-primary {
