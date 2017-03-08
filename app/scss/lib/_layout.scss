@@ -1,11 +1,23 @@
 
-.about-component, .contact-component {
-  background-color: rgba(255, 255, 255, .5);
+.about-component {
+  // background-color: rgba(255, 255, 255, .5);
+  background-color: $app-light;
+  color: $app-dark;
+
+  h1.section-title {
+    color: $app-default;
+  }
 }
+.contact-wrapper {
+  color: $app-light;
+  background-color: #2F3738;
+
+}
+
 
 .header-container {
   text-align: center;
-  color: white;
+  color: $app-dark;
   margin-top: 4%;
 }
 
@@ -26,12 +38,22 @@
   }
 }
 
+.about-component {
+  padding: 10px 0px 10px 0px;
+  margin: 40px 0px 40px 0px;
+}
+
 .contact-wrapper {
   // width: 100%;
+  
+  // Move margin/padding with all component containers
   margin: 0px auto;
-  // padding: 5% 0px 5% 0px;
-  background-color: rgba(0, 0, 0, .75);
-  color: white;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 10px 0px 10px 0px;
+
+  // background-color: rgba(0, 0, 0, .80);
+  // color: white;
 }
 
 .contact {
@@ -61,10 +83,11 @@
 }
 
 .projects-component {
-  background-color: white;
-  color: black;
+  background-color: $app-lightgrey;
+  // color: $app-dark;
   div.container {
-    background-color: grey;
+    background-color: $app-dark;
+    color: $app-light;
   }
 
 }
@@ -127,4 +150,33 @@
     cursor: pointer;
     // color: grey;
     text-decoration: underline;
+}
+
+.skill-icon {
+  background-color: black;
+  height: 9rem;
+
+  opacity: .7;
+  // width: auto;
+  // margin: 1rem;
+}
+
+.skill-icons {
+  padding: 0px;
+  margin: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  li {
+    width: 150px;
+    padding: 1rem;
+    font-size: 1.6rem;
+    flex: 0 0 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    
+  }
 }

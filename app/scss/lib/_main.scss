@@ -3,12 +3,16 @@ html, body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  // font-family: 'Open Sans', sans-serif;
+}
+
+.home-container {
   background-image: url("../lib/images/seattle-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  // font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
 }
 
 main {
@@ -28,7 +32,7 @@ i {
 
 footer {
   padding: 1rem;
-  color: white;
+  color: $app-default;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   font-size: 120%;
@@ -38,13 +42,6 @@ footer {
   }
 }
 
-projects-component {
-  background-color: white;
-}
-
-contact-info {
-  width: 100%;
-}
 .component-wrapper {
   flex: 1;
   width: 100%;

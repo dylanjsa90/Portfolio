@@ -16,7 +16,7 @@
 
 .bio {
   font-family: 'Merriweather', sans-serif;
-  color: $app-about-primary-color;
+  // color: $app-about-primary-color;
   font-size: 130%;
   
 }
@@ -76,7 +76,6 @@
 
 ul.employs-list li {
   font-size: 120%;
-  // text-align: center;
 }
 
 .selected {
@@ -84,7 +83,14 @@ ul.employs-list li {
 }
 
 .section-title {
-  color: black;
   text-align: center;
   font-family: 'Merriweather';
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+  // border-top: 2px solid black;
+}
+
+.navbar-toggle {
+  background-color: $app-dark;
 }

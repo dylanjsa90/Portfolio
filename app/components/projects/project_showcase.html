@@ -1,6 +1,6 @@
 <div class="projects-component">
   <div class="container">
-    <h1 class="section-title">Projects</h1>
+    <h3 class="section-title">Projects</h3>
     <div class="project-thumbnail-container">
       <div ng-repeat="projectThumb in $ctrl.projectThumbnails">
         <img ng-src="{{projectThumb.thumbnailUrl}}" class="project-thumbnail thumbnail" alt="project thumbnail" data-ng-class="{'selected': $ctrl.projectId == $index}" ng-bind="projectThumb.name" data-ng-click="$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)" data-project="project">
@@ -15,12 +15,19 @@
     <div class="project-wrapper" data-ng-repeat="project in $ctrl.projects">
       <project project-data="project" id="$ctrl.projectId" class="fade"></project>
     </div>
-    <h3 ng-click="$ctrl.toggleSkills()" class="skill-link">{{$ctrl.skillText}}</h3>
-    <div ng-show="$ctrl.skills.length > 0" class="skill-div">
-          <ul class="skills-container">
+    <!--<h3 ng-click="$ctrl.toggleSkills()" class="skill-link">{{$ctrl.skillText}}</h3>-->
+    <!--<div ng-show="$ctrl.skills.length > 0" class="skill-div">-->
+          <!--<ul class="skills-container">-->
             <!--<li class="skill-title" ng-hide="$ctrl.projectActive">Proficient</li>  -->
-            <li data-ng-repeat="skill in $ctrl.skills">{{skill}}</li> 
-          </ul> 
-    </div>
+            <!--<li data-ng-repeat="skill in $ctrl.skills">{{skill}}</li> -->
+          <!--</ul> -->
+    <!--</div>-->
+
+    <ul class="skill-icons">
+      <li data-ng-repeat="icon in $ctrl.skillLogos track by $index">
+        <img data-ng-src="{{icon}}" class="skill-icon">
+        {{$ctrl.logoIndex[$index]}}
+      </li>
+    </ul>
   </div>
 </div>

@@ -3,20 +3,16 @@
 module.exports = function(app) {
   app.controller('ProjectController', ['projectService',  function(projectService) {
     this.projectThumbnails = projectService.getAll();
+    this.skillLogos = [require('../lib/logos/javascript.png'), require('../lib/logos/react.png'), 
+    require('../lib/logos/redux.png'), require('../lib/logos/jquery.png'), require('../lib/logos/css.png'), 
+    require('../lib/logos/html.png'), require('../lib/logos/angular.png'), 
+    require('../lib/logos/webpack.png'), require('../lib/logos/bootstrap.png')];
+    this.logoIndex = ['JavaScript', 'React', 'Redux', 'jQuery', 'CSS3', 'HTML5', 'Angular', 'webpack', 'Bootstrap'];
+
     this.skillText = 'Technical Skills Include';
     this.projectId;
     this.projectActive = false;
     this.projects = [];
-    this.skills = projectService.getProficient();
-
-    this.resetSkills = function() {
-      this.skills = projectService.getProficient();
-      this.skillText = 'Technical Skills Include';
-    };
-    
-    this.toggleSkills = function() {
-      (this.skills.length > 0) ? this.skills = [] : this.skills = projectService.getProficient();
-    };
 
     this.loadThumbnail = function(thumbPath) {
       return (thumbPath);
@@ -38,13 +34,11 @@ module.exports = function(app) {
     this.next = function() {
       this.projectId = projectService.nextProject(this.projectId).id;
       this.projects[0] = projectService.getAtIndex(this.projectId);
-      this.skills = this.projects[0].skills;
     };
 
     this.prev = function() {
       this.projectId = projectService.previousProject(this.projectId).id;
       this.projects[0] = projectService.getAtIndex(this.projectId);
-      this.skills = this.projects[0].skills;
     };
   }]);
 };
