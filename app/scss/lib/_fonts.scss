@@ -17,18 +17,8 @@
 .bio {
   font-family: 'Merriweather', sans-serif;
   // color: $app-about-primary-color;
-  font-size: 130%;
+  font-size: 1.5rem;
   
-}
-
-.skill-title {
-  font-weight: bolder;
-  color: white;
-  text-decoration: underline;
-  background-color: darkblue;
-  opacity: .5;
-  border-radius: 5px;
-  padding-right: 5px;
 }
 
 .intro-heading {
@@ -42,25 +32,10 @@
   margin-right: 5px;
 }
 
-.contact-info li {
+.contact-info > li {
   list-style: none;
   font-size: 130%;
   font-family: 'Source Sans Pro', sans-serif; 
-}
-
-.skills-container {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Open Sans', sans-serif;
-    li {
-      margin: 2px;
-      padding: 0 5px 0 5px;
-      font-family: 'Open Sans', sans-serif;
-    }
 }
 
 #navcol-1.navbar-collapse ul li a {
@@ -85,10 +60,6 @@ ul.employs-list li {
 .section-title {
   text-align: center;
   font-family: 'Merriweather';
-}
-
-.navbar-inverse .navbar-toggle .icon-bar {
-  // border-top: 2px solid black;
 }
 
 .navbar-toggle {

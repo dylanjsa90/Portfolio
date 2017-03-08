@@ -3,13 +3,14 @@
   // background-color: rgba(255, 255, 255, .5);
   background-color: $app-light;
   color: $app-dark;
-
   h1.section-title {
     color: $app-default;
+    font-weight: 700;
+    
   }
 }
 .contact-wrapper {
-  color: $app-light;
+  color: $app-white;
   background-color: #2F3738;
 
 }
@@ -39,21 +40,13 @@
 }
 
 .about-component {
-  padding: 10px 0px 10px 0px;
-  margin: 40px 0px 40px 0px;
+  padding: 1rem 1rem 2rem 1rem;
 }
 
-.contact-wrapper {
-  // width: 100%;
-  
+.contact-wrapper {  
   // Move margin/padding with all component containers
   margin: 0px auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 10px 0px 10px 0px;
-
-  // background-color: rgba(0, 0, 0, .80);
-  // color: white;
+  padding: 5rem 0px 5rem 0px;
 }
 
 .contact {
@@ -75,17 +68,22 @@
 
 .project-wrapper {
   width: 100%;
-  // margin: auto;
-  // text-align: center;
   h1, h3, h5 {
     font-weight: bold;
   }
 }
 
+.image-wrapper {
+  flex: 0 0 35rem;
+  padding: 3rem;
+}
+
 .projects-component {
-  background-color: $app-lightgrey;
+  // background-color: $app-light;
+  padding: 10px;
   // color: $app-dark;
   div.container {
+    min-height: 628px;
     background-color: $app-dark;
     color: $app-light;
   }
@@ -109,6 +107,7 @@
 .project-thumbnail {
   margin: 5px;
   border-radius: 3px;
+  background-color: $app-light;
   border: 1px solid black;
   height: 75px;
   width: 75px;
@@ -116,11 +115,14 @@
 
 
 .project-image {
+  background-color: $app-light;
   background-position: center;
   background-size: cover;
+  flex: 0 0 30rem;
   // border-radius: 50%;
-  width: 30rem;
+  // width: 30rem;
   height: 30rem;
+  margin: 0px 20px 0px 20px;
 }
 
 
@@ -138,32 +140,24 @@
   }
 }
 
-.skill-div {
-  text-align: center;
-  width: 80%;
-  margin: auto;
-}
-
-.skill-link {
-    margin-top: 30px;
-    text-align: center;
-    cursor: pointer;
-    // color: grey;
-    text-decoration: underline;
+.skills-container h3 {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
 }
 
 .skill-icon {
-  background-color: black;
+  background-color: $app-dark;
   height: 9rem;
-
   opacity: .7;
-  // width: auto;
-  // margin: 1rem;
+  max-width: 80%;
+  margin: 1rem;
+
 }
 
 .skill-icons {
   padding: 0px;
   margin: 1.7rem;
+  background-color: $app-dark;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,11 +166,16 @@
     width: 150px;
     padding: 1rem;
     font-size: 1.6rem;
+    color: $app-light;
     flex: 0 0 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: 'Open Sans', sans-serif;
+    img {
+      width: 100%;
+
+    }
     
   }
 }

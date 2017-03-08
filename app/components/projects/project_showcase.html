@@ -8,26 +8,12 @@
     </div>
     <div class="project-controls" ng-show="$ctrl.projectActive">
       <a ng-click="$ctrl.prev()"><i class="fa fa-arrow-circle-left"></i></a>
-      <a ng-click="$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()"><i class="fa fa-undo"></i></a>
+      <a ng-click="$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = [];"><i class="fa fa-undo"></i></a>
       <a ng-click="$ctrl.next()"><i class="fa fa-arrow-circle-right"></i></a>
     </div>
 
     <div class="project-wrapper" data-ng-repeat="project in $ctrl.projects">
       <project project-data="project" id="$ctrl.projectId" class="fade"></project>
     </div>
-    <!--<h3 ng-click="$ctrl.toggleSkills()" class="skill-link">{{$ctrl.skillText}}</h3>-->
-    <!--<div ng-show="$ctrl.skills.length > 0" class="skill-div">-->
-          <!--<ul class="skills-container">-->
-            <!--<li class="skill-title" ng-hide="$ctrl.projectActive">Proficient</li>  -->
-            <!--<li data-ng-repeat="skill in $ctrl.skills">{{skill}}</li> -->
-          <!--</ul> -->
-    <!--</div>-->
-
-    <ul class="skill-icons">
-      <li data-ng-repeat="icon in $ctrl.skillLogos track by $index">
-        <img data-ng-src="{{icon}}" class="skill-icon">
-        {{$ctrl.logoIndex[$index]}}
-      </li>
-    </ul>
   </div>
 </div>

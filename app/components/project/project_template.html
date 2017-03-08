@@ -1,9 +1,11 @@
 <div class="project-component">
-  <div class="project-image" ng-style="{'background-image': 'url(' + $ctrl.project.thumbnailUrl + ')'}"></div>
+  <div class="image-wrapper">
+    <div class="project-image" ng-style="{'background-image': 'url(' + $ctrl.project.thumbnailUrl + ')'}"></div>
+  </div>
 
-  <div>
-    <h3>{{$ctrl.project.name}} {{$ctrl.project.date}} <a style="margin-right: 3px; margin-left: 3px;" ng-repeat="(key, url) in $ctrl.project.urls" ng-href="{{url}}" target="_blank"><i class="project-link fa {{key}}"></i></a> 
-    <a ng-href="{{$ctrl.project.deployedUrl}}" target="_blank">Deployed</a></h3> 
+  <div class="project-details">
+    <h3><a ng-href="{{$ctrl.project.deployedUrl}}" target="_blank">{{$ctrl.project.name}}</a> {{$ctrl.project.date}} <a style="margin-right: 3px; margin-left: 3px;" ng-repeat="(key, url) in $ctrl.project.urls" ng-href="{{url}}" target="_blank"><i class="project-link fa {{key}}"></i></a> 
+    </h3> 
     <!--<h3></h3>-->
     <!--<h3>Description</h3>-->
     <p class="project-description">{{$ctrl.project.description}}</p>
