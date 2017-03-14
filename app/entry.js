@@ -26,6 +26,7 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   $rp
   .when('/home', {
     template: require('./html/home.html'),
+    // contoller: 'NavController'
   })
   .when('/about', {
     template: require('./html/about.html'),
@@ -33,9 +34,6 @@ portfolioApp.config(['$routeProvider', ($rp) => {
   .when('/projects', {
     template: require('./html/projects.html'),
     controller: 'ProjectController'
-  })
-  .when('/contact', {
-    template: require('./html/contact.html'),
   })
   .otherwise({
     redirectTo: '/home'

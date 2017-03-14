@@ -1,22 +1,46 @@
 html, body {
   width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("../lib/images/blue_abstract_background.jpg");
+}
+
+.home-container {
+  background-image: url("../lib/images/seattle-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  // font-family: 'Open Sans', sans-serif;
 }
 
-body {
+body, main {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
-#wrapper {
+main {
+  flex: 1;
+}
+
+li {
+  list-style: none;
+}
+
+i {
+  font-size: 3rem;
+}
+
+footer {
+  padding: 1rem;
+  color: $app-default;
+  background-color: $app-light;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.component-wrapper {
   flex: 1;
   width: 100%;
 }

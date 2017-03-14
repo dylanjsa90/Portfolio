@@ -16,25 +16,12 @@
 
 .bio {
   font-family: 'Merriweather', sans-serif;
-  color: $app-about-primary-color;
-  font-size: 18px;
-}
-
-.skill-title {
-  font-weight: bolder;
-  color: white;
-  text-decoration: underline;
-  background-color: darkblue;
-  opacity: .5;
-  border-radius: 5px;
-  padding-right: 5px;
-}
-
-.click-copy {
-  cursor: copy;
-}
-.main-skill-container {
-  padding: 1.5%;
+  
+  // background-color: $app-default;
+  font-size: 2rem;
+  padding: 2rem;
+  margin: 2rem;
+  
 }
 
 .intro-heading {
@@ -43,54 +30,13 @@
   margin-bottom: 15px;
 }
 
-
-i.fa-github {
-  font-size: 3rem;
-  color: black;
-}
-
-i.fa-linkedin {
-  font-size: 3rem;
-  color: blue;
-}
-
-i.fa-codepen {
-  font-size: 100%;
-}
-
 .contact-intro {
-  color: darkmagenta;
   margin-right: 5px;
 }
 
-.contact-info li {
-  list-style: none;
-  font-size: 20px;
-  font-family: 'Source Sans Pro', sans-serif;
-  
-}
-
-ul.skills-container li {
-  list-style: none;
-  margin: 2px;
-  padding: 0 5px 0 5px;
-  font-family: 'Open Sans', sans-serif;
-  }
-
-.main-skill-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.skills-container {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Open Sans', sans-serif;
+.contact-info > li {
+  font-size: 130%;
+  font-family: 'Source Sans Pro', sans-serif; 
 }
 
 #navcol-1.navbar-collapse ul li a {
@@ -99,35 +45,28 @@ ul.skills-container li {
 }
 
 .project-description {
-  font-size: 18px;
+  font-size: 2rem;
   width: 80%;
   margin: auto;
 }
 
-.project-container {
-  font-family: 'Merriweather', sans-serif;
+ul.employs-list li {
+  font-size: 1.8rem;
 }
 
-ul.employs-list li {
-  font-size: 18px;
-  text-align: center;
+ul.contact-info {
+  font-size: 140%;
 }
 
 .selected {
-  border: 2px solid red;
-}
-
-.nav-selected {
-  color: gold;
-}
-
-.tab-selected {
-  text-decoration: underline;
-
+  border: 3px solid rgb(40,71,101);
 }
 
 .section-title {
-  color: white;
   text-align: center;
   font-family: 'Merriweather';
+}
+
+.navbar-toggle {
+  background-color: $app-dark;
 }

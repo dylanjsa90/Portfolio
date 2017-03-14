@@ -23,7 +23,7 @@ module.exports = function(app) {
       }, 
 
       getProficient: function() {
-        return ['Angular.js', 'Node.js', 'JavaScript', 'MongoDB', 'HTML5', 'CSS/SASS/SCSS', 'jQuery', 'RESTful Architecture', 'Webpack', 'Unit Testing', 'Bootstrap']; 
+        return ['Angular.js', 'Node.js', 'JavaScript', 'MongoDB', 'HTML5', 'CSS/SASS/SCSS', 'jQuery', 'RESTful Architecture', 'Webpack', 'Unit Testing', 'Bootstrap', 'Java', 'SQL', 'React']; 
       },
     };
 

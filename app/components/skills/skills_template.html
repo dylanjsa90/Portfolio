@@ -1,0 +1,11 @@
+<div class="skills-container">
+  <div class="container">
+    <h3>Technical Skills</h3>
+    <ul class="skill-icons">
+      <li data-ng-repeat="icon in $ctrl.skillLogos track by $index">
+        <img data-ng-src="{{icon}}" class="skill-icon">
+        {{$ctrl.logoIndex[$index]}}
+      </li>
+    </ul>
+  </div>
+</div>
