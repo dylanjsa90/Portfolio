@@ -1,9 +1,9 @@
 
 .about-component {
-  // background-color: rgba(255, 255, 255, .5);
-  background-color: $app-light;
+  background-color: rgba(0, 0, 0, .25);
   color: $app-dark;
   min-height: 50vh;
+  padding: 2rem 0rem 2rem 0rem;
   h1.section-title {
     color: $app-default;
     font-weight: 700;
@@ -11,12 +11,6 @@
     
   }
 }
-.contact-wrapper {
-  // color: $app-white;
-  // background-color: #2F3738;
-  // min-height: 100vh;
-}
-
 
 .header-container {
   text-align: center;
@@ -41,10 +35,6 @@
   }
 }
 
-.about-component {
-  padding: 2rem 0rem 2rem 0rem;
-}
-
 .contact-wrapper {  
   margin: 0px auto;
   padding: 3rem 0px 2rem 0px;
@@ -53,7 +43,6 @@
 }
 
 .contact {
-  // width: 60%;
   margin: 0px 5% 0px 5%;
   display: flex;
   flex-direction: row;
@@ -83,12 +72,8 @@
 
 .projects-component {
   padding: 1rem;
-  margin: 1rem;
   background-color: $app-light;
   color: $app-dark;
-  div.container {
-    // min-height: 628px;
-  }
 }
 
 .project-component {
@@ -160,7 +145,6 @@
       font-size: 4rem;
       font-family: 'librebaskerville-bold', serif;
       margin: 0;
-      // font-weight: bold;
     }
 }
 

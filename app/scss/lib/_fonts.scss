@@ -16,7 +16,8 @@
 
 .bio {
   font-family: 'Merriweather', sans-serif;
-  // color: $app-about-primary-color;
+  
+  // background-color: $app-default;
   font-size: 2rem;
   padding: 2rem;
   margin: 2rem;
@@ -30,12 +31,10 @@
 }
 
 .contact-intro {
-  // color: black;
   margin-right: 5px;
 }
 
 .contact-info > li {
-  list-style: none;
   font-size: 130%;
   font-family: 'Source Sans Pro', sans-serif; 
 }
@@ -46,13 +45,13 @@
 }
 
 .project-description {
-  font-size: 18px;
+  font-size: 2rem;
   width: 80%;
   margin: auto;
 }
 
 ul.employs-list li {
-  font-size: 120%;
+  font-size: 1.8rem;
 }
 
 ul.contact-info {

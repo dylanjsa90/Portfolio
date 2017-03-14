@@ -69,15 +69,12 @@
 
 	portfolioApp.config(['$routeProvider', function ($rp) {
 	  $rp.when('/home', {
-	    template: __webpack_require__(57),
-	    contoller: 'NavController'
+	    template: __webpack_require__(70)
 	  }).when('/about', {
-	    template: __webpack_require__(58)
+	    template: __webpack_require__(71)
 	  }).when('/projects', {
-	    template: __webpack_require__(59),
+	    template: __webpack_require__(72),
 	    controller: 'ProjectController'
-	  }).when('/contact', {
-	    template: __webpack_require__(60)
 	  }).otherwise({
 	    redirectTo: '/home'
 	  });
@@ -42428,21 +42425,9 @@
 	module.exports = function (app) {
 	  app.controller('ProjectController', ['projectService', function (projectService) {
 	    this.projectThumbnails = projectService.getAll();
-	    this.skillLogos = ['javascript', 'react.png', 'redux.png', 'jquery.png', 'css.png', 'html.png', 'angular.png', 'webpack.png', 'bootstrap.png'];
-	    this.skillText = 'Technical Skills Include';
-	    this.projectId;
-	    this.projectActive = false;
-	    this.projects = [];
-	    this.skills = projectService.getProficient();
-
-	    this.resetSkills = function () {
-	      this.skills = projectService.getProficient();
-	      this.skillText = 'Technical Skills Include';
-	    };
-
-	    this.toggleSkills = function () {
-	      this.skills.length > 0 ? this.skills = [] : this.skills = projectService.getProficient();
-	    };
+	    this.projectId = 0;
+	    this.projectActive = true;
+	    this.projects = [projectService.getAtIndex(this.projectId)];
 
 	    this.loadThumbnail = function (thumbPath) {
 	      return thumbPath;
@@ -42464,13 +42449,11 @@
 	    this.next = function () {
 	      this.projectId = projectService.nextProject(this.projectId).id;
 	      this.projects[0] = projectService.getAtIndex(this.projectId);
-	      this.skills = this.projects[0].skills;
 	    };
 
 	    this.prev = function () {
 	      this.projectId = projectService.previousProject(this.projectId).id;
 	      this.projects[0] = projectService.getAtIndex(this.projectId);
-	      this.skills = this.projects[0].skills;
 	    };
 	  }]);
 	};
@@ -42488,6 +42471,7 @@
 	  __webpack_require__(51)(app);
 	  __webpack_require__(53)(app);
 	  __webpack_require__(55)(app);
+	  __webpack_require__(68)(app);
 	};
 
 /***/ },
@@ -42512,14 +42496,20 @@
 	    this.home = true;
 	    this.projects = false;
 	    this.about = false;
-	    this.contact = false;
+	    // this.skills = false; 
 
 	    this.currentTab = function () {
 	      this.setToFalse();
-	      if ($location.url().includes('home')) this.home = true;
-	      if ($location.url().includes('about')) this.about = true;
-	      if ($location.url().includes('projects')) this.projects = true;
-	      if ($location.url().includes('contact')) this.contact = true;
+	      if ($location.url().includes('home')) {
+	        this.home = true;
+	        this.highlight('home');
+	      } else if ($location.url().includes('about')) {
+	        this.about = true;
+	        this.highlight('about');
+	      } else if ($location.url().includes('projects')) {
+	        this.projects = true;
+	        this.highlight('projects');
+	      }
 	    };
 
 	    this.highlight = function (tab) {
@@ -42527,7 +42517,7 @@
 	      if (tab === 'home') this.home = true;
 	      if (tab === 'about') this.about = true;
 	      if (tab === 'projects') this.projects = true;
-	      if (tab === 'contact') this.contact = true;
+	      if (tab === 'skills') this.skills = true;
 	    };
 
 	    this.go = function (tab) {
@@ -42539,7 +42529,7 @@
 	      this.home = false;
 	      this.projects = false;
 	      this.about = false;
-	      this.contact = false;
+	      this.skills = false;
 	    };
 	  }]);
 	};
@@ -42548,7 +42538,7 @@
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav id=\"navbar-main\" data-ng-init=\"$ctrl.currentTab()\">\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">DS</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a data-ng-click=\"$ctrl.go('home')\" data-ng-class=\"{'nav-selected': $ctrl.home}\"><li>HOME</li></a>\n    <a data-ng-click=\"$ctrl.go('about')\" data-ng-class=\"{'nav-selected': $ctrl.about}\"><li>ABOUT ME</li></a>\n    <a data-ng-click=\"$ctrl.go('projects')\" data-ng-class=\"{'nav-selected': $ctrl.projects}\"><li>PROJECTS</li></a>\n    <a data-ng-click=\"$ctrl.go('contact')\" data-ng-class=\"{'nav-selected': $ctrl.contact}\"><li>CONTACT</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a href=\"#/home\" data-ng-click=\"$ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a href=\"#/about\" data-ng-click=\"$ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a href=\"#/projects\" data-ng-click=\"$ctrl.toggle()\">PROJECTS</a></li>\n    <li role=\"presentation\"><a href=\"#/contact\" data-ng-click=\"$ctrl.toggle()\">CONTACT</a></li>\n  </ul>\n</div>";
+	module.exports = "<nav id=\"navbar-main\" data-ng-init=\"$ctrl.currentTab()\">\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">DS</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a data-ng-click=\"$ctrl.go('home')\" data-ng-class=\"{'nav-selected': $ctrl.home}\"><li>HOME</li></a>\n    <a data-ng-click=\"$ctrl.go('about')\" data-ng-class=\"{'nav-selected': $ctrl.about}\"><li>ABOUT ME</li></a>\n    <a data-ng-click=\"$ctrl.go('projects')\" data-ng-class=\"{'nav-selected': $ctrl.projects}\"><li>PROJECTS</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a href=\"#/home\" data-ng-click=\"$ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a href=\"#/about\" data-ng-click=\"$ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a href=\"#/projects\" data-ng-click=\"$ctrl.toggle()\">PROJECTS</a></li>\n  </ul>\n</div>";
 
 /***/ },
 /* 47 */
@@ -42575,7 +42565,7 @@
 /* 48 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"project-component\">\n  <div class=\"project-image\" ng-style=\"{'background-image': 'url(' + $ctrl.project.thumbnailUrl + ')'}\"></div>\n\n  <div>\n    <h3>{{$ctrl.project.name}} {{$ctrl.project.date}} <a style=\"margin-right: 3px; margin-left: 3px;\" ng-repeat=\"(key, url) in $ctrl.project.urls\" ng-href=\"{{url}}\" target=\"_blank\"><i class=\"project-link fa {{key}}\"></i></a> \n    <a ng-href=\"{{$ctrl.project.deployedUrl}}\" target=\"_blank\">Deployed</a></h3> \n    <!--<h3></h3>-->\n    <!--<h3>Description</h3>-->\n    <p class=\"project-description\">{{$ctrl.project.description}}</p>\n    <h3>Project employs</h3>\n    <ul class=\"employs-list\">\n      <li data-ng-repeat=\"property in $ctrl.project.employs\" class=\"employs-property\">{{property}}</li>\n    </ul>\n  </div>\n</div>";
+	module.exports = "<div class=\"project-component\">\n  <div class=\"image-wrapper\">\n    <div class=\"project-image\" ng-style=\"{'background-image': 'url(' + $ctrl.project.thumbnailUrl + ')'}\"></div>\n  </div>\n\n  <div class=\"project-details\">\n    <h3><a ng-href=\"{{$ctrl.project.deployedUrl}}\" target=\"_blank\">{{$ctrl.project.name}}</a> {{$ctrl.project.date}} <a style=\"margin-right: 3px; margin-left: 3px;\" ng-repeat=\"(key, url) in $ctrl.project.urls\" ng-href=\"{{url}}\" target=\"_blank\"><i class=\"project-link fa {{key}}\"></i></a> \n    </h3> \n    <p class=\"project-description\">{{$ctrl.project.description}}</p>\n    <h3>Project employs</h3>\n    <ul class=\"employs-list\">\n      <li data-ng-repeat=\"property in $ctrl.project.employs\" class=\"employs-property\">{{property}}</li>\n    </ul>\n  </div>\n</div>";
 
 /***/ },
 /* 49 */
@@ -42594,7 +42584,7 @@
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"projects-component\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">Projects</h3>\n    <div class=\"project-thumbnail-container\">\n      <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n        <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n      </div>\n    </div>\n    <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n      <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n      <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = []; $ctrl.resetSkills()\"><i class=\"fa fa-undo\"></i></a>\n      <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n    </div>\n\n    <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n      <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n    </div>\n    <h3 ng-click=\"$ctrl.toggleSkills()\" class=\"skill-link\">{{$ctrl.skillText}}</h3>\n    <div ng-show=\"$ctrl.skills.length > 0\" class=\"skill-div\">\n          <ul class=\"skills-container\">\n            <!--<li class=\"skill-title\" ng-hide=\"$ctrl.projectActive\">Proficient</li>  -->\n            <li data-ng-repeat=\"skill in $ctrl.skills\">{{skill}}</li> \n          </ul> \n    </div>\n\n    <div class=\"skill-icons\">\n      <li data-ng-repeat=\"icon in $ctrl.skillLogos\">\n        <img data-ngsrc=\"../lib/logos/{{icon}}\" class=\"skill-icon\">\n      </li>\n    </div>\n  </div>\n</div>";
+	module.exports = "<div class=\"projects-component\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">Projects</h3>\n    <div class=\"projects\">\n      <div class=\"project-thumbnail-container\">\n        <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n          <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n        </div>\n      </div>\n      <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n        <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n        <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = [];\"><i class=\"fa fa-undo\"></i></a>\n        <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n      </div>\n\n      <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n        <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n      </div>\n    </div>\n  </div>\n\n  <skills></skills>\n</div>";
 
 /***/ },
 /* 51 */
@@ -42613,7 +42603,7 @@
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"contact-wrapper\">\n  <div class=\"container\">\n    <div class=\"contact\">\n    <h3 class=\"contact-title\">Contact</h3>\n    <div class=\"headshot\"></div>\n    <!--<img class=\"self-img\" src=\"../../lib/images/profile-edit.jpg\" style=\"height: 150px; width: 150px;\" alt=\"headshot\">-->\n      <ul class=\"contact-info\">\n        <li><span class=\"contact-intro\"><i class=\"fa fa-user\">Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i>Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i>Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i>Location </span><span class=\"location\">Seattle, WA</span></li>\n        <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i>Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n        <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n        <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n      </ul>\n  </div>\n  </div>\n</div>";
+	module.exports = "<div class=\"contact-wrapper\">\n  <div class=\"container\">\n    <div class=\"contact\">\n      <h3 class=\"contact-title\">Contact</h3>\n      <div class=\"headshot\"></div>\n        <ul class=\"contact-info\">\n          <li><span class=\"contact-intro\"><i class=\"fa fa-user\"> Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i> Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i> Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i> Location </span><span class=\"location\">Seattle, WA</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i> Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n          <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n          <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n        </ul>\n    </div>\n  </div>\n</div>";
 
 /***/ },
 /* 53 */
@@ -42634,7 +42624,7 @@
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"about-component\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">ABOUT</h3>\n    <p class=\"bio\">I'm a software developer with a focus on JavaScript and predominately experienced in implementing MEAN stack web applications. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n  </div>\n    \n</div>\n\n<contact-info></contact-info>\n\n<projects-component></projects-component>";
+	module.exports = "<div class=\"about-component\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">ABOUT</h3>\n    <p class=\"bio\">I'm a software developer with a focus on web development. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n  </div>\n  <contact-info></contact-info> \n</div>\n\n";
 
 /***/ },
 /* 55 */
@@ -42643,40 +42633,124 @@
 	'use strict';
 
 	module.exports = function (app) {
-	  app.component('footerComponent', {
-	    template: __webpack_require__(56)
+	  app.controller('SkillController', function () {
+	    this.skillLogos = [__webpack_require__(56), __webpack_require__(57), __webpack_require__(58), __webpack_require__(59), __webpack_require__(60), __webpack_require__(61), __webpack_require__(62), __webpack_require__(63), __webpack_require__(64), __webpack_require__(65), __webpack_require__(66)];
+	    this.logoIndex = ['JavaScript', 'Node.js', 'MongoDB', 'React', 'Redux', 'jQuery', 'CSS3', 'HTML5', 'Angular', 'webpack', 'Bootstrap'];
+	  });
+
+	  app.component('skills', {
+	    controller: 'SkillController',
+	    template: __webpack_require__(67)
 	  });
 	};
 
 /***/ },
 /* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/32e1e05a1be1599842f488647e1d04f0-javascript.png";
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/38c3a911493bf29320caa2cb901e0ecb-nodejs-dark.png";
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/e23e16dbe61a5d49fea2144bbb6e7488-MongoDB.jpg";
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/37fe8322b169ddbdeabf75930e886ac6-react.png";
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/302f0b555a5c64dfecafd29b610381e7-redux.png";
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/a3af0655fc9a481401550b5be0e86cab-jquery.png";
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/fbe01551b3091103d2655e6be9d8cd9f-css.png";
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/2e4ed85a249e0d819df884d55176c16c-html.png";
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/9db278d630f5fabd8e7ba16c2e329a3a-angular.png";
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/c500a3801d8356a86da86a06c3d13a4d-webpack.png";
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "image/6fbceffed54c931c463a0e80f2e0faef-bootstrap.png";
+
+/***/ },
+/* 67 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"skills-container\">\n  <div class=\"container\">\n    <h3>Technical Skills</h3>\n    <ul class=\"skill-icons\">\n      <li data-ng-repeat=\"icon in $ctrl.skillLogos track by $index\">\n        <img data-ng-src=\"{{icon}}\" class=\"skill-icon\">\n        {{$ctrl.logoIndex[$index]}}\n      </li>\n    </ul>\n  </div>\n</div>";
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  app.component('footerComponent', {
+	    template: __webpack_require__(69)
+	  });
+	};
+
+/***/ },
+/* 69 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer id=\"footer\">\n  <div class=\"container footer-component\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\" target=\"_blank\"><i class=\"fa fa-linkedin\"></i></a> |\n    <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a>\n    </p> \n  </div>\n</footer>";
 
 /***/ },
-/* 57 */
+/* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "<!--<div class=\"home-container\">-->\n  <div class=\"component-wrapper home-container\">\n    <header class=\"header-container\">\n    <div class=\"intro-wrapper hidden-xs\">\n      <h4 class=\"intro-subhead\">Software Developer</h4>\n      <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n      <div class=\"links\">\n        <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n        <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n        <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n        \n        </div>\n      </div>\n    </header>\n\n    <div class=\"home-nav\">\n      <ul>\n        <li>More <a data-ng-click=\"$ctrl.go('/about')\" class=\"home-links\">About me</a></li>\n        <li>View <a data-ng-click=\"$ctrl.go('/projects')\" class=\"home-links\">Projects</a></li>\n      </ul>\n    </div>\n  </div>\n<!--</div>-->\n\n";
+	module.exports = "  <div class=\"component-wrapper home-container\">\n    <header class=\"header-container\">\n    <div class=\"intro-wrapper hidden-xs\">\n      <h4 class=\"intro-subhead\">Software Developer</h4>\n      <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n      <div class=\"links\">\n        <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n        <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n        <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n        \n        </div>\n      </div>\n    </header>\n\n    <!--<div class=\"home-nav\">\n      <ul>\n        <li>More <a href=\"#/about\" class=\"home-links\">About me</a></li>\n        <li>View <a href=\"#/projects\" class=\"home-links\">Projects</a></li>\n      </ul>\n    </div>-->\n  </div>\n\n\n";
 
 /***/ },
-/* 58 */
+/* 71 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"component-wrapper\">\n  <about-component></about-component>\n</div>\n";
 
 /***/ },
-/* 59 */
+/* 72 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"component-wrapper\">\n  <projects-component></projects-component>\n</div>\n";
-
-/***/ },
-/* 60 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"component-wrapper\">\n  <contact-info></contact-info>  \n</div>";
 
 /***/ }
 /******/ ]);
