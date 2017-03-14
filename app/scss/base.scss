@@ -90,8 +90,8 @@
   }
 
   .contact {
-    background-color: rgba(0, 0, 0, .75);
-    color: white;
+    // background-color: rgba(0, 0, 0, .75);
+    color: $app-light;
     margin: 0px;
     display: flex;
     flex-direction: column;
@@ -129,6 +129,7 @@
 
   .bio {
     padding: 1rem;
+    background-color: rgba(0, 0, 0, .1);
   }
 
   .skill-container {
@@ -143,6 +144,12 @@
     background-color: $app-light;
     margin: 0rem;
     padding: 0rem;
+    .section-title {
+       color: black;
+      text-align: center;
+      font-size: 4rem;
+      font-family: 'librebaskerville-bold', serif;
+    }
   }
   .skills-container {
     margin: 0rem;

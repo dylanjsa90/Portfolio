@@ -20,10 +20,16 @@ module.exports = function(app) {
 
     this.currentTab = function() {
       this.setToFalse();
-      if ($location.url().includes('home')) this.home = true;
-      if ($location.url().includes('about')) this.about = true;
-      if ($location.url().includes('projects')) this.projects = true;
-      // if ($location.url().includes('skills')) this.skills = true; 
+      if ($location.url().includes('home')) {
+        this.home = true;
+        this.highlight('home');
+      }  else if ($location.url().includes('about')) {
+        this.about = true;
+        this.highlight('about');
+      }  else if ($location.url().includes('projects')) {
+        this.projects = true;
+        this.highlight('projects');
+      }
     };
 
     this.highlight = function(tab) {
