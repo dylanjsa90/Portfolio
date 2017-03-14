@@ -35,9 +35,6 @@ portfolioApp.config(['$routeProvider', ($rp) => {
     template: require('./html/projects.html'),
     controller: 'ProjectController'
   })
-  .when('/contact', {
-    template: require('./html/contact.html'),
-  })
   .otherwise({
     redirectTo: '/home'
   });

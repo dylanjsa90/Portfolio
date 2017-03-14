@@ -13,10 +13,13 @@
   .contact-wrapper {
     margin-top: 0rem;
     margin-bottom: 0rem;
+    padding-bottom: 0rem;
+    padding-top: 0rem;
   }
   .about-component {
     margin-top: 0rem;
     padding-top: 0rem;
+    padding-bottom: 0rem;
   }
   .skill-container {
     width: 100%;
@@ -116,6 +119,35 @@
   .project-image {
     display: none;
   }
+
+  .image-wrapper {
+    display: none;
+  }
+  ul.contact-info {
+      font-size: 1.3rem;
+  }
+
+  .bio {
+    padding: 1rem;
+  }
+
+  .skill-container {
+    text-align: center;
+    .container {
+      margin: 0rem;
+      padding: 0rem;
+    }
+  }
+
+  .projects-component {
+    background-color: $app-light;
+    margin: 0rem;
+    padding: 0rem;
+  }
+  .skills-container {
+    margin: 0rem;
+    padding: 1.5rem 0rem 0rem 0rem; 
+  }
 }
 
 @media only screen
@@ -166,5 +198,13 @@
     .about-container-primary {
       height: 100%;
       flex: 1;
+    }
+
+    .image-wrapper {
+      display: none;
+    }
+
+    ul.contact-info {
+      font-size: 1.3rem;
     }
   }

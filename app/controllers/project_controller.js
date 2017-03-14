@@ -3,9 +3,9 @@
 module.exports = function(app) {
   app.controller('ProjectController', ['projectService',  function(projectService) {
     this.projectThumbnails = projectService.getAll();
-    this.projectId;
-    this.projectActive = false;
-    this.projects = [];
+    this.projectId = 0;
+    this.projectActive = true;
+    this.projects = [projectService.getAtIndex(this.projectId)];
 
     this.loadThumbnail = function(thumbPath) {
       return (thumbPath);

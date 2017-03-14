@@ -6,8 +6,6 @@
   <div class="project-details">
     <h3><a ng-href="{{$ctrl.project.deployedUrl}}" target="_blank">{{$ctrl.project.name}}</a> {{$ctrl.project.date}} <a style="margin-right: 3px; margin-left: 3px;" ng-repeat="(key, url) in $ctrl.project.urls" ng-href="{{url}}" target="_blank"><i class="project-link fa {{key}}"></i></a> 
     </h3> 
-    <!--<h3></h3>-->
-    <!--<h3>Description</h3>-->
     <p class="project-description">{{$ctrl.project.description}}</p>
     <h3>Project employs</h3>
     <ul class="employs-list">

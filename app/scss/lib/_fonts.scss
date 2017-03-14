@@ -17,7 +17,9 @@
 .bio {
   font-family: 'Merriweather', sans-serif;
   // color: $app-about-primary-color;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  padding: 2rem;
+  margin: 2rem;
   
 }
 
@@ -53,8 +55,12 @@ ul.employs-list li {
   font-size: 120%;
 }
 
+ul.contact-info {
+  font-size: 140%;
+}
+
 .selected {
-  border: 2px solid red;
+  border: 2px solid $app-light;
 }
 
 .section-title {

@@ -3,16 +3,18 @@
   // background-color: rgba(255, 255, 255, .5);
   background-color: $app-light;
   color: $app-dark;
+  min-height: 50vh;
   h1.section-title {
     color: $app-default;
     font-weight: 700;
+    font-size: 3rem;
     
   }
 }
 .contact-wrapper {
-  color: $app-white;
-  background-color: #2F3738;
-
+  // color: $app-white;
+  // background-color: #2F3738;
+  // min-height: 100vh;
 }
 
 
@@ -40,13 +42,14 @@
 }
 
 .about-component {
-  padding: 1rem 1rem 2rem 1rem;
+  padding: 2rem 0rem 2rem 0rem;
 }
 
 .contact-wrapper {  
-  // Move margin/padding with all component containers
   margin: 0px auto;
-  padding: 5rem 0px 5rem 0px;
+  padding: 3rem 0px 2rem 0px;
+  background-color: rgba(0, 0, 0, .75);
+  color: white;
 }
 
 .contact {
@@ -79,20 +82,29 @@
 }
 
 .projects-component {
-  // background-color: $app-light;
-  padding: 10px;
-  // color: $app-dark;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: $app-light;
+  color: $app-dark;
   div.container {
-    min-height: 628px;
-    background-color: $app-dark;
-    color: $app-light;
+    // min-height: 628px;
   }
-
 }
 
 .project-component {
   display: flex;
   align-items: center; 
+
+}
+
+.projects {
+    background-color: $app-dark;
+    color: rgb(179,176,166);
+    padding: 1rem;
+    margin: 1rem;
+    .project-details {
+      padding: 0rem 1rem 0rem 1rem;
+    }
 }
 
 
@@ -105,7 +117,7 @@
 }
 
 .project-thumbnail {
-  margin: 5px;
+  margin: .5rem;
   border-radius: 3px;
   background-color: $app-light;
   border: 1px solid black;
@@ -119,10 +131,9 @@
   background-position: center;
   background-size: cover;
   flex: 0 0 30rem;
-  // border-radius: 50%;
-  // width: 30rem;
   height: 30rem;
-  margin: 0px 20px 0px 20px;
+  width: 30rem;
+  margin: 0rem 2rem 0rem 2rem;
 }
 
 
@@ -131,7 +142,7 @@
   justify-content: space-around;
   width: 60%;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 1rem;
   i {
     font-size: 200%;
       &:hover {
@@ -140,9 +151,17 @@
   }
 }
 
-.skills-container h3 {
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
+.skills-container {
+  background-color: rgb(158,149,106);
+  padding: 1rem;
+    h3 {
+      color: $app-dark;
+      text-align: center;
+      font-size: 4rem;
+      font-family: 'librebaskerville-bold', serif;
+      margin: 0;
+      // font-weight: bold;
+    }
 }
 
 .skill-icon {
