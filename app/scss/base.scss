@@ -3,23 +3,32 @@
 
 @import "_theme.scss";
 @import "_main.scss";
-@import "_layout.scss";
+@import "_home.scss";
+@import "_about.scss";
+@import "_projects.scss";
+@import "_skills.scss";
+@import "_contact.scss";
+
+// @import "_layout.scss";
 @import "_links.scss";
 @import "_nav_responsive.scss";
 @import "_nav.scss";
-@import "_fonts.scss";
+// @import "_fonts.scss";
+
+
 
 @media only screen and (max-width: 768px) {
   .contact-wrapper {
-    margin-top: 0rem;
-    margin-bottom: 0rem;
-    padding-bottom: 0rem;
-    padding-top: 0rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
   .about-component {
-    margin-top: 0rem;
-    padding-top: 0rem;
-    padding-bottom: 0rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   .container-fluid {
     background-color: rgba(0, 0, 0, 0);
@@ -127,7 +136,7 @@
     margin: 0rem;
     padding: 0rem;
     .section-title {
-       color: black;
+      color: $app-black;
       text-align: center;
       font-size: 4rem;
       font-family: 'librebaskerville-bold', serif;
@@ -154,8 +163,8 @@
     flex-direction: row;
     justify-content: space-between;
     .navbar-title a {
-      color: black;
-      background-color: white;
+      color: $app-light;
+      background-color: $app-grey;
       &:hover {
         background-color: black;
         color: white;
@@ -174,7 +183,13 @@
     }
 
     .nav.navbar-nav {
+      // background-color: black;
+      margin-top: 70px;
+      position: fixed;
+      top: 0px;
+      right: 10px;
       background-color: rgba(0, 0, 0, 1.0);
+      
     }
 
     #navcol-1.navbar-collapse ul li {

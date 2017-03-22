@@ -1,0 +1,93 @@
+.project-wrapper {
+  width: 100%;
+  h1, h3, h5 {
+    font-weight: bold;
+  }
+}
+
+.image-wrapper {
+  flex: 0 0 35rem;
+  padding: 3rem;
+}
+
+.projects-component {
+  padding: 1rem;
+  background-color: $app-light;
+  color: $app-black;
+}
+
+.project-component {
+  display: flex;
+  align-items: center; 
+
+}
+
+.projects {
+    background-color: $app-blue;
+    color: rgb(179,176,166);
+    padding: 1rem;
+    margin: 1rem;
+    .project-details {
+      padding: 0rem 1rem 0rem 1rem;
+      a {
+        color: $app-greyblue;
+        text-decoration: underline;
+      }
+    }
+}
+
+
+.project-thumbnail-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+.project-thumbnail {
+  margin: .5rem;
+  border-radius: 3px;
+  background-color: $app-light;
+  border: 1px solid black;
+  height: 75px;
+  width: 75px;
+}
+
+
+.project-image {
+  background-color: $app-light;
+  background-position: center;
+  background-size: cover;
+  flex: 0 0 30rem;
+  height: 30rem;
+  width: 30rem;
+  margin: 0rem 2rem 0rem 2rem;
+}
+
+
+.project-controls {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin: auto;
+  margin-top: 1rem;
+  i {
+    font-size: 200%;
+      &:hover {
+        cursor: pointer;
+      }
+  }
+}
+
+ul.employs-list li {
+  font-size: 1.8rem;
+}
+
+.project-description {
+  font-size: 2rem;
+}
+
+.selected {
+  border: 3px solid $app-darkblue;
+}

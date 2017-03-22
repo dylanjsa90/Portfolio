@@ -16,7 +16,6 @@ module.exports = function(app) {
     this.home = true;
     this.projects = false;
     this.about = false;
-    // this.skills = false; 
 
     this.currentTab = function() {
       this.setToFalse();

@@ -1,16 +1,11 @@
 'use strict';
 
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const ExtractText = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-const API_URL = JSON.stringify(process.env.API_URL || 'http://localhost:3000');
-
 let plugins = [
   new ExtractText('bundle.css'),
-  new webpack.DefinePlugin({
-    __API_URL__: API_URL
-  })
 ];
 
 module.exports = {

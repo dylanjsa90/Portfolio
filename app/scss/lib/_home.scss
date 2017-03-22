@@ -1,0 +1,27 @@
+.home-container {
+  background-image: url("../lib/images/seattle-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 70px);
+  padding-top: 10rem;
+  margin-top: 70px;
+}
+
+.header-container {
+  text-align: center;
+  color: $app-black;
+  font-family: 'Merriweather', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  // margin-top: 4%;
+  .intro-subhead {
+    color: #F45A50;
+  }
+  .intro-heading {
+    font-size: 4rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+}
