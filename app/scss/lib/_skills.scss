@@ -1,7 +1,9 @@
 
 .skills-container {
-  background-color: $app-light;
+  background-color: $app-black;
+  // background-color: $app-light;
   padding: 1rem;
+  min-height: 50vh;
     h3 {
       // color: $app-black;
       text-align: center;
@@ -12,7 +14,6 @@
 }
 
 .skill-icon {
-  background-color: $app-black;
   height: 9rem;
   opacity: .7;
   max-width: 80%;

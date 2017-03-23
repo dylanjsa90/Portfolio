@@ -36,9 +36,16 @@ footer {
 }
 
 h3.section-title {
-    color: $app-default;
+    // text-align: center;
+    color: $app-light;
     font-weight: 700;
     font-size: 3rem;
     font-family: 'Merriweather', serif;
     
-  }
+}
+
+#about, #contact, #projects, #skills {
+  padding-top: 70px;
+}
+
+// .projects-component, .home-container, 

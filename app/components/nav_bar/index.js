@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   app.component('navBar', {
-    controller: 'NavController',
+    controller: 'MainController',
     template: require('./nav_bar_template.html'),
   });
 

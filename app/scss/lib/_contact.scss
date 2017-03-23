@@ -12,11 +12,11 @@ ul.contact-info {
 }
 
 .contact-wrapper {  
-  margin: 1rem auto;
+  margin: 0rem auto;
   padding: 3rem 0px 2rem 0px;
-  // background-color: rgba(0, 0, 0, .75);
   background-color: $app-darkblue;
   color: $app-white;
+  min-height: 50vh;
 }
 
 .contact {
