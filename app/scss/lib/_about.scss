@@ -1,0 +1,51 @@
+.about-component {
+  background-color: rgba(0, 0, 0, .25);
+  color: $app-black;
+  min-height: 50vh;
+  padding: 2rem 0rem 2rem 0rem;
+  margin: 0px;
+  font-family: 'Merriweather', sans-serif;
+  h4 {
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    margin: 0rem;
+  }
+  h3 {
+    padding: 0.5rem;
+    margin: 0rem;
+  }
+  .about-title {
+    margin: 0rem;
+    padding: 0rem;
+    color: $app-light;
+    font-weight: 700;
+    font-size: 3rem;
+    color: $app-darkblue;
+  }
+
+}
+
+.edu {
+  margin: 1rem;
+  padding: 1rem;
+  .edu-name {
+    font-weight: 600;
+    padding: 0rem;
+    font-size: 2rem;
+  }
+  .edu-result {
+    padding: 0rem;
+    font-weight: 400;
+    font-size: 1.8rem;
+  }
+}
+
+
+.bio {
+  font-family: 'Merriweather', sans-serif;
+  // background-color: $app-default;
+  font-size: 2rem;
+  padding: 2rem;
+  margin: 2rem;
+  
+}
+

@@ -1,7 +1,7 @@
-<div class="projects-component">
+<div class="projects-component" id="projects">
   <div class="container">
-    <h3 class="section-title">Projects</h3>
     <div class="projects">
+      <h3 class="section-title">Projects</h3>
       <div class="project-thumbnail-container">
         <div ng-repeat="projectThumb in $ctrl.projectThumbnails">
           <img ng-src="{{projectThumb.thumbnailUrl}}" class="project-thumbnail thumbnail" alt="project thumbnail" data-ng-class="{'selected': $ctrl.projectId == $index}" ng-bind="projectThumb.name" data-ng-click="$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)" data-project="project">
@@ -18,6 +18,4 @@
       </div>
     </div>
   </div>
-
-  <skills></skills>
 </div>

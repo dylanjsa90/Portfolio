@@ -1,11 +1,13 @@
-<nav id="navbar-main" data-ng-init="$ctrl.currentTab()">
+<nav id="navbar-main">
   <div class="navbar-title">
     <a href="#/home">DS</a>
   </div>
   <ul id="navbar-list">
-    <a data-ng-click="$ctrl.go('home')" data-ng-class="{'nav-selected': $ctrl.home}"><li>HOME</li></a>
-    <a data-ng-click="$ctrl.go('about')" data-ng-class="{'nav-selected': $ctrl.about}"><li>ABOUT ME</li></a>
-    <a data-ng-click="$ctrl.go('projects')" data-ng-class="{'nav-selected': $ctrl.projects}"><li>PROJECTS</li></a>
+    <a data-ng-click="$ctrl.scrollTo('home')" data-ng-class="{'nav-selected': $ctrl.home}"><li>HOME</li></a>
+    <a data-ng-click="$ctrl.scrollTo('about')" data-ng-class="{'nav-selected': $ctrl.about}"><li>ABOUT ME</li></a>
+    <a data-ng-click="$ctrl.scrollTo('projects')" data-ng-class="{'nav-selected': $ctrl.projects}"><li>PROJECTS</li></a>
+    <a data-ng-click="$ctrl.scrollTo('skills')" data-ng-class="{'nav-selected': $ctrl.skills}"><li>SKILLS</li></a>
+    <a data-ng-click="$ctrl.scrollTo('contact')" data-ng-class="{'nav-selected': $ctrl.contact}"><li>CONTACT</li></a>
   </ul>
 
   <nav class="navbar navbar-inverse">
@@ -22,8 +24,10 @@
 
 <div class="navbar-collapse {{$ctrl.collapsedClass}}" id="navcol-1">
   <ul class="nav navbar-nav">
-    <li class="active" role="presentation"><a href="#/home" data-ng-click="$ctrl.toggle()">HOME</a></li>
-    <li role="presentation"><a href="#/about" data-ng-click="$ctrl.toggle()">ABOUT</a></li>
-    <li role="presentation"><a href="#/projects" data-ng-click="$ctrl.toggle()">PROJECTS</a></li>
+    <li class="active" role="presentation"><a data-ng-click="$ctrl.scrollTo('home'); $ctrl.toggle()">HOME</a></li>
+    <li role="presentation"><a data-ng-click="$ctrl.scrollTo('about'); $ctrl.toggle()">ABOUT</a></li>
+    <li role="presentation"><a data-ng-click="$ctrl.scrollTo('projects'); $ctrl.toggle()">PROJECTS</a></li>
+    <li role="presentation"><a data-ng-click="$ctrl.scrollTo('skills'); $ctrl.toggle()">SKILLS</a></li>
+    <li role="presentation"><a data-ng-click="$ctrl.scrollTo('contact'); $ctrl.toggle()">CONTACT</a></li>
   </ul>
 </div>

@@ -1,0 +1,23 @@
+
+
+
+
+.home-nav {
+  margin: 10% auto;
+  ul {
+    text-align: center;
+    font-family: 'Merriweather';
+    font-size: 140%;
+    color: black;
+    li {
+      background-color: rgba(255, 255, 255, .5);
+      display: inline;
+    }
+    .home-links {
+      cursor: pointer;
+    }
+  }
+}
+
+
+

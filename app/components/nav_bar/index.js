@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   app.component('navBar', {
-    controller: 'NavController',
+    controller: 'MainController',
     template: require('./nav_bar_template.html'),
   });
 
@@ -16,7 +16,6 @@ module.exports = function(app) {
     this.home = true;
     this.projects = false;
     this.about = false;
-    // this.skills = false; 
 
     this.currentTab = function() {
       this.setToFalse();

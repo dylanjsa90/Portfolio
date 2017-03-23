@@ -1,0 +1,36 @@
+.contact-intro {
+  margin-right: 5px;
+}
+
+.contact-info > li {
+  font-size: 130%;
+  font-family: 'Source Sans Pro', sans-serif; 
+}
+
+ul.contact-info {
+  font-size: 140%;
+}
+
+.contact-wrapper {  
+  margin: 0rem auto;
+  padding: 3rem 0px 2rem 0px;
+  background-color: $app-darkblue;
+  color: $app-white;
+  min-height: 50vh;
+}
+
+.contact {
+  margin: 0px 5% 0px 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .headshot {
+    background-image: url('../lib/images/profile-edit.jpg');
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    width: 24rem;
+    height: 24rem;
+  }
+}

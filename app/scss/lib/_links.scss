@@ -9,42 +9,26 @@
   border-top-right-radius: 20px;
   margin: 0px 5px 0px 5px;
   transition: background-color 0.2s ease;
-}
-
-#navbar-list a.nav-selected {
-  border-top: 3px solid black;
+  &:hover {
+    color: white;
+    background-color: black;
+  }
+  .nav-selected {
+    border-top: 3px solid black;
+  }
 }
 
 .navbar-title a {
   font-weight: bold;
   font-size: 200%;
   font-family: 'Merriweather';
-  border-radius: 10px;
+  border-radius: 1rem;
   color: black;
-  padding: 10px;
-  margin-left: 20px;
+  padding: 1rem;
+  margin-left: 2rem;
   transition: background-color 0.15s ease;
   &:hover {
     background-color: black;
     color: white;
-  }
-}
-
-#navbar-list a:hover {
-  color: white;
-  background-color: black;
-}
-
-.about-links {
-  list-style: none;
-  display: inline;
-  font-size: 200%;
-  margin-left: 20px;
-  margin-right: 20px;
-  color: darkblue;
-  &:hover {
-    text-decoration: underline;
-    color: black;
-    cursor: pointer;
   }
 }

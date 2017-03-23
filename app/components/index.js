@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
   require('./nav_bar')(app);
+  require('./home')(app);
   require('./project')(app);
   require('./projects')(app);
   require('./contact')(app);

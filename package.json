@@ -11,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/dylanjsa90/Portfolio.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Portfolio", "Web developer", "Software developer", "Angular"],
+  "author": "Dylan Sanders",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dylanjsa90/Portfolio/issues"

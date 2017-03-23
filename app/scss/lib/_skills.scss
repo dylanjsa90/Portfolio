@@ -1,0 +1,48 @@
+
+.skills-container {
+  background-color: $app-black;
+  // background-color: $app-light;
+  padding: 1rem;
+  min-height: 50vh;
+    h3 {
+      // color: $app-black;
+      text-align: center;
+      font-size: 4rem;
+      font-family: 'librebaskerville-bold', serif;
+      margin: 0;
+    }
+}
+
+.skill-icon {
+  height: 9rem;
+  opacity: .7;
+  max-width: 80%;
+  margin: 1rem;
+
+}
+
+.skill-icons {
+  padding: 0px;
+  margin: 1.7rem;
+  background-color: $app-black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  li {
+    width: 150px;
+    padding: 1rem;
+    font-size: 1.6rem;
+    color: $app-light;
+    flex: 0 0 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    img {
+      width: 100%;
+
+    }
+    
+  }
+}

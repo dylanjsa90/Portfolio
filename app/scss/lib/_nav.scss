@@ -4,23 +4,31 @@ nav-bar {
 }
 
 #navbar-main {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
   display: flex;
+  height: 70px;
   align-items: center;
   flex-direction: row;
-  background-color: rgb(179,176,166);
+  // background-color: rgb(179,176,166);
+  background-color: $app-light;
+  
   justify-content: space-around;
   .navbar-title a {
-    color: black;
-    background-color: white;
+    color: $app-light;
+    background-color: $app-grey;
     &:hover {
-      background-color: black;
-      color: white;
+      background-color: $app-black;
+      color: $app-white;
     }
   }
 }
 
 #navbar-list {
-  margin-top: 40px;
+  margin-top: 3rem;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -28,6 +36,16 @@ nav-bar {
     cursor: pointer;
     padding-top: 5px;
     border-top: 1px solid black;
-    color: black;
+    color: $app-darkblue;
+    &:hover {
+      background-color: $app-greyblue;
+      // color: $app-blue;
+    }
   }
+}
+
+#navcol-1.navbar-collapse ul li a {
+  color: $app-light;
+  // background-color: rgba(0, 0, 0, 1.0);
+  background-color: $app-black;
 }
