@@ -185,11 +185,15 @@
     .nav.navbar-nav {
       // background-color: black;
       margin-top: 70px;
+      width: 40%;
       position: fixed;
       top: 0px;
       right: 10px;
-      background-color: rgba(0, 0, 0, 1.0);
-      
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .navbar-title a {
+      box-sizing: border-box;
     }
 
     #navcol-1.navbar-collapse ul li {
