@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html data-ng-app="portfolioApp">
   <head>
+    <script type="text/javascript">
+      var host = "yoursite.com";
+      if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
     <title>Dylan's Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://dylanjsanders.com">
     <meta charset="utf-8">
     <link rel="stylesheet" href="bundle.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans|Merriweather|Source+Sans+Pro' rel='stylesheet'  type='text/css'>
