@@ -52,33 +52,29 @@
 	__webpack_require__(2);
 
 	var angular = __webpack_require__(14);
-	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(16), __webpack_require__(18), __webpack_require__(27), __webpack_require__(29)]);
+	var portfolioApp = angular.module('portfolioApp', [__webpack_require__(16)]);
 
-	__webpack_require__(31)(portfolioApp);
-	__webpack_require__(41)(portfolioApp);
-	__webpack_require__(44)(portfolioApp);
+	__webpack_require__(18)(portfolioApp);
+	__webpack_require__(28)(portfolioApp);
+	__webpack_require__(30)(portfolioApp);
 
-	portfolioApp.run(['$rootScope', function ($rs) {
-	  $rs.baseUrl = '' + ("http://localhost:3000"), $rs.userConfig = {
-	    headers: {
-	      'Content-Type': 'application/json',
-	      'Accept-Content': 'application/json'
-	    }
-	  };
-	}]);
-
-	portfolioApp.config(['$routeProvider', function ($rp) {
-	  $rp.when('/home', {
-	    template: __webpack_require__(70)
-	  }).when('/about', {
-	    template: __webpack_require__(71)
-	  }).when('/projects', {
-	    template: __webpack_require__(72),
-	    controller: 'ProjectController'
-	  }).otherwise({
-	    redirectTo: '/home'
-	  });
-	}]);
+	// portfolioApp.config(['$routeProvider', ($rp) => {
+	//   $rp
+	//   .when('/home', {
+	//     template: require('./html/home.html'),
+	//     // contoller: 'NavController'
+	//   })
+	//   .when('/about', {
+	//     template: require('./html/about.html'),
+	//   })
+	//   .when('/projects', {
+	//     template: require('./html/projects.html'),
+	//     controller: 'ProjectController'
+	//   })
+	//   .otherwise({
+	//     redirectTo: '/home'
+	//   });
+	// }]);
 
 /***/ },
 /* 1 */
@@ -31889,2673 +31885,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(17);
-	module.exports = 'ngRoute';
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-	/**
-	 * @license AngularJS v1.5.8
-	 * (c) 2010-2016 Google, Inc. http://angularjs.org
-	 * License: MIT
-	 */
-	(function(window, angular) {'use strict';
-
-	/* global shallowCopy: true */
-
-	/**
-	 * Creates a shallow copy of an object, an array or a primitive.
-	 *
-	 * Assumes that there are no proto properties for objects.
-	 */
-	function shallowCopy(src, dst) {
-	  if (isArray(src)) {
-	    dst = dst || [];
-
-	    for (var i = 0, ii = src.length; i < ii; i++) {
-	      dst[i] = src[i];
-	    }
-	  } else if (isObject(src)) {
-	    dst = dst || {};
-
-	    for (var key in src) {
-	      if (!(key.charAt(0) === '$' && key.charAt(1) === '$')) {
-	        dst[key] = src[key];
-	      }
-	    }
-	  }
-
-	  return dst || src;
-	}
-
-	/* global shallowCopy: false */
-
-	// There are necessary for `shallowCopy()` (included via `src/shallowCopy.js`).
-	// They are initialized inside the `$RouteProvider`, to ensure `window.angular` is available.
-	var isArray;
-	var isObject;
-
-	/**
-	 * @ngdoc module
-	 * @name ngRoute
-	 * @description
-	 *
-	 * # ngRoute
-	 *
-	 * The `ngRoute` module provides routing and deeplinking services and directives for angular apps.
-	 *
-	 * ## Example
-	 * See {@link ngRoute.$route#example $route} for an example of configuring and using `ngRoute`.
-	 *
-	 *
-	 * <div doc-module-components="ngRoute"></div>
-	 */
-	 /* global -ngRouteModule */
-	var ngRouteModule = angular.module('ngRoute', ['ng']).
-	                        provider('$route', $RouteProvider),
-	    $routeMinErr = angular.$$minErr('ngRoute');
-
-	/**
-	 * @ngdoc provider
-	 * @name $routeProvider
-	 *
-	 * @description
-	 *
-	 * Used for configuring routes.
-	 *
-	 * ## Example
-	 * See {@link ngRoute.$route#example $route} for an example of configuring and using `ngRoute`.
-	 *
-	 * ## Dependencies
-	 * Requires the {@link ngRoute `ngRoute`} module to be installed.
-	 */
-	function $RouteProvider() {
-	  isArray = angular.isArray;
-	  isObject = angular.isObject;
-
-	  function inherit(parent, extra) {
-	    return angular.extend(Object.create(parent), extra);
-	  }
-
-	  var routes = {};
-
-	  /**
-	   * @ngdoc method
-	   * @name $routeProvider#when
-	   *
-	   * @param {string} path Route path (matched against `$location.path`). If `$location.path`
-	   *    contains redundant trailing slash or is missing one, the route will still match and the
-	   *    `$location.path` will be updated to add or drop the trailing slash to exactly match the
-	   *    route definition.
-	   *
-	   *    * `path` can contain named groups starting with a colon: e.g. `:name`. All characters up
-	   *        to the next slash are matched and stored in `$routeParams` under the given `name`
-	   *        when the route matches.
-	   *    * `path` can contain named groups starting with a colon and ending with a star:
-	   *        e.g.`:name*`. All characters are eagerly stored in `$routeParams` under the given `name`
-	   *        when the route matches.
-	   *    * `path` can contain optional named groups with a question mark: e.g.`:name?`.
-	   *
-	   *    For example, routes like `/color/:color/largecode/:largecode*\/edit` will match
-	   *    `/color/brown/largecode/code/with/slashes/edit` and extract:
-	   *
-	   *    * `color: brown`
-	   *    * `largecode: code/with/slashes`.
-	   *
-	   *
-	   * @param {Object} route Mapping information to be assigned to `$route.current` on route
-	   *    match.
-	   *
-	   *    Object properties:
-	   *
-	   *    - `controller` – `{(string|function()=}` – Controller fn that should be associated with
-	   *      newly created scope or the name of a {@link angular.Module#controller registered
-	   *      controller} if passed as a string.
-	   *    - `controllerAs` – `{string=}` – An identifier name for a reference to the controller.
-	   *      If present, the controller will be published to scope under the `controllerAs` name.
-	   *    - `template` – `{string=|function()=}` – html template as a string or a function that
-	   *      returns an html template as a string which should be used by {@link
-	   *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
-	   *      This property takes precedence over `templateUrl`.
-	   *
-	   *      If `template` is a function, it will be called with the following parameters:
-	   *
-	   *      - `{Array.<Object>}` - route parameters extracted from the current
-	   *        `$location.path()` by applying the current route
-	   *
-	   *    - `templateUrl` – `{string=|function()=}` – path or function that returns a path to an html
-	   *      template that should be used by {@link ngRoute.directive:ngView ngView}.
-	   *
-	   *      If `templateUrl` is a function, it will be called with the following parameters:
-	   *
-	   *      - `{Array.<Object>}` - route parameters extracted from the current
-	   *        `$location.path()` by applying the current route
-	   *
-	   *    - `resolve` - `{Object.<string, function>=}` - An optional map of dependencies which should
-	   *      be injected into the controller. If any of these dependencies are promises, the router
-	   *      will wait for them all to be resolved or one to be rejected before the controller is
-	   *      instantiated.
-	   *      If all the promises are resolved successfully, the values of the resolved promises are
-	   *      injected and {@link ngRoute.$route#$routeChangeSuccess $routeChangeSuccess} event is
-	   *      fired. If any of the promises are rejected the
-	   *      {@link ngRoute.$route#$routeChangeError $routeChangeError} event is fired.
-	   *      For easier access to the resolved dependencies from the template, the `resolve` map will
-	   *      be available on the scope of the route, under `$resolve` (by default) or a custom name
-	   *      specified by the `resolveAs` property (see below). This can be particularly useful, when
-	   *      working with {@link angular.Module#component components} as route templates.<br />
-	   *      <div class="alert alert-warning">
-	   *        **Note:** If your scope already contains a property with this name, it will be hidden
-	   *        or overwritten. Make sure, you specify an appropriate name for this property, that
-	   *        does not collide with other properties on the scope.
-	   *      </div>
-	   *      The map object is:
-	   *
-	   *      - `key` – `{string}`: a name of a dependency to be injected into the controller.
-	   *      - `factory` - `{string|function}`: If `string` then it is an alias for a service.
-	   *        Otherwise if function, then it is {@link auto.$injector#invoke injected}
-	   *        and the return value is treated as the dependency. If the result is a promise, it is
-	   *        resolved before its value is injected into the controller. Be aware that
-	   *        `ngRoute.$routeParams` will still refer to the previous route within these resolve
-	   *        functions.  Use `$route.current.params` to access the new route parameters, instead.
-	   *
-	   *    - `resolveAs` - `{string=}` - The name under which the `resolve` map will be available on
-	   *      the scope of the route. If omitted, defaults to `$resolve`.
-	   *
-	   *    - `redirectTo` – `{(string|function())=}` – value to update
-	   *      {@link ng.$location $location} path with and trigger route redirection.
-	   *
-	   *      If `redirectTo` is a function, it will be called with the following parameters:
-	   *
-	   *      - `{Object.<string>}` - route parameters extracted from the current
-	   *        `$location.path()` by applying the current route templateUrl.
-	   *      - `{string}` - current `$location.path()`
-	   *      - `{Object}` - current `$location.search()`
-	   *
-	   *      The custom `redirectTo` function is expected to return a string which will be used
-	   *      to update `$location.path()` and `$location.search()`.
-	   *
-	   *    - `[reloadOnSearch=true]` - `{boolean=}` - reload route when only `$location.search()`
-	   *      or `$location.hash()` changes.
-	   *
-	   *      If the option is set to `false` and url in the browser changes, then
-	   *      `$routeUpdate` event is broadcasted on the root scope.
-	   *
-	   *    - `[caseInsensitiveMatch=false]` - `{boolean=}` - match routes without being case sensitive
-	   *
-	   *      If the option is set to `true`, then the particular route can be matched without being
-	   *      case sensitive
-	   *
-	   * @returns {Object} self
-	   *
-	   * @description
-	   * Adds a new route definition to the `$route` service.
-	   */
-	  this.when = function(path, route) {
-	    //copy original route object to preserve params inherited from proto chain
-	    var routeCopy = shallowCopy(route);
-	    if (angular.isUndefined(routeCopy.reloadOnSearch)) {
-	      routeCopy.reloadOnSearch = true;
-	    }
-	    if (angular.isUndefined(routeCopy.caseInsensitiveMatch)) {
-	      routeCopy.caseInsensitiveMatch = this.caseInsensitiveMatch;
-	    }
-	    routes[path] = angular.extend(
-	      routeCopy,
-	      path && pathRegExp(path, routeCopy)
-	    );
-
-	    // create redirection for trailing slashes
-	    if (path) {
-	      var redirectPath = (path[path.length - 1] == '/')
-	            ? path.substr(0, path.length - 1)
-	            : path + '/';
-
-	      routes[redirectPath] = angular.extend(
-	        {redirectTo: path},
-	        pathRegExp(redirectPath, routeCopy)
-	      );
-	    }
-
-	    return this;
-	  };
-
-	  /**
-	   * @ngdoc property
-	   * @name $routeProvider#caseInsensitiveMatch
-	   * @description
-	   *
-	   * A boolean property indicating if routes defined
-	   * using this provider should be matched using a case insensitive
-	   * algorithm. Defaults to `false`.
-	   */
-	  this.caseInsensitiveMatch = false;
-
-	   /**
-	    * @param path {string} path
-	    * @param opts {Object} options
-	    * @return {?Object}
-	    *
-	    * @description
-	    * Normalizes the given path, returning a regular expression
-	    * and the original path.
-	    *
-	    * Inspired by pathRexp in visionmedia/express/lib/utils.js.
-	    */
-	  function pathRegExp(path, opts) {
-	    var insensitive = opts.caseInsensitiveMatch,
-	        ret = {
-	          originalPath: path,
-	          regexp: path
-	        },
-	        keys = ret.keys = [];
-
-	    path = path
-	      .replace(/([().])/g, '\\$1')
-	      .replace(/(\/)?:(\w+)(\*\?|[\?\*])?/g, function(_, slash, key, option) {
-	        var optional = (option === '?' || option === '*?') ? '?' : null;
-	        var star = (option === '*' || option === '*?') ? '*' : null;
-	        keys.push({ name: key, optional: !!optional });
-	        slash = slash || '';
-	        return ''
-	          + (optional ? '' : slash)
-	          + '(?:'
-	          + (optional ? slash : '')
-	          + (star && '(.+?)' || '([^/]+)')
-	          + (optional || '')
-	          + ')'
-	          + (optional || '');
-	      })
-	      .replace(/([\/$\*])/g, '\\$1');
-
-	    ret.regexp = new RegExp('^' + path + '$', insensitive ? 'i' : '');
-	    return ret;
-	  }
-
-	  /**
-	   * @ngdoc method
-	   * @name $routeProvider#otherwise
-	   *
-	   * @description
-	   * Sets route definition that will be used on route change when no other route definition
-	   * is matched.
-	   *
-	   * @param {Object|string} params Mapping information to be assigned to `$route.current`.
-	   * If called with a string, the value maps to `redirectTo`.
-	   * @returns {Object} self
-	   */
-	  this.otherwise = function(params) {
-	    if (typeof params === 'string') {
-	      params = {redirectTo: params};
-	    }
-	    this.when(null, params);
-	    return this;
-	  };
-
-
-	  this.$get = ['$rootScope',
-	               '$location',
-	               '$routeParams',
-	               '$q',
-	               '$injector',
-	               '$templateRequest',
-	               '$sce',
-	      function($rootScope, $location, $routeParams, $q, $injector, $templateRequest, $sce) {
-
-	    /**
-	     * @ngdoc service
-	     * @name $route
-	     * @requires $location
-	     * @requires $routeParams
-	     *
-	     * @property {Object} current Reference to the current route definition.
-	     * The route definition contains:
-	     *
-	     *   - `controller`: The controller constructor as defined in the route definition.
-	     *   - `locals`: A map of locals which is used by {@link ng.$controller $controller} service for
-	     *     controller instantiation. The `locals` contain
-	     *     the resolved values of the `resolve` map. Additionally the `locals` also contain:
-	     *
-	     *     - `$scope` - The current route scope.
-	     *     - `$template` - The current route template HTML.
-	     *
-	     *     The `locals` will be assigned to the route scope's `$resolve` property. You can override
-	     *     the property name, using `resolveAs` in the route definition. See
-	     *     {@link ngRoute.$routeProvider $routeProvider} for more info.
-	     *
-	     * @property {Object} routes Object with all route configuration Objects as its properties.
-	     *
-	     * @description
-	     * `$route` is used for deep-linking URLs to controllers and views (HTML partials).
-	     * It watches `$location.url()` and tries to map the path to an existing route definition.
-	     *
-	     * Requires the {@link ngRoute `ngRoute`} module to be installed.
-	     *
-	     * You can define routes through {@link ngRoute.$routeProvider $routeProvider}'s API.
-	     *
-	     * The `$route` service is typically used in conjunction with the
-	     * {@link ngRoute.directive:ngView `ngView`} directive and the
-	     * {@link ngRoute.$routeParams `$routeParams`} service.
-	     *
-	     * @example
-	     * This example shows how changing the URL hash causes the `$route` to match a route against the
-	     * URL, and the `ngView` pulls in the partial.
-	     *
-	     * <example name="$route-service" module="ngRouteExample"
-	     *          deps="angular-route.js" fixBase="true">
-	     *   <file name="index.html">
-	     *     <div ng-controller="MainController">
-	     *       Choose:
-	     *       <a href="Book/Moby">Moby</a> |
-	     *       <a href="Book/Moby/ch/1">Moby: Ch1</a> |
-	     *       <a href="Book/Gatsby">Gatsby</a> |
-	     *       <a href="Book/Gatsby/ch/4?key=value">Gatsby: Ch4</a> |
-	     *       <a href="Book/Scarlet">Scarlet Letter</a><br/>
-	     *
-	     *       <div ng-view></div>
-	     *
-	     *       <hr />
-	     *
-	     *       <pre>$location.path() = {{$location.path()}}</pre>
-	     *       <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
-	     *       <pre>$route.current.params = {{$route.current.params}}</pre>
-	     *       <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
-	     *       <pre>$routeParams = {{$routeParams}}</pre>
-	     *     </div>
-	     *   </file>
-	     *
-	     *   <file name="book.html">
-	     *     controller: {{name}}<br />
-	     *     Book Id: {{params.bookId}}<br />
-	     *   </file>
-	     *
-	     *   <file name="chapter.html">
-	     *     controller: {{name}}<br />
-	     *     Book Id: {{params.bookId}}<br />
-	     *     Chapter Id: {{params.chapterId}}
-	     *   </file>
-	     *
-	     *   <file name="script.js">
-	     *     angular.module('ngRouteExample', ['ngRoute'])
-	     *
-	     *      .controller('MainController', function($scope, $route, $routeParams, $location) {
-	     *          $scope.$route = $route;
-	     *          $scope.$location = $location;
-	     *          $scope.$routeParams = $routeParams;
-	     *      })
-	     *
-	     *      .controller('BookController', function($scope, $routeParams) {
-	     *          $scope.name = "BookController";
-	     *          $scope.params = $routeParams;
-	     *      })
-	     *
-	     *      .controller('ChapterController', function($scope, $routeParams) {
-	     *          $scope.name = "ChapterController";
-	     *          $scope.params = $routeParams;
-	     *      })
-	     *
-	     *     .config(function($routeProvider, $locationProvider) {
-	     *       $routeProvider
-	     *        .when('/Book/:bookId', {
-	     *         templateUrl: 'book.html',
-	     *         controller: 'BookController',
-	     *         resolve: {
-	     *           // I will cause a 1 second delay
-	     *           delay: function($q, $timeout) {
-	     *             var delay = $q.defer();
-	     *             $timeout(delay.resolve, 1000);
-	     *             return delay.promise;
-	     *           }
-	     *         }
-	     *       })
-	     *       .when('/Book/:bookId/ch/:chapterId', {
-	     *         templateUrl: 'chapter.html',
-	     *         controller: 'ChapterController'
-	     *       });
-	     *
-	     *       // configure html5 to get links working on jsfiddle
-	     *       $locationProvider.html5Mode(true);
-	     *     });
-	     *
-	     *   </file>
-	     *
-	     *   <file name="protractor.js" type="protractor">
-	     *     it('should load and compile correct template', function() {
-	     *       element(by.linkText('Moby: Ch1')).click();
-	     *       var content = element(by.css('[ng-view]')).getText();
-	     *       expect(content).toMatch(/controller\: ChapterController/);
-	     *       expect(content).toMatch(/Book Id\: Moby/);
-	     *       expect(content).toMatch(/Chapter Id\: 1/);
-	     *
-	     *       element(by.partialLinkText('Scarlet')).click();
-	     *
-	     *       content = element(by.css('[ng-view]')).getText();
-	     *       expect(content).toMatch(/controller\: BookController/);
-	     *       expect(content).toMatch(/Book Id\: Scarlet/);
-	     *     });
-	     *   </file>
-	     * </example>
-	     */
-
-	    /**
-	     * @ngdoc event
-	     * @name $route#$routeChangeStart
-	     * @eventType broadcast on root scope
-	     * @description
-	     * Broadcasted before a route change. At this  point the route services starts
-	     * resolving all of the dependencies needed for the route change to occur.
-	     * Typically this involves fetching the view template as well as any dependencies
-	     * defined in `resolve` route property. Once  all of the dependencies are resolved
-	     * `$routeChangeSuccess` is fired.
-	     *
-	     * The route change (and the `$location` change that triggered it) can be prevented
-	     * by calling `preventDefault` method of the event. See {@link ng.$rootScope.Scope#$on}
-	     * for more details about event object.
-	     *
-	     * @param {Object} angularEvent Synthetic event object.
-	     * @param {Route} next Future route information.
-	     * @param {Route} current Current route information.
-	     */
-
-	    /**
-	     * @ngdoc event
-	     * @name $route#$routeChangeSuccess
-	     * @eventType broadcast on root scope
-	     * @description
-	     * Broadcasted after a route change has happened successfully.
-	     * The `resolve` dependencies are now available in the `current.locals` property.
-	     *
-	     * {@link ngRoute.directive:ngView ngView} listens for the directive
-	     * to instantiate the controller and render the view.
-	     *
-	     * @param {Object} angularEvent Synthetic event object.
-	     * @param {Route} current Current route information.
-	     * @param {Route|Undefined} previous Previous route information, or undefined if current is
-	     * first route entered.
-	     */
-
-	    /**
-	     * @ngdoc event
-	     * @name $route#$routeChangeError
-	     * @eventType broadcast on root scope
-	     * @description
-	     * Broadcasted if any of the resolve promises are rejected.
-	     *
-	     * @param {Object} angularEvent Synthetic event object
-	     * @param {Route} current Current route information.
-	     * @param {Route} previous Previous route information.
-	     * @param {Route} rejection Rejection of the promise. Usually the error of the failed promise.
-	     */
-
-	    /**
-	     * @ngdoc event
-	     * @name $route#$routeUpdate
-	     * @eventType broadcast on root scope
-	     * @description
-	     * The `reloadOnSearch` property has been set to false, and we are reusing the same
-	     * instance of the Controller.
-	     *
-	     * @param {Object} angularEvent Synthetic event object
-	     * @param {Route} current Current/previous route information.
-	     */
-
-	    var forceReload = false,
-	        preparedRoute,
-	        preparedRouteIsUpdateOnly,
-	        $route = {
-	          routes: routes,
-
-	          /**
-	           * @ngdoc method
-	           * @name $route#reload
-	           *
-	           * @description
-	           * Causes `$route` service to reload the current route even if
-	           * {@link ng.$location $location} hasn't changed.
-	           *
-	           * As a result of that, {@link ngRoute.directive:ngView ngView}
-	           * creates new scope and reinstantiates the controller.
-	           */
-	          reload: function() {
-	            forceReload = true;
-
-	            var fakeLocationEvent = {
-	              defaultPrevented: false,
-	              preventDefault: function fakePreventDefault() {
-	                this.defaultPrevented = true;
-	                forceReload = false;
-	              }
-	            };
-
-	            $rootScope.$evalAsync(function() {
-	              prepareRoute(fakeLocationEvent);
-	              if (!fakeLocationEvent.defaultPrevented) commitRoute();
-	            });
-	          },
-
-	          /**
-	           * @ngdoc method
-	           * @name $route#updateParams
-	           *
-	           * @description
-	           * Causes `$route` service to update the current URL, replacing
-	           * current route parameters with those specified in `newParams`.
-	           * Provided property names that match the route's path segment
-	           * definitions will be interpolated into the location's path, while
-	           * remaining properties will be treated as query params.
-	           *
-	           * @param {!Object<string, string>} newParams mapping of URL parameter names to values
-	           */
-	          updateParams: function(newParams) {
-	            if (this.current && this.current.$$route) {
-	              newParams = angular.extend({}, this.current.params, newParams);
-	              $location.path(interpolate(this.current.$$route.originalPath, newParams));
-	              // interpolate modifies newParams, only query params are left
-	              $location.search(newParams);
-	            } else {
-	              throw $routeMinErr('norout', 'Tried updating route when with no current route');
-	            }
-	          }
-	        };
-
-	    $rootScope.$on('$locationChangeStart', prepareRoute);
-	    $rootScope.$on('$locationChangeSuccess', commitRoute);
-
-	    return $route;
-
-	    /////////////////////////////////////////////////////
-
-	    /**
-	     * @param on {string} current url
-	     * @param route {Object} route regexp to match the url against
-	     * @return {?Object}
-	     *
-	     * @description
-	     * Check if the route matches the current url.
-	     *
-	     * Inspired by match in
-	     * visionmedia/express/lib/router/router.js.
-	     */
-	    function switchRouteMatcher(on, route) {
-	      var keys = route.keys,
-	          params = {};
-
-	      if (!route.regexp) return null;
-
-	      var m = route.regexp.exec(on);
-	      if (!m) return null;
-
-	      for (var i = 1, len = m.length; i < len; ++i) {
-	        var key = keys[i - 1];
-
-	        var val = m[i];
-
-	        if (key && val) {
-	          params[key.name] = val;
-	        }
-	      }
-	      return params;
-	    }
-
-	    function prepareRoute($locationEvent) {
-	      var lastRoute = $route.current;
-
-	      preparedRoute = parseRoute();
-	      preparedRouteIsUpdateOnly = preparedRoute && lastRoute && preparedRoute.$$route === lastRoute.$$route
-	          && angular.equals(preparedRoute.pathParams, lastRoute.pathParams)
-	          && !preparedRoute.reloadOnSearch && !forceReload;
-
-	      if (!preparedRouteIsUpdateOnly && (lastRoute || preparedRoute)) {
-	        if ($rootScope.$broadcast('$routeChangeStart', preparedRoute, lastRoute).defaultPrevented) {
-	          if ($locationEvent) {
-	            $locationEvent.preventDefault();
-	          }
-	        }
-	      }
-	    }
-
-	    function commitRoute() {
-	      var lastRoute = $route.current;
-	      var nextRoute = preparedRoute;
-
-	      if (preparedRouteIsUpdateOnly) {
-	        lastRoute.params = nextRoute.params;
-	        angular.copy(lastRoute.params, $routeParams);
-	        $rootScope.$broadcast('$routeUpdate', lastRoute);
-	      } else if (nextRoute || lastRoute) {
-	        forceReload = false;
-	        $route.current = nextRoute;
-	        if (nextRoute) {
-	          if (nextRoute.redirectTo) {
-	            if (angular.isString(nextRoute.redirectTo)) {
-	              $location.path(interpolate(nextRoute.redirectTo, nextRoute.params)).search(nextRoute.params)
-	                       .replace();
-	            } else {
-	              $location.url(nextRoute.redirectTo(nextRoute.pathParams, $location.path(), $location.search()))
-	                       .replace();
-	            }
-	          }
-	        }
-
-	        $q.when(nextRoute).
-	          then(resolveLocals).
-	          then(function(locals) {
-	            // after route change
-	            if (nextRoute == $route.current) {
-	              if (nextRoute) {
-	                nextRoute.locals = locals;
-	                angular.copy(nextRoute.params, $routeParams);
-	              }
-	              $rootScope.$broadcast('$routeChangeSuccess', nextRoute, lastRoute);
-	            }
-	          }, function(error) {
-	            if (nextRoute == $route.current) {
-	              $rootScope.$broadcast('$routeChangeError', nextRoute, lastRoute, error);
-	            }
-	          });
-	      }
-	    }
-
-	    function resolveLocals(route) {
-	      if (route) {
-	        var locals = angular.extend({}, route.resolve);
-	        angular.forEach(locals, function(value, key) {
-	          locals[key] = angular.isString(value) ?
-	              $injector.get(value) :
-	              $injector.invoke(value, null, null, key);
-	        });
-	        var template = getTemplateFor(route);
-	        if (angular.isDefined(template)) {
-	          locals['$template'] = template;
-	        }
-	        return $q.all(locals);
-	      }
-	    }
-
-
-	    function getTemplateFor(route) {
-	      var template, templateUrl;
-	      if (angular.isDefined(template = route.template)) {
-	        if (angular.isFunction(template)) {
-	          template = template(route.params);
-	        }
-	      } else if (angular.isDefined(templateUrl = route.templateUrl)) {
-	        if (angular.isFunction(templateUrl)) {
-	          templateUrl = templateUrl(route.params);
-	        }
-	        if (angular.isDefined(templateUrl)) {
-	          route.loadedTemplateUrl = $sce.valueOf(templateUrl);
-	          template = $templateRequest(templateUrl);
-	        }
-	      }
-	      return template;
-	    }
-
-
-	    /**
-	     * @returns {Object} the current active route, by matching it against the URL
-	     */
-	    function parseRoute() {
-	      // Match a route
-	      var params, match;
-	      angular.forEach(routes, function(route, path) {
-	        if (!match && (params = switchRouteMatcher($location.path(), route))) {
-	          match = inherit(route, {
-	            params: angular.extend({}, $location.search(), params),
-	            pathParams: params});
-	          match.$$route = route;
-	        }
-	      });
-	      // No route matched; fallback to "otherwise" route
-	      return match || routes[null] && inherit(routes[null], {params: {}, pathParams:{}});
-	    }
-
-	    /**
-	     * @returns {string} interpolation of the redirect path with the parameters
-	     */
-	    function interpolate(string, params) {
-	      var result = [];
-	      angular.forEach((string || '').split(':'), function(segment, i) {
-	        if (i === 0) {
-	          result.push(segment);
-	        } else {
-	          var segmentMatch = segment.match(/(\w+)(?:[?*])?(.*)/);
-	          var key = segmentMatch[1];
-	          result.push(params[key]);
-	          result.push(segmentMatch[2] || '');
-	          delete params[key];
-	        }
-	      });
-	      return result.join('');
-	    }
-	  }];
-	}
-
-	ngRouteModule.provider('$routeParams', $RouteParamsProvider);
-
-
-	/**
-	 * @ngdoc service
-	 * @name $routeParams
-	 * @requires $route
-	 *
-	 * @description
-	 * The `$routeParams` service allows you to retrieve the current set of route parameters.
-	 *
-	 * Requires the {@link ngRoute `ngRoute`} module to be installed.
-	 *
-	 * The route parameters are a combination of {@link ng.$location `$location`}'s
-	 * {@link ng.$location#search `search()`} and {@link ng.$location#path `path()`}.
-	 * The `path` parameters are extracted when the {@link ngRoute.$route `$route`} path is matched.
-	 *
-	 * In case of parameter name collision, `path` params take precedence over `search` params.
-	 *
-	 * The service guarantees that the identity of the `$routeParams` object will remain unchanged
-	 * (but its properties will likely change) even when a route change occurs.
-	 *
-	 * Note that the `$routeParams` are only updated *after* a route change completes successfully.
-	 * This means that you cannot rely on `$routeParams` being correct in route resolve functions.
-	 * Instead you can use `$route.current.params` to access the new route's parameters.
-	 *
-	 * @example
-	 * ```js
-	 *  // Given:
-	 *  // URL: http://server.com/index.html#/Chapter/1/Section/2?search=moby
-	 *  // Route: /Chapter/:chapterId/Section/:sectionId
-	 *  //
-	 *  // Then
-	 *  $routeParams ==> {chapterId:'1', sectionId:'2', search:'moby'}
-	 * ```
-	 */
-	function $RouteParamsProvider() {
-	  this.$get = function() { return {}; };
-	}
-
-	ngRouteModule.directive('ngView', ngViewFactory);
-	ngRouteModule.directive('ngView', ngViewFillContentFactory);
-
-
-	/**
-	 * @ngdoc directive
-	 * @name ngView
-	 * @restrict ECA
-	 *
-	 * @description
-	 * # Overview
-	 * `ngView` is a directive that complements the {@link ngRoute.$route $route} service by
-	 * including the rendered template of the current route into the main layout (`index.html`) file.
-	 * Every time the current route changes, the included view changes with it according to the
-	 * configuration of the `$route` service.
-	 *
-	 * Requires the {@link ngRoute `ngRoute`} module to be installed.
-	 *
-	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link ng.$animate#enter enter}  | when the new element is inserted to the DOM |
-	 * | {@link ng.$animate#leave leave}  | when the old element is removed from to the DOM  |
-	 *
-	 * The enter and leave animation occur concurrently.
-	 *
-	 * @knownIssue If `ngView` is contained in an asynchronously loaded template (e.g. in another
-	 *             directive's templateUrl or in a template loaded using `ngInclude`), then you need to
-	 *             make sure that `$route` is instantiated in time to capture the initial
-	 *             `$locationChangeStart` event and load the appropriate view. One way to achieve this
-	 *             is to have it as a dependency in a `.run` block:
-	 *             `myModule.run(['$route', function() {}]);`
-	 *
-	 * @scope
-	 * @priority 400
-	 * @param {string=} onload Expression to evaluate whenever the view updates.
-	 *
-	 * @param {string=} autoscroll Whether `ngView` should call {@link ng.$anchorScroll
-	 *                  $anchorScroll} to scroll the viewport after the view is updated.
-	 *
-	 *                  - If the attribute is not set, disable scrolling.
-	 *                  - If the attribute is set without value, enable scrolling.
-	 *                  - Otherwise enable scrolling only if the `autoscroll` attribute value evaluated
-	 *                    as an expression yields a truthy value.
-	 * @example
-	    <example name="ngView-directive" module="ngViewExample"
-	             deps="angular-route.js;angular-animate.js"
-	             animations="true" fixBase="true">
-	      <file name="index.html">
-	        <div ng-controller="MainCtrl as main">
-	          Choose:
-	          <a href="Book/Moby">Moby</a> |
-	          <a href="Book/Moby/ch/1">Moby: Ch1</a> |
-	          <a href="Book/Gatsby">Gatsby</a> |
-	          <a href="Book/Gatsby/ch/4?key=value">Gatsby: Ch4</a> |
-	          <a href="Book/Scarlet">Scarlet Letter</a><br/>
-
-	          <div class="view-animate-container">
-	            <div ng-view class="view-animate"></div>
-	          </div>
-	          <hr />
-
-	          <pre>$location.path() = {{main.$location.path()}}</pre>
-	          <pre>$route.current.templateUrl = {{main.$route.current.templateUrl}}</pre>
-	          <pre>$route.current.params = {{main.$route.current.params}}</pre>
-	          <pre>$routeParams = {{main.$routeParams}}</pre>
-	        </div>
-	      </file>
-
-	      <file name="book.html">
-	        <div>
-	          controller: {{book.name}}<br />
-	          Book Id: {{book.params.bookId}}<br />
-	        </div>
-	      </file>
-
-	      <file name="chapter.html">
-	        <div>
-	          controller: {{chapter.name}}<br />
-	          Book Id: {{chapter.params.bookId}}<br />
-	          Chapter Id: {{chapter.params.chapterId}}
-	        </div>
-	      </file>
-
-	      <file name="animations.css">
-	        .view-animate-container {
-	          position:relative;
-	          height:100px!important;
-	          background:white;
-	          border:1px solid black;
-	          height:40px;
-	          overflow:hidden;
-	        }
-
-	        .view-animate {
-	          padding:10px;
-	        }
-
-	        .view-animate.ng-enter, .view-animate.ng-leave {
-	          transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-
-	          display:block;
-	          width:100%;
-	          border-left:1px solid black;
-
-	          position:absolute;
-	          top:0;
-	          left:0;
-	          right:0;
-	          bottom:0;
-	          padding:10px;
-	        }
-
-	        .view-animate.ng-enter {
-	          left:100%;
-	        }
-	        .view-animate.ng-enter.ng-enter-active {
-	          left:0;
-	        }
-	        .view-animate.ng-leave.ng-leave-active {
-	          left:-100%;
-	        }
-	      </file>
-
-	      <file name="script.js">
-	        angular.module('ngViewExample', ['ngRoute', 'ngAnimate'])
-	          .config(['$routeProvider', '$locationProvider',
-	            function($routeProvider, $locationProvider) {
-	              $routeProvider
-	                .when('/Book/:bookId', {
-	                  templateUrl: 'book.html',
-	                  controller: 'BookCtrl',
-	                  controllerAs: 'book'
-	                })
-	                .when('/Book/:bookId/ch/:chapterId', {
-	                  templateUrl: 'chapter.html',
-	                  controller: 'ChapterCtrl',
-	                  controllerAs: 'chapter'
-	                });
-
-	              $locationProvider.html5Mode(true);
-	          }])
-	          .controller('MainCtrl', ['$route', '$routeParams', '$location',
-	            function($route, $routeParams, $location) {
-	              this.$route = $route;
-	              this.$location = $location;
-	              this.$routeParams = $routeParams;
-	          }])
-	          .controller('BookCtrl', ['$routeParams', function($routeParams) {
-	            this.name = "BookCtrl";
-	            this.params = $routeParams;
-	          }])
-	          .controller('ChapterCtrl', ['$routeParams', function($routeParams) {
-	            this.name = "ChapterCtrl";
-	            this.params = $routeParams;
-	          }]);
-
-	      </file>
-
-	      <file name="protractor.js" type="protractor">
-	        it('should load and compile correct template', function() {
-	          element(by.linkText('Moby: Ch1')).click();
-	          var content = element(by.css('[ng-view]')).getText();
-	          expect(content).toMatch(/controller\: ChapterCtrl/);
-	          expect(content).toMatch(/Book Id\: Moby/);
-	          expect(content).toMatch(/Chapter Id\: 1/);
-
-	          element(by.partialLinkText('Scarlet')).click();
-
-	          content = element(by.css('[ng-view]')).getText();
-	          expect(content).toMatch(/controller\: BookCtrl/);
-	          expect(content).toMatch(/Book Id\: Scarlet/);
-	        });
-	      </file>
-	    </example>
-	 */
-
-
-	/**
-	 * @ngdoc event
-	 * @name ngView#$viewContentLoaded
-	 * @eventType emit on the current ngView scope
-	 * @description
-	 * Emitted every time the ngView content is reloaded.
-	 */
-	ngViewFactory.$inject = ['$route', '$anchorScroll', '$animate'];
-	function ngViewFactory($route, $anchorScroll, $animate) {
-	  return {
-	    restrict: 'ECA',
-	    terminal: true,
-	    priority: 400,
-	    transclude: 'element',
-	    link: function(scope, $element, attr, ctrl, $transclude) {
-	        var currentScope,
-	            currentElement,
-	            previousLeaveAnimation,
-	            autoScrollExp = attr.autoscroll,
-	            onloadExp = attr.onload || '';
-
-	        scope.$on('$routeChangeSuccess', update);
-	        update();
-
-	        function cleanupLastView() {
-	          if (previousLeaveAnimation) {
-	            $animate.cancel(previousLeaveAnimation);
-	            previousLeaveAnimation = null;
-	          }
-
-	          if (currentScope) {
-	            currentScope.$destroy();
-	            currentScope = null;
-	          }
-	          if (currentElement) {
-	            previousLeaveAnimation = $animate.leave(currentElement);
-	            previousLeaveAnimation.then(function() {
-	              previousLeaveAnimation = null;
-	            });
-	            currentElement = null;
-	          }
-	        }
-
-	        function update() {
-	          var locals = $route.current && $route.current.locals,
-	              template = locals && locals.$template;
-
-	          if (angular.isDefined(template)) {
-	            var newScope = scope.$new();
-	            var current = $route.current;
-
-	            // Note: This will also link all children of ng-view that were contained in the original
-	            // html. If that content contains controllers, ... they could pollute/change the scope.
-	            // However, using ng-view on an element with additional content does not make sense...
-	            // Note: We can't remove them in the cloneAttchFn of $transclude as that
-	            // function is called before linking the content, which would apply child
-	            // directives to non existing elements.
-	            var clone = $transclude(newScope, function(clone) {
-	              $animate.enter(clone, null, currentElement || $element).then(function onNgViewEnter() {
-	                if (angular.isDefined(autoScrollExp)
-	                  && (!autoScrollExp || scope.$eval(autoScrollExp))) {
-	                  $anchorScroll();
-	                }
-	              });
-	              cleanupLastView();
-	            });
-
-	            currentElement = clone;
-	            currentScope = current.scope = newScope;
-	            currentScope.$emit('$viewContentLoaded');
-	            currentScope.$eval(onloadExp);
-	          } else {
-	            cleanupLastView();
-	          }
-	        }
-	    }
-	  };
-	}
-
-	// This directive is called during the $transclude call of the first `ngView` directive.
-	// It will replace and compile the content of the element with the loaded template.
-	// We need this directive so that the element content is already filled when
-	// the link function of another directive on the same element as ngView
-	// is called.
-	ngViewFillContentFactory.$inject = ['$compile', '$controller', '$route'];
-	function ngViewFillContentFactory($compile, $controller, $route) {
-	  return {
-	    restrict: 'ECA',
-	    priority: -400,
-	    link: function(scope, $element) {
-	      var current = $route.current,
-	          locals = current.locals;
-
-	      $element.html(locals.$template);
-
-	      var link = $compile($element.contents());
-
-	      if (current.controller) {
-	        locals.$scope = scope;
-	        var controller = $controller(current.controller, locals);
-	        if (current.controllerAs) {
-	          scope[current.controllerAs] = controller;
-	        }
-	        $element.data('$ngControllerController', controller);
-	        $element.children().data('$ngControllerController', controller);
-	      }
-	      scope[current.resolveAs || '$resolve'] = locals;
-
-	      link(scope);
-	    }
-	  };
-	}
-
-
-	})(window, window.angular);
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*! ngclipboard - v1.1.1 - 2016-02-26
-	* https://github.com/sachinchoolur/ngclipboard
-	* Copyright (c) 2016 Sachin; Licensed MIT */
-	(function() {
-	    'use strict';
-	    var MODULE_NAME = 'ngclipboard';
-	    var angular, Clipboard;
-	    
-	    // Check for CommonJS support
-	    if (typeof module === 'object' && module.exports) {
-	      angular = __webpack_require__(14);
-	      Clipboard = __webpack_require__(19);
-	      module.exports = MODULE_NAME;
-	    } else {
-	      angular = window.angular;
-	      Clipboard = window.Clipboard;
-	    }
-
-	    angular.module(MODULE_NAME, []).directive('ngclipboard', function() {
-	        return {
-	            restrict: 'A',
-	            scope: {
-	                ngclipboardSuccess: '&',
-	                ngclipboardError: '&'
-	            },
-	            link: function(scope, element) {
-	                var clipboard = new Clipboard(element[0]);
-
-	                clipboard.on('success', function(e) {
-	                  scope.$apply(function () {
-	                    scope.ngclipboardSuccess({
-	                      e: e
-	                    });
-	                  });
-	                });
-
-	                clipboard.on('error', function(e) {
-	                  scope.$apply(function () {
-	                    scope.ngclipboardError({
-	                      e: e
-	                    });
-	                  });
-	                });
-
-	            }
-	        };
-	    });
-	}());
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(20), __webpack_require__(22), __webpack_require__(23)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof exports !== "undefined") {
-	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
-	    } else {
-	        var mod = {
-	            exports: {}
-	        };
-	        factory(mod, global.clipboardAction, global.tinyEmitter, global.goodListener);
-	        global.clipboard = mod.exports;
-	    }
-	})(this, function (module, _clipboardAction, _tinyEmitter, _goodListener) {
-	    'use strict';
-
-	    var _clipboardAction2 = _interopRequireDefault(_clipboardAction);
-
-	    var _tinyEmitter2 = _interopRequireDefault(_tinyEmitter);
-
-	    var _goodListener2 = _interopRequireDefault(_goodListener);
-
-	    function _interopRequireDefault(obj) {
-	        return obj && obj.__esModule ? obj : {
-	            default: obj
-	        };
-	    }
-
-	    function _classCallCheck(instance, Constructor) {
-	        if (!(instance instanceof Constructor)) {
-	            throw new TypeError("Cannot call a class as a function");
-	        }
-	    }
-
-	    var _createClass = function () {
-	        function defineProperties(target, props) {
-	            for (var i = 0; i < props.length; i++) {
-	                var descriptor = props[i];
-	                descriptor.enumerable = descriptor.enumerable || false;
-	                descriptor.configurable = true;
-	                if ("value" in descriptor) descriptor.writable = true;
-	                Object.defineProperty(target, descriptor.key, descriptor);
-	            }
-	        }
-
-	        return function (Constructor, protoProps, staticProps) {
-	            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-	            if (staticProps) defineProperties(Constructor, staticProps);
-	            return Constructor;
-	        };
-	    }();
-
-	    function _possibleConstructorReturn(self, call) {
-	        if (!self) {
-	            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	        }
-
-	        return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	    }
-
-	    function _inherits(subClass, superClass) {
-	        if (typeof superClass !== "function" && superClass !== null) {
-	            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	        }
-
-	        subClass.prototype = Object.create(superClass && superClass.prototype, {
-	            constructor: {
-	                value: subClass,
-	                enumerable: false,
-	                writable: true,
-	                configurable: true
-	            }
-	        });
-	        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	    }
-
-	    var Clipboard = function (_Emitter) {
-	        _inherits(Clipboard, _Emitter);
-
-	        /**
-	         * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
-	         * @param {Object} options
-	         */
-	        function Clipboard(trigger, options) {
-	            _classCallCheck(this, Clipboard);
-
-	            var _this = _possibleConstructorReturn(this, (Clipboard.__proto__ || Object.getPrototypeOf(Clipboard)).call(this));
-
-	            _this.resolveOptions(options);
-	            _this.listenClick(trigger);
-	            return _this;
-	        }
-
-	        /**
-	         * Defines if attributes would be resolved using internal setter functions
-	         * or custom functions that were passed in the constructor.
-	         * @param {Object} options
-	         */
-
-
-	        _createClass(Clipboard, [{
-	            key: 'resolveOptions',
-	            value: function resolveOptions() {
-	                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-	                this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
-	                this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
-	                this.text = typeof options.text === 'function' ? options.text : this.defaultText;
-	            }
-	        }, {
-	            key: 'listenClick',
-	            value: function listenClick(trigger) {
-	                var _this2 = this;
-
-	                this.listener = (0, _goodListener2.default)(trigger, 'click', function (e) {
-	                    return _this2.onClick(e);
-	                });
-	            }
-	        }, {
-	            key: 'onClick',
-	            value: function onClick(e) {
-	                var trigger = e.delegateTarget || e.currentTarget;
-
-	                if (this.clipboardAction) {
-	                    this.clipboardAction = null;
-	                }
-
-	                this.clipboardAction = new _clipboardAction2.default({
-	                    action: this.action(trigger),
-	                    target: this.target(trigger),
-	                    text: this.text(trigger),
-	                    trigger: trigger,
-	                    emitter: this
-	                });
-	            }
-	        }, {
-	            key: 'defaultAction',
-	            value: function defaultAction(trigger) {
-	                return getAttributeValue('action', trigger);
-	            }
-	        }, {
-	            key: 'defaultTarget',
-	            value: function defaultTarget(trigger) {
-	                var selector = getAttributeValue('target', trigger);
-
-	                if (selector) {
-	                    return document.querySelector(selector);
-	                }
-	            }
-	        }, {
-	            key: 'defaultText',
-	            value: function defaultText(trigger) {
-	                return getAttributeValue('text', trigger);
-	            }
-	        }, {
-	            key: 'destroy',
-	            value: function destroy() {
-	                this.listener.destroy();
-
-	                if (this.clipboardAction) {
-	                    this.clipboardAction.destroy();
-	                    this.clipboardAction = null;
-	                }
-	            }
-	        }]);
-
-	        return Clipboard;
-	    }(_tinyEmitter2.default);
-
-	    /**
-	     * Helper function to retrieve attribute value.
-	     * @param {String} suffix
-	     * @param {Element} element
-	     */
-	    function getAttributeValue(suffix, element) {
-	        var attribute = 'data-clipboard-' + suffix;
-
-	        if (!element.hasAttribute(attribute)) {
-	            return;
-	        }
-
-	        return element.getAttribute(attribute);
-	    }
-
-	    module.exports = Clipboard;
-	});
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(21)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof exports !== "undefined") {
-	        factory(module, require('select'));
-	    } else {
-	        var mod = {
-	            exports: {}
-	        };
-	        factory(mod, global.select);
-	        global.clipboardAction = mod.exports;
-	    }
-	})(this, function (module, _select) {
-	    'use strict';
-
-	    var _select2 = _interopRequireDefault(_select);
-
-	    function _interopRequireDefault(obj) {
-	        return obj && obj.__esModule ? obj : {
-	            default: obj
-	        };
-	    }
-
-	    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-	        return typeof obj;
-	    } : function (obj) {
-	        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	    };
-
-	    function _classCallCheck(instance, Constructor) {
-	        if (!(instance instanceof Constructor)) {
-	            throw new TypeError("Cannot call a class as a function");
-	        }
-	    }
-
-	    var _createClass = function () {
-	        function defineProperties(target, props) {
-	            for (var i = 0; i < props.length; i++) {
-	                var descriptor = props[i];
-	                descriptor.enumerable = descriptor.enumerable || false;
-	                descriptor.configurable = true;
-	                if ("value" in descriptor) descriptor.writable = true;
-	                Object.defineProperty(target, descriptor.key, descriptor);
-	            }
-	        }
-
-	        return function (Constructor, protoProps, staticProps) {
-	            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-	            if (staticProps) defineProperties(Constructor, staticProps);
-	            return Constructor;
-	        };
-	    }();
-
-	    var ClipboardAction = function () {
-	        /**
-	         * @param {Object} options
-	         */
-	        function ClipboardAction(options) {
-	            _classCallCheck(this, ClipboardAction);
-
-	            this.resolveOptions(options);
-	            this.initSelection();
-	        }
-
-	        /**
-	         * Defines base properties passed from constructor.
-	         * @param {Object} options
-	         */
-
-
-	        _createClass(ClipboardAction, [{
-	            key: 'resolveOptions',
-	            value: function resolveOptions() {
-	                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-	                this.action = options.action;
-	                this.emitter = options.emitter;
-	                this.target = options.target;
-	                this.text = options.text;
-	                this.trigger = options.trigger;
-
-	                this.selectedText = '';
-	            }
-	        }, {
-	            key: 'initSelection',
-	            value: function initSelection() {
-	                if (this.text) {
-	                    this.selectFake();
-	                } else if (this.target) {
-	                    this.selectTarget();
-	                }
-	            }
-	        }, {
-	            key: 'selectFake',
-	            value: function selectFake() {
-	                var _this = this;
-
-	                var isRTL = document.documentElement.getAttribute('dir') == 'rtl';
-
-	                this.removeFake();
-
-	                this.fakeHandlerCallback = function () {
-	                    return _this.removeFake();
-	                };
-	                this.fakeHandler = document.body.addEventListener('click', this.fakeHandlerCallback) || true;
-
-	                this.fakeElem = document.createElement('textarea');
-	                // Prevent zooming on iOS
-	                this.fakeElem.style.fontSize = '12pt';
-	                // Reset box model
-	                this.fakeElem.style.border = '0';
-	                this.fakeElem.style.padding = '0';
-	                this.fakeElem.style.margin = '0';
-	                // Move element out of screen horizontally
-	                this.fakeElem.style.position = 'absolute';
-	                this.fakeElem.style[isRTL ? 'right' : 'left'] = '-9999px';
-	                // Move element to the same position vertically
-	                var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-	                this.fakeElem.addEventListener('focus', window.scrollTo(0, yPosition));
-	                this.fakeElem.style.top = yPosition + 'px';
-
-	                this.fakeElem.setAttribute('readonly', '');
-	                this.fakeElem.value = this.text;
-
-	                document.body.appendChild(this.fakeElem);
-
-	                this.selectedText = (0, _select2.default)(this.fakeElem);
-	                this.copyText();
-	            }
-	        }, {
-	            key: 'removeFake',
-	            value: function removeFake() {
-	                if (this.fakeHandler) {
-	                    document.body.removeEventListener('click', this.fakeHandlerCallback);
-	                    this.fakeHandler = null;
-	                    this.fakeHandlerCallback = null;
-	                }
-
-	                if (this.fakeElem) {
-	                    document.body.removeChild(this.fakeElem);
-	                    this.fakeElem = null;
-	                }
-	            }
-	        }, {
-	            key: 'selectTarget',
-	            value: function selectTarget() {
-	                this.selectedText = (0, _select2.default)(this.target);
-	                this.copyText();
-	            }
-	        }, {
-	            key: 'copyText',
-	            value: function copyText() {
-	                var succeeded = void 0;
-
-	                try {
-	                    succeeded = document.execCommand(this.action);
-	                } catch (err) {
-	                    succeeded = false;
-	                }
-
-	                this.handleResult(succeeded);
-	            }
-	        }, {
-	            key: 'handleResult',
-	            value: function handleResult(succeeded) {
-	                this.emitter.emit(succeeded ? 'success' : 'error', {
-	                    action: this.action,
-	                    text: this.selectedText,
-	                    trigger: this.trigger,
-	                    clearSelection: this.clearSelection.bind(this)
-	                });
-	            }
-	        }, {
-	            key: 'clearSelection',
-	            value: function clearSelection() {
-	                if (this.target) {
-	                    this.target.blur();
-	                }
-
-	                window.getSelection().removeAllRanges();
-	            }
-	        }, {
-	            key: 'destroy',
-	            value: function destroy() {
-	                this.removeFake();
-	            }
-	        }, {
-	            key: 'action',
-	            set: function set() {
-	                var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'copy';
-
-	                this._action = action;
-
-	                if (this._action !== 'copy' && this._action !== 'cut') {
-	                    throw new Error('Invalid "action" value, use either "copy" or "cut"');
-	                }
-	            },
-	            get: function get() {
-	                return this._action;
-	            }
-	        }, {
-	            key: 'target',
-	            set: function set(target) {
-	                if (target !== undefined) {
-	                    if (target && (typeof target === 'undefined' ? 'undefined' : _typeof(target)) === 'object' && target.nodeType === 1) {
-	                        if (this.action === 'copy' && target.hasAttribute('disabled')) {
-	                            throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
-	                        }
-
-	                        if (this.action === 'cut' && (target.hasAttribute('readonly') || target.hasAttribute('disabled'))) {
-	                            throw new Error('Invalid "target" attribute. You can\'t cut text from elements with "readonly" or "disabled" attributes');
-	                        }
-
-	                        this._target = target;
-	                    } else {
-	                        throw new Error('Invalid "target" value, use a valid Element');
-	                    }
-	                }
-	            },
-	            get: function get() {
-	                return this._target;
-	            }
-	        }]);
-
-	        return ClipboardAction;
-	    }();
-
-	    module.exports = ClipboardAction;
-	});
-
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	function select(element) {
-	    var selectedText;
-
-	    if (element.nodeName === 'SELECT') {
-	        element.focus();
-
-	        selectedText = element.value;
-	    }
-	    else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-	        element.focus();
-	        element.setSelectionRange(0, element.value.length);
-
-	        selectedText = element.value;
-	    }
-	    else {
-	        if (element.hasAttribute('contenteditable')) {
-	            element.focus();
-	        }
-
-	        var selection = window.getSelection();
-	        var range = document.createRange();
-
-	        range.selectNodeContents(element);
-	        selection.removeAllRanges();
-	        selection.addRange(range);
-
-	        selectedText = selection.toString();
-	    }
-
-	    return selectedText;
-	}
-
-	module.exports = select;
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	function E () {
-	  // Keep this empty so it's easier to inherit from
-	  // (via https://github.com/lipsmack from https://github.com/scottcorgan/tiny-emitter/issues/3)
-	}
-
-	E.prototype = {
-	  on: function (name, callback, ctx) {
-	    var e = this.e || (this.e = {});
-
-	    (e[name] || (e[name] = [])).push({
-	      fn: callback,
-	      ctx: ctx
-	    });
-
-	    return this;
-	  },
-
-	  once: function (name, callback, ctx) {
-	    var self = this;
-	    function listener () {
-	      self.off(name, listener);
-	      callback.apply(ctx, arguments);
-	    };
-
-	    listener._ = callback
-	    return this.on(name, listener, ctx);
-	  },
-
-	  emit: function (name) {
-	    var data = [].slice.call(arguments, 1);
-	    var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
-	    var i = 0;
-	    var len = evtArr.length;
-
-	    for (i; i < len; i++) {
-	      evtArr[i].fn.apply(evtArr[i].ctx, data);
-	    }
-
-	    return this;
-	  },
-
-	  off: function (name, callback) {
-	    var e = this.e || (this.e = {});
-	    var evts = e[name];
-	    var liveEvents = [];
-
-	    if (evts && callback) {
-	      for (var i = 0, len = evts.length; i < len; i++) {
-	        if (evts[i].fn !== callback && evts[i].fn._ !== callback)
-	          liveEvents.push(evts[i]);
-	      }
-	    }
-
-	    // Remove event from queue to prevent memory leak
-	    // Suggested by https://github.com/lazd
-	    // Ref: https://github.com/scottcorgan/tiny-emitter/commit/c6ebfaa9bc973b33d110a84a307742b7cf94c953#commitcomment-5024910
-
-	    (liveEvents.length)
-	      ? e[name] = liveEvents
-	      : delete e[name];
-
-	    return this;
-	  }
-	};
-
-	module.exports = E;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var is = __webpack_require__(24);
-	var delegate = __webpack_require__(25);
-
-	/**
-	 * Validates all params and calls the right
-	 * listener function based on its target type.
-	 *
-	 * @param {String|HTMLElement|HTMLCollection|NodeList} target
-	 * @param {String} type
-	 * @param {Function} callback
-	 * @return {Object}
-	 */
-	function listen(target, type, callback) {
-	    if (!target && !type && !callback) {
-	        throw new Error('Missing required arguments');
-	    }
-
-	    if (!is.string(type)) {
-	        throw new TypeError('Second argument must be a String');
-	    }
-
-	    if (!is.fn(callback)) {
-	        throw new TypeError('Third argument must be a Function');
-	    }
-
-	    if (is.node(target)) {
-	        return listenNode(target, type, callback);
-	    }
-	    else if (is.nodeList(target)) {
-	        return listenNodeList(target, type, callback);
-	    }
-	    else if (is.string(target)) {
-	        return listenSelector(target, type, callback);
-	    }
-	    else {
-	        throw new TypeError('First argument must be a String, HTMLElement, HTMLCollection, or NodeList');
-	    }
-	}
-
-	/**
-	 * Adds an event listener to a HTML element
-	 * and returns a remove listener function.
-	 *
-	 * @param {HTMLElement} node
-	 * @param {String} type
-	 * @param {Function} callback
-	 * @return {Object}
-	 */
-	function listenNode(node, type, callback) {
-	    node.addEventListener(type, callback);
-
-	    return {
-	        destroy: function() {
-	            node.removeEventListener(type, callback);
-	        }
-	    }
-	}
-
-	/**
-	 * Add an event listener to a list of HTML elements
-	 * and returns a remove listener function.
-	 *
-	 * @param {NodeList|HTMLCollection} nodeList
-	 * @param {String} type
-	 * @param {Function} callback
-	 * @return {Object}
-	 */
-	function listenNodeList(nodeList, type, callback) {
-	    Array.prototype.forEach.call(nodeList, function(node) {
-	        node.addEventListener(type, callback);
-	    });
-
-	    return {
-	        destroy: function() {
-	            Array.prototype.forEach.call(nodeList, function(node) {
-	                node.removeEventListener(type, callback);
-	            });
-	        }
-	    }
-	}
-
-	/**
-	 * Add an event listener to a selector
-	 * and returns a remove listener function.
-	 *
-	 * @param {String} selector
-	 * @param {String} type
-	 * @param {Function} callback
-	 * @return {Object}
-	 */
-	function listenSelector(selector, type, callback) {
-	    return delegate(document.body, selector, type, callback);
-	}
-
-	module.exports = listen;
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports) {
-
-	/**
-	 * Check if argument is a HTML element.
-	 *
-	 * @param {Object} value
-	 * @return {Boolean}
-	 */
-	exports.node = function(value) {
-	    return value !== undefined
-	        && value instanceof HTMLElement
-	        && value.nodeType === 1;
-	};
-
-	/**
-	 * Check if argument is a list of HTML elements.
-	 *
-	 * @param {Object} value
-	 * @return {Boolean}
-	 */
-	exports.nodeList = function(value) {
-	    var type = Object.prototype.toString.call(value);
-
-	    return value !== undefined
-	        && (type === '[object NodeList]' || type === '[object HTMLCollection]')
-	        && ('length' in value)
-	        && (value.length === 0 || exports.node(value[0]));
-	};
-
-	/**
-	 * Check if argument is a string.
-	 *
-	 * @param {Object} value
-	 * @return {Boolean}
-	 */
-	exports.string = function(value) {
-	    return typeof value === 'string'
-	        || value instanceof String;
-	};
-
-	/**
-	 * Check if argument is a function.
-	 *
-	 * @param {Object} value
-	 * @return {Boolean}
-	 */
-	exports.fn = function(value) {
-	    var type = Object.prototype.toString.call(value);
-
-	    return type === '[object Function]';
-	};
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var closest = __webpack_require__(26);
-
-	/**
-	 * Delegates event to a selector.
-	 *
-	 * @param {Element} element
-	 * @param {String} selector
-	 * @param {String} type
-	 * @param {Function} callback
-	 * @param {Boolean} useCapture
-	 * @return {Object}
-	 */
-	function delegate(element, selector, type, callback, useCapture) {
-	    var listenerFn = listener.apply(this, arguments);
-
-	    element.addEventListener(type, listenerFn, useCapture);
-
-	    return {
-	        destroy: function() {
-	            element.removeEventListener(type, listenerFn, useCapture);
-	        }
-	    }
-	}
-
-	/**
-	 * Finds closest match and invokes callback.
-	 *
-	 * @param {Element} element
-	 * @param {String} selector
-	 * @param {String} type
-	 * @param {Function} callback
-	 * @return {Function}
-	 */
-	function listener(element, selector, type, callback) {
-	    return function(e) {
-	        e.delegateTarget = closest(e.target, selector);
-
-	        if (e.delegateTarget) {
-	            callback.call(element, e);
-	        }
-	    }
-	}
-
-	module.exports = delegate;
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-	/**
-	 * A polyfill for Element.matches()
-	 */
-	if (Element && !Element.prototype.matches) {
-	    var proto = Element.prototype;
-
-	    proto.matches = proto.matchesSelector ||
-	                    proto.mozMatchesSelector ||
-	                    proto.msMatchesSelector ||
-	                    proto.oMatchesSelector ||
-	                    proto.webkitMatchesSelector;
-	}
-
-	/**
-	 * Finds the closest parent that matches a selector.
-	 *
-	 * @param {Element} element
-	 * @param {String} selector
-	 * @return {Function}
-	 */
-	function closest (element, selector) {
-	    while (element && element !== document) {
-	        if (element.matches(selector)) return element;
-	        element = element.parentNode;
-	    }
-	}
-
-	module.exports = closest;
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(28);
-	module.exports = 'ngTouch';
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-	/**
-	 * @license AngularJS v1.5.8
-	 * (c) 2010-2016 Google, Inc. http://angularjs.org
-	 * License: MIT
-	 */
-	(function(window, angular) {'use strict';
-
-	/* global ngTouchClickDirectiveFactory: false,
-	 */
-
-	/**
-	 * @ngdoc module
-	 * @name ngTouch
-	 * @description
-	 *
-	 * # ngTouch
-	 *
-	 * The `ngTouch` module provides touch events and other helpers for touch-enabled devices.
-	 * The implementation is based on jQuery Mobile touch event handling
-	 * ([jquerymobile.com](http://jquerymobile.com/)).
-	 *
-	 *
-	 * See {@link ngTouch.$swipe `$swipe`} for usage.
-	 *
-	 * <div doc-module-components="ngTouch"></div>
-	 *
-	 */
-
-	// define ngTouch module
-	/* global -ngTouch */
-	var ngTouch = angular.module('ngTouch', []);
-
-	ngTouch.provider('$touch', $TouchProvider);
-
-	function nodeName_(element) {
-	  return angular.lowercase(element.nodeName || (element[0] && element[0].nodeName));
-	}
-
-	/**
-	 * @ngdoc provider
-	 * @name $touchProvider
-	 *
-	 * @description
-	 * The `$touchProvider` allows enabling / disabling {@link ngTouch.ngClick ngTouch's ngClick directive}.
-	 */
-	$TouchProvider.$inject = ['$provide', '$compileProvider'];
-	function $TouchProvider($provide, $compileProvider) {
-
-	  /**
-	   * @ngdoc method
-	   * @name  $touchProvider#ngClickOverrideEnabled
-	   *
-	   * @param {boolean=} enabled update the ngClickOverrideEnabled state if provided, otherwise just return the
-	   * current ngClickOverrideEnabled state
-	   * @returns {*} current value if used as getter or itself (chaining) if used as setter
-	   *
-	   * @kind function
-	   *
-	   * @description
-	   * Call this method to enable/disable {@link ngTouch.ngClick ngTouch's ngClick directive}. If enabled,
-	   * the default ngClick directive will be replaced by a version that eliminates the 300ms delay for
-	   * click events on browser for touch-devices.
-	   *
-	   * The default is `false`.
-	   *
-	   */
-	  var ngClickOverrideEnabled = false;
-	  var ngClickDirectiveAdded = false;
-	  this.ngClickOverrideEnabled = function(enabled) {
-	    if (angular.isDefined(enabled)) {
-
-	      if (enabled && !ngClickDirectiveAdded) {
-	        ngClickDirectiveAdded = true;
-
-	        // Use this to identify the correct directive in the delegate
-	        ngTouchClickDirectiveFactory.$$moduleName = 'ngTouch';
-	        $compileProvider.directive('ngClick', ngTouchClickDirectiveFactory);
-
-	        $provide.decorator('ngClickDirective', ['$delegate', function($delegate) {
-	          if (ngClickOverrideEnabled) {
-	            // drop the default ngClick directive
-	            $delegate.shift();
-	          } else {
-	            // drop the ngTouch ngClick directive if the override has been re-disabled (because
-	            // we cannot de-register added directives)
-	            var i = $delegate.length - 1;
-	            while (i >= 0) {
-	              if ($delegate[i].$$moduleName === 'ngTouch') {
-	                $delegate.splice(i, 1);
-	                break;
-	              }
-	              i--;
-	            }
-	          }
-
-	          return $delegate;
-	        }]);
-	      }
-
-	      ngClickOverrideEnabled = enabled;
-	      return this;
-	    }
-
-	    return ngClickOverrideEnabled;
-	  };
-
-	  /**
-	  * @ngdoc service
-	  * @name $touch
-	  * @kind object
-	  *
-	  * @description
-	  * Provides the {@link ngTouch.$touch#ngClickOverrideEnabled `ngClickOverrideEnabled`} method.
-	  *
-	  */
-	  this.$get = function() {
-	    return {
-	      /**
-	       * @ngdoc method
-	       * @name  $touch#ngClickOverrideEnabled
-	       *
-	       * @returns {*} current value of `ngClickOverrideEnabled` set in the {@link ngTouch.$touchProvider $touchProvider},
-	       * i.e. if {@link ngTouch.ngClick ngTouch's ngClick} directive is enabled.
-	       *
-	       * @kind function
-	       */
-	      ngClickOverrideEnabled: function() {
-	        return ngClickOverrideEnabled;
-	      }
-	    };
-	  };
-
-	}
-
-	/* global ngTouch: false */
-
-	    /**
-	     * @ngdoc service
-	     * @name $swipe
-	     *
-	     * @description
-	     * The `$swipe` service is a service that abstracts the messier details of hold-and-drag swipe
-	     * behavior, to make implementing swipe-related directives more convenient.
-	     *
-	     * Requires the {@link ngTouch `ngTouch`} module to be installed.
-	     *
-	     * `$swipe` is used by the `ngSwipeLeft` and `ngSwipeRight` directives in `ngTouch`.
-	     *
-	     * # Usage
-	     * The `$swipe` service is an object with a single method: `bind`. `bind` takes an element
-	     * which is to be watched for swipes, and an object with four handler functions. See the
-	     * documentation for `bind` below.
-	     */
-
-	ngTouch.factory('$swipe', [function() {
-	  // The total distance in any direction before we make the call on swipe vs. scroll.
-	  var MOVE_BUFFER_RADIUS = 10;
-
-	  var POINTER_EVENTS = {
-	    'mouse': {
-	      start: 'mousedown',
-	      move: 'mousemove',
-	      end: 'mouseup'
-	    },
-	    'touch': {
-	      start: 'touchstart',
-	      move: 'touchmove',
-	      end: 'touchend',
-	      cancel: 'touchcancel'
-	    },
-	    'pointer': {
-	      start: 'pointerdown',
-	      move: 'pointermove',
-	      end: 'pointerup',
-	      cancel: 'pointercancel'
-	    }
-	  };
-
-	  function getCoordinates(event) {
-	    var originalEvent = event.originalEvent || event;
-	    var touches = originalEvent.touches && originalEvent.touches.length ? originalEvent.touches : [originalEvent];
-	    var e = (originalEvent.changedTouches && originalEvent.changedTouches[0]) || touches[0];
-
-	    return {
-	      x: e.clientX,
-	      y: e.clientY
-	    };
-	  }
-
-	  function getEvents(pointerTypes, eventType) {
-	    var res = [];
-	    angular.forEach(pointerTypes, function(pointerType) {
-	      var eventName = POINTER_EVENTS[pointerType][eventType];
-	      if (eventName) {
-	        res.push(eventName);
-	      }
-	    });
-	    return res.join(' ');
-	  }
-
-	  return {
-	    /**
-	     * @ngdoc method
-	     * @name $swipe#bind
-	     *
-	     * @description
-	     * The main method of `$swipe`. It takes an element to be watched for swipe motions, and an
-	     * object containing event handlers.
-	     * The pointer types that should be used can be specified via the optional
-	     * third argument, which is an array of strings `'mouse'`, `'touch'` and `'pointer'`. By default,
-	     * `$swipe` will listen for `mouse`, `touch` and `pointer` events.
-	     *
-	     * The four events are `start`, `move`, `end`, and `cancel`. `start`, `move`, and `end`
-	     * receive as a parameter a coordinates object of the form `{ x: 150, y: 310 }` and the raw
-	     * `event`. `cancel` receives the raw `event` as its single parameter.
-	     *
-	     * `start` is called on either `mousedown`, `touchstart` or `pointerdown`. After this event, `$swipe` is
-	     * watching for `touchmove`, `mousemove` or `pointermove` events. These events are ignored until the total
-	     * distance moved in either dimension exceeds a small threshold.
-	     *
-	     * Once this threshold is exceeded, either the horizontal or vertical delta is greater.
-	     * - If the horizontal distance is greater, this is a swipe and `move` and `end` events follow.
-	     * - If the vertical distance is greater, this is a scroll, and we let the browser take over.
-	     *   A `cancel` event is sent.
-	     *
-	     * `move` is called on `mousemove`, `touchmove` and `pointermove` after the above logic has determined that
-	     * a swipe is in progress.
-	     *
-	     * `end` is called when a swipe is successfully completed with a `touchend`, `mouseup` or `pointerup`.
-	     *
-	     * `cancel` is called either on a `touchcancel` or `pointercancel`  from the browser, or when we begin scrolling
-	     * as described above.
-	     *
-	     */
-	    bind: function(element, eventHandlers, pointerTypes) {
-	      // Absolute total movement, used to control swipe vs. scroll.
-	      var totalX, totalY;
-	      // Coordinates of the start position.
-	      var startCoords;
-	      // Last event's position.
-	      var lastPos;
-	      // Whether a swipe is active.
-	      var active = false;
-
-	      pointerTypes = pointerTypes || ['mouse', 'touch', 'pointer'];
-	      element.on(getEvents(pointerTypes, 'start'), function(event) {
-	        startCoords = getCoordinates(event);
-	        active = true;
-	        totalX = 0;
-	        totalY = 0;
-	        lastPos = startCoords;
-	        eventHandlers['start'] && eventHandlers['start'](startCoords, event);
-	      });
-	      var events = getEvents(pointerTypes, 'cancel');
-	      if (events) {
-	        element.on(events, function(event) {
-	          active = false;
-	          eventHandlers['cancel'] && eventHandlers['cancel'](event);
-	        });
-	      }
-
-	      element.on(getEvents(pointerTypes, 'move'), function(event) {
-	        if (!active) return;
-
-	        // Android will send a touchcancel if it thinks we're starting to scroll.
-	        // So when the total distance (+ or - or both) exceeds 10px in either direction,
-	        // we either:
-	        // - On totalX > totalY, we send preventDefault() and treat this as a swipe.
-	        // - On totalY > totalX, we let the browser handle it as a scroll.
-
-	        if (!startCoords) return;
-	        var coords = getCoordinates(event);
-
-	        totalX += Math.abs(coords.x - lastPos.x);
-	        totalY += Math.abs(coords.y - lastPos.y);
-
-	        lastPos = coords;
-
-	        if (totalX < MOVE_BUFFER_RADIUS && totalY < MOVE_BUFFER_RADIUS) {
-	          return;
-	        }
-
-	        // One of totalX or totalY has exceeded the buffer, so decide on swipe vs. scroll.
-	        if (totalY > totalX) {
-	          // Allow native scrolling to take over.
-	          active = false;
-	          eventHandlers['cancel'] && eventHandlers['cancel'](event);
-	          return;
-	        } else {
-	          // Prevent the browser from scrolling.
-	          event.preventDefault();
-	          eventHandlers['move'] && eventHandlers['move'](coords, event);
-	        }
-	      });
-
-	      element.on(getEvents(pointerTypes, 'end'), function(event) {
-	        if (!active) return;
-	        active = false;
-	        eventHandlers['end'] && eventHandlers['end'](getCoordinates(event), event);
-	      });
-	    }
-	  };
-	}]);
-
-	/* global ngTouch: false,
-	  nodeName_: false
-	*/
-
-	/**
-	 * @ngdoc directive
-	 * @name ngClick
-	 * @deprecated
-	 *
-	 * @description
-	 * <div class="alert alert-danger">
-	 * **DEPRECATION NOTICE**: Beginning with Angular 1.5, this directive is deprecated and by default **disabled**.
-	 * The directive will receive no further support and might be removed from future releases.
-	 * If you need the directive, you can enable it with the {@link ngTouch.$touchProvider $touchProvider#ngClickOverrideEnabled}
-	 * function. We also recommend that you migrate to [FastClick](https://github.com/ftlabs/fastclick).
-	 * To learn more about the 300ms delay, this [Telerik article](http://developer.telerik.com/featured/300-ms-click-delay-ios-8/)
-	 * gives a good overview.
-	 * </div>
-	 * A more powerful replacement for the default ngClick designed to be used on touchscreen
-	 * devices. Most mobile browsers wait about 300ms after a tap-and-release before sending
-	 * the click event. This version handles them immediately, and then prevents the
-	 * following click event from propagating.
-	 *
-	 * Requires the {@link ngTouch `ngTouch`} module to be installed.
-	 *
-	 * This directive can fall back to using an ordinary click event, and so works on desktop
-	 * browsers as well as mobile.
-	 *
-	 * This directive also sets the CSS class `ng-click-active` while the element is being held
-	 * down (by a mouse click or touch) so you can restyle the depressed element if you wish.
-	 *
-	 * @element ANY
-	 * @param {expression} ngClick {@link guide/expression Expression} to evaluate
-	 * upon tap. (Event object is available as `$event`)
-	 *
-	 * @example
-	    <example module="ngClickExample" deps="angular-touch.js">
-	      <file name="index.html">
-	        <button ng-click="count = count + 1" ng-init="count=0">
-	          Increment
-	        </button>
-	        count: {{ count }}
-	      </file>
-	      <file name="script.js">
-	        angular.module('ngClickExample', ['ngTouch']);
-	      </file>
-	    </example>
-	 */
-
-	var ngTouchClickDirectiveFactory = ['$parse', '$timeout', '$rootElement',
-	    function($parse, $timeout, $rootElement) {
-	  var TAP_DURATION = 750; // Shorter than 750ms is a tap, longer is a taphold or drag.
-	  var MOVE_TOLERANCE = 12; // 12px seems to work in most mobile browsers.
-	  var PREVENT_DURATION = 2500; // 2.5 seconds maximum from preventGhostClick call to click
-	  var CLICKBUSTER_THRESHOLD = 25; // 25 pixels in any dimension is the limit for busting clicks.
-
-	  var ACTIVE_CLASS_NAME = 'ng-click-active';
-	  var lastPreventedTime;
-	  var touchCoordinates;
-	  var lastLabelClickCoordinates;
-
-
-	  // TAP EVENTS AND GHOST CLICKS
-	  //
-	  // Why tap events?
-	  // Mobile browsers detect a tap, then wait a moment (usually ~300ms) to see if you're
-	  // double-tapping, and then fire a click event.
-	  //
-	  // This delay sucks and makes mobile apps feel unresponsive.
-	  // So we detect touchstart, touchcancel and touchend ourselves and determine when
-	  // the user has tapped on something.
-	  //
-	  // What happens when the browser then generates a click event?
-	  // The browser, of course, also detects the tap and fires a click after a delay. This results in
-	  // tapping/clicking twice. We do "clickbusting" to prevent it.
-	  //
-	  // How does it work?
-	  // We attach global touchstart and click handlers, that run during the capture (early) phase.
-	  // So the sequence for a tap is:
-	  // - global touchstart: Sets an "allowable region" at the point touched.
-	  // - element's touchstart: Starts a touch
-	  // (- touchcancel ends the touch, no click follows)
-	  // - element's touchend: Determines if the tap is valid (didn't move too far away, didn't hold
-	  //   too long) and fires the user's tap handler. The touchend also calls preventGhostClick().
-	  // - preventGhostClick() removes the allowable region the global touchstart created.
-	  // - The browser generates a click event.
-	  // - The global click handler catches the click, and checks whether it was in an allowable region.
-	  //     - If preventGhostClick was called, the region will have been removed, the click is busted.
-	  //     - If the region is still there, the click proceeds normally. Therefore clicks on links and
-	  //       other elements without ngTap on them work normally.
-	  //
-	  // This is an ugly, terrible hack!
-	  // Yeah, tell me about it. The alternatives are using the slow click events, or making our users
-	  // deal with the ghost clicks, so I consider this the least of evils. Fortunately Angular
-	  // encapsulates this ugly logic away from the user.
-	  //
-	  // Why not just put click handlers on the element?
-	  // We do that too, just to be sure. If the tap event caused the DOM to change,
-	  // it is possible another element is now in that position. To take account for these possibly
-	  // distinct elements, the handlers are global and care only about coordinates.
-
-	  // Checks if the coordinates are close enough to be within the region.
-	  function hit(x1, y1, x2, y2) {
-	    return Math.abs(x1 - x2) < CLICKBUSTER_THRESHOLD && Math.abs(y1 - y2) < CLICKBUSTER_THRESHOLD;
-	  }
-
-	  // Checks a list of allowable regions against a click location.
-	  // Returns true if the click should be allowed.
-	  // Splices out the allowable region from the list after it has been used.
-	  function checkAllowableRegions(touchCoordinates, x, y) {
-	    for (var i = 0; i < touchCoordinates.length; i += 2) {
-	      if (hit(touchCoordinates[i], touchCoordinates[i + 1], x, y)) {
-	        touchCoordinates.splice(i, i + 2);
-	        return true; // allowable region
-	      }
-	    }
-	    return false; // No allowable region; bust it.
-	  }
-
-	  // Global click handler that prevents the click if it's in a bustable zone and preventGhostClick
-	  // was called recently.
-	  function onClick(event) {
-	    if (Date.now() - lastPreventedTime > PREVENT_DURATION) {
-	      return; // Too old.
-	    }
-
-	    var touches = event.touches && event.touches.length ? event.touches : [event];
-	    var x = touches[0].clientX;
-	    var y = touches[0].clientY;
-	    // Work around desktop Webkit quirk where clicking a label will fire two clicks (on the label
-	    // and on the input element). Depending on the exact browser, this second click we don't want
-	    // to bust has either (0,0), negative coordinates, or coordinates equal to triggering label
-	    // click event
-	    if (x < 1 && y < 1) {
-	      return; // offscreen
-	    }
-	    if (lastLabelClickCoordinates &&
-	        lastLabelClickCoordinates[0] === x && lastLabelClickCoordinates[1] === y) {
-	      return; // input click triggered by label click
-	    }
-	    // reset label click coordinates on first subsequent click
-	    if (lastLabelClickCoordinates) {
-	      lastLabelClickCoordinates = null;
-	    }
-	    // remember label click coordinates to prevent click busting of trigger click event on input
-	    if (nodeName_(event.target) === 'label') {
-	      lastLabelClickCoordinates = [x, y];
-	    }
-
-	    // Look for an allowable region containing this click.
-	    // If we find one, that means it was created by touchstart and not removed by
-	    // preventGhostClick, so we don't bust it.
-	    if (checkAllowableRegions(touchCoordinates, x, y)) {
-	      return;
-	    }
-
-	    // If we didn't find an allowable region, bust the click.
-	    event.stopPropagation();
-	    event.preventDefault();
-
-	    // Blur focused form elements
-	    event.target && event.target.blur && event.target.blur();
-	  }
-
-
-	  // Global touchstart handler that creates an allowable region for a click event.
-	  // This allowable region can be removed by preventGhostClick if we want to bust it.
-	  function onTouchStart(event) {
-	    var touches = event.touches && event.touches.length ? event.touches : [event];
-	    var x = touches[0].clientX;
-	    var y = touches[0].clientY;
-	    touchCoordinates.push(x, y);
-
-	    $timeout(function() {
-	      // Remove the allowable region.
-	      for (var i = 0; i < touchCoordinates.length; i += 2) {
-	        if (touchCoordinates[i] == x && touchCoordinates[i + 1] == y) {
-	          touchCoordinates.splice(i, i + 2);
-	          return;
-	        }
-	      }
-	    }, PREVENT_DURATION, false);
-	  }
-
-	  // On the first call, attaches some event handlers. Then whenever it gets called, it creates a
-	  // zone around the touchstart where clicks will get busted.
-	  function preventGhostClick(x, y) {
-	    if (!touchCoordinates) {
-	      $rootElement[0].addEventListener('click', onClick, true);
-	      $rootElement[0].addEventListener('touchstart', onTouchStart, true);
-	      touchCoordinates = [];
-	    }
-
-	    lastPreventedTime = Date.now();
-
-	    checkAllowableRegions(touchCoordinates, x, y);
-	  }
-
-	  // Actual linking function.
-	  return function(scope, element, attr) {
-	    var clickHandler = $parse(attr.ngClick),
-	        tapping = false,
-	        tapElement,  // Used to blur the element after a tap.
-	        startTime,   // Used to check if the tap was held too long.
-	        touchStartX,
-	        touchStartY;
-
-	    function resetState() {
-	      tapping = false;
-	      element.removeClass(ACTIVE_CLASS_NAME);
-	    }
-
-	    element.on('touchstart', function(event) {
-	      tapping = true;
-	      tapElement = event.target ? event.target : event.srcElement; // IE uses srcElement.
-	      // Hack for Safari, which can target text nodes instead of containers.
-	      if (tapElement.nodeType == 3) {
-	        tapElement = tapElement.parentNode;
-	      }
-
-	      element.addClass(ACTIVE_CLASS_NAME);
-
-	      startTime = Date.now();
-
-	      // Use jQuery originalEvent
-	      var originalEvent = event.originalEvent || event;
-	      var touches = originalEvent.touches && originalEvent.touches.length ? originalEvent.touches : [originalEvent];
-	      var e = touches[0];
-	      touchStartX = e.clientX;
-	      touchStartY = e.clientY;
-	    });
-
-	    element.on('touchcancel', function(event) {
-	      resetState();
-	    });
-
-	    element.on('touchend', function(event) {
-	      var diff = Date.now() - startTime;
-
-	      // Use jQuery originalEvent
-	      var originalEvent = event.originalEvent || event;
-	      var touches = (originalEvent.changedTouches && originalEvent.changedTouches.length) ?
-	          originalEvent.changedTouches :
-	          ((originalEvent.touches && originalEvent.touches.length) ? originalEvent.touches : [originalEvent]);
-	      var e = touches[0];
-	      var x = e.clientX;
-	      var y = e.clientY;
-	      var dist = Math.sqrt(Math.pow(x - touchStartX, 2) + Math.pow(y - touchStartY, 2));
-
-	      if (tapping && diff < TAP_DURATION && dist < MOVE_TOLERANCE) {
-	        // Call preventGhostClick so the clickbuster will catch the corresponding click.
-	        preventGhostClick(x, y);
-
-	        // Blur the focused element (the button, probably) before firing the callback.
-	        // This doesn't work perfectly on Android Chrome, but seems to work elsewhere.
-	        // I couldn't get anything to work reliably on Android Chrome.
-	        if (tapElement) {
-	          tapElement.blur();
-	        }
-
-	        if (!angular.isDefined(attr.disabled) || attr.disabled === false) {
-	          element.triggerHandler('click', [event]);
-	        }
-	      }
-
-	      resetState();
-	    });
-
-	    // Hack for iOS Safari's benefit. It goes searching for onclick handlers and is liable to click
-	    // something else nearby.
-	    element.onclick = function(event) { };
-
-	    // Actual click handler.
-	    // There are three different kinds of clicks, only two of which reach this point.
-	    // - On desktop browsers without touch events, their clicks will always come here.
-	    // - On mobile browsers, the simulated "fast" click will call this.
-	    // - But the browser's follow-up slow click will be "busted" before it reaches this handler.
-	    // Therefore it's safe to use this directive on both mobile and desktop.
-	    element.on('click', function(event, touchend) {
-	      scope.$apply(function() {
-	        clickHandler(scope, {$event: (touchend || event)});
-	      });
-	    });
-
-	    element.on('mousedown', function(event) {
-	      element.addClass(ACTIVE_CLASS_NAME);
-	    });
-
-	    element.on('mousemove mouseup', function(event) {
-	      element.removeClass(ACTIVE_CLASS_NAME);
-	    });
-
-	  };
-	}];
-
-	/* global ngTouch: false */
-
-	/**
-	 * @ngdoc directive
-	 * @name ngSwipeLeft
-	 *
-	 * @description
-	 * Specify custom behavior when an element is swiped to the left on a touchscreen device.
-	 * A leftward swipe is a quick, right-to-left slide of the finger.
-	 * Though ngSwipeLeft is designed for touch-based devices, it will work with a mouse click and drag
-	 * too.
-	 *
-	 * To disable the mouse click and drag functionality, add `ng-swipe-disable-mouse` to
-	 * the `ng-swipe-left` or `ng-swipe-right` DOM Element.
-	 *
-	 * Requires the {@link ngTouch `ngTouch`} module to be installed.
-	 *
-	 * @element ANY
-	 * @param {expression} ngSwipeLeft {@link guide/expression Expression} to evaluate
-	 * upon left swipe. (Event object is available as `$event`)
-	 *
-	 * @example
-	    <example module="ngSwipeLeftExample" deps="angular-touch.js">
-	      <file name="index.html">
-	        <div ng-show="!showActions" ng-swipe-left="showActions = true">
-	          Some list content, like an email in the inbox
-	        </div>
-	        <div ng-show="showActions" ng-swipe-right="showActions = false">
-	          <button ng-click="reply()">Reply</button>
-	          <button ng-click="delete()">Delete</button>
-	        </div>
-	      </file>
-	      <file name="script.js">
-	        angular.module('ngSwipeLeftExample', ['ngTouch']);
-	      </file>
-	    </example>
-	 */
-
-	/**
-	 * @ngdoc directive
-	 * @name ngSwipeRight
-	 *
-	 * @description
-	 * Specify custom behavior when an element is swiped to the right on a touchscreen device.
-	 * A rightward swipe is a quick, left-to-right slide of the finger.
-	 * Though ngSwipeRight is designed for touch-based devices, it will work with a mouse click and drag
-	 * too.
-	 *
-	 * Requires the {@link ngTouch `ngTouch`} module to be installed.
-	 *
-	 * @element ANY
-	 * @param {expression} ngSwipeRight {@link guide/expression Expression} to evaluate
-	 * upon right swipe. (Event object is available as `$event`)
-	 *
-	 * @example
-	    <example module="ngSwipeRightExample" deps="angular-touch.js">
-	      <file name="index.html">
-	        <div ng-show="!showActions" ng-swipe-left="showActions = true">
-	          Some list content, like an email in the inbox
-	        </div>
-	        <div ng-show="showActions" ng-swipe-right="showActions = false">
-	          <button ng-click="reply()">Reply</button>
-	          <button ng-click="delete()">Delete</button>
-	        </div>
-	      </file>
-	      <file name="script.js">
-	        angular.module('ngSwipeRightExample', ['ngTouch']);
-	      </file>
-	    </example>
-	 */
-
-	function makeSwipeDirective(directiveName, direction, eventName) {
-	  ngTouch.directive(directiveName, ['$parse', '$swipe', function($parse, $swipe) {
-	    // The maximum vertical delta for a swipe should be less than 75px.
-	    var MAX_VERTICAL_DISTANCE = 75;
-	    // Vertical distance should not be more than a fraction of the horizontal distance.
-	    var MAX_VERTICAL_RATIO = 0.3;
-	    // At least a 30px lateral motion is necessary for a swipe.
-	    var MIN_HORIZONTAL_DISTANCE = 30;
-
-	    return function(scope, element, attr) {
-	      var swipeHandler = $parse(attr[directiveName]);
-
-	      var startCoords, valid;
-
-	      function validSwipe(coords) {
-	        // Check that it's within the coordinates.
-	        // Absolute vertical distance must be within tolerances.
-	        // Horizontal distance, we take the current X - the starting X.
-	        // This is negative for leftward swipes and positive for rightward swipes.
-	        // After multiplying by the direction (-1 for left, +1 for right), legal swipes
-	        // (ie. same direction as the directive wants) will have a positive delta and
-	        // illegal ones a negative delta.
-	        // Therefore this delta must be positive, and larger than the minimum.
-	        if (!startCoords) return false;
-	        var deltaY = Math.abs(coords.y - startCoords.y);
-	        var deltaX = (coords.x - startCoords.x) * direction;
-	        return valid && // Short circuit for already-invalidated swipes.
-	            deltaY < MAX_VERTICAL_DISTANCE &&
-	            deltaX > 0 &&
-	            deltaX > MIN_HORIZONTAL_DISTANCE &&
-	            deltaY / deltaX < MAX_VERTICAL_RATIO;
-	      }
-
-	      var pointerTypes = ['touch'];
-	      if (!angular.isDefined(attr['ngSwipeDisableMouse'])) {
-	        pointerTypes.push('mouse');
-	      }
-	      $swipe.bind(element, {
-	        'start': function(coords, event) {
-	          startCoords = coords;
-	          valid = true;
-	        },
-	        'cancel': function(event) {
-	          valid = false;
-	        },
-	        'end': function(coords, event) {
-	          if (validSwipe(coords)) {
-	            scope.$apply(function() {
-	              element.triggerHandler(eventName);
-	              swipeHandler(scope, {$event: event});
-	            });
-	          }
-	        }
-	      }, pointerTypes);
-	    };
-	  }]);
-	}
-
-	// Left is negative X-coordinate, right is positive.
-	makeSwipeDirective('ngSwipeLeft', -1, 'swipeleft');
-	makeSwipeDirective('ngSwipeRight', 1, 'swiperight');
-
-
-
-	})(window, window.angular);
-
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(30);
 
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 30 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/*
@@ -42184,25 +39519,25 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
 
 /***/ },
-/* 31 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  // require('./github_service')(app);
-	  __webpack_require__(32)(app);
+	  __webpack_require__(19)(app);
 	};
 
 /***/ },
-/* 32 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.factory('projectService', function () {
-	    var projects = __webpack_require__(33);
+	    var projects = __webpack_require__(20);
 	    var projectService = {
 	      getAll: function getAll() {
 	        return projects;
@@ -42231,7 +39566,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42245,7 +39580,7 @@
 	  skills: ['Angular.js', 'Node.js', 'Express.js', 'Webpack', 'SCSS', 'Bootstrap', 'HTML5', 'MongoDB', 'JavaScript', 'RESTful Architecture', 'Unit Testing'],
 	  deployedUrl: 'http://ultimate-pi.herokuapp.com',
 	  urls: { 'fa-github': 'https://github.com/sendjmoon/Ultimate-Pi', 'fa-github-square': 'https://github.com/dylanjsa90/UltimatePi-api' },
-	  thumbnailUrl: __webpack_require__(34)
+	  thumbnailUrl: __webpack_require__(21)
 
 	}, {
 	  id: 1,
@@ -42257,7 +39592,7 @@
 	  githubUrl: ['https://github.com/FakeSportsRealMoney/FakeSportsRealMoney'],
 	  deployedUrl: 'https://fake-sports-real-money.herokuapp.com',
 	  urls: { 'fa-github': 'https://github.com/FakeSportsRealMoney/FakeSportsRealMoney' },
-	  thumbnailUrl: __webpack_require__(35)
+	  thumbnailUrl: __webpack_require__(22)
 	}, {
 	  id: 2,
 	  name: 'Nosy Neighbor',
@@ -42268,7 +39603,7 @@
 	  githubUrl: 'https://github.com/crashtack/301-team-project',
 	  deployedUrl: 'https://projectstage-a6114.firebaseapp.com/',
 	  urls: { 'fa-github': 'https://github.com/crashtack/301-team-project' },
-	  thumbnailUrl: __webpack_require__(36)
+	  thumbnailUrl: __webpack_require__(23)
 	}, {
 	  id: 3,
 	  name: 'Task Manager',
@@ -42279,7 +39614,7 @@
 	  githubUrl: ['https://github.com/dylanjsa90/task-manager'],
 	  urls: { 'fa-github': 'https://github.com/dylanjsa90/task-manager' },
 	  deployedUrl: 'https://task-list-manager.herokuapp.com',
-	  thumbnailUrl: __webpack_require__(37)
+	  thumbnailUrl: __webpack_require__(24)
 	}, {
 
 	  id: 4,
@@ -42290,7 +39625,7 @@
 	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
 	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/jybbPa' },
 	  deployedUrl: 'http://codepen.io/dylansa90/full/jybbPa',
-	  thumbnailUrl: __webpack_require__(38)
+	  thumbnailUrl: __webpack_require__(25)
 
 	}, {
 	  id: 5,
@@ -42301,7 +39636,7 @@
 	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
 	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/LxpGmj/' },
 	  deployedUrl: 'http://codepen.io/dylansa90/full/LxpGmj/',
-	  thumbnailUrl: __webpack_require__(39)
+	  thumbnailUrl: __webpack_require__(26)
 	}, {
 	  id: 6,
 	  name: 'Wikipedia Explorer',
@@ -42311,119 +39646,86 @@
 	  skills: ['jQuery', 'HTML5', 'CSS/SCSS', 'JavaScript'],
 	  urls: { 'fa-codepen': 'http://codepen.io/dylansa90/pen/NdGReZ/' },
 	  deployedUrl: 'http://codepen.io/dylansa90/full/NdGReZ/',
-	  thumbnailUrl: __webpack_require__(40)
+	  thumbnailUrl: __webpack_require__(27)
 	}];
 
 /***/ },
-/* 34 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/2477858ac9618be11e042957b41094c6-mobile_remote.jpg";
 
 /***/ },
-/* 35 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/f96cacd2889d78b34f441a78b5fef589-FSRM.jpg";
 
 /***/ },
-/* 36 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/586c5bf06d7c47766ec1fd8357919fd1-full_list_nosy_neighbor.jpg";
 
 /***/ },
-/* 37 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/863751c68a94664d1d58784e87504850-Business-Todo-List-icon.png";
 
 /***/ },
-/* 38 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/d3370610b0b07f3ef9ca98a2b866f829-famous_quote.jpg";
 
 /***/ },
-/* 39 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/1c4ee3dee0b58f6062b0b4073f87f73d-local_weather.jpg";
 
 /***/ },
-/* 40 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/f950cffcba0f4531b5cc86777cd6f12d-wikipedia.jpg";
 
 /***/ },
-/* 41 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(42)(app);
-	  __webpack_require__(43)(app);
+	  __webpack_require__(29)(app);
+	  // require('./github_controller')(app);
+	  // require('./project_controller')(app);
 	};
 
 /***/ },
-/* 42 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  app.controller('GithubController', ['Github', function (Github) {
-	    this.loading = false;
-	    this.toggleText = 'Recent Github Repos';
-	    this.toggleRepo = false;
-	    this.toggleInProgress = true;
+	  app.controller('MainController', ['projectService', '$anchorScroll', '$location', function (projectService, $anchorScroll, $location) {
 
-	    if (Github.allRepos.length === 0) {
-	      this.loading = true;
-	      Github.requestRepos();
-	      this.loading = false;
-	    }
-
-	    this.getCurrentRepos = function () {
-	      var _this = this;
-
-	      Github.requestRepos().then(function (res) {
-	        _this.currentRepos = res.data;
-	      });
+	    // NavController
+	    this.isCollapsed = true;
+	    this.collapsedClass = this.isCollapsed ? 'collapse' : '';
+	    this.toggle = function () {
+	      this.isCollapsed = !this.isCollapsed;
+	      this.collapsedClass = this.isCollapsed ? 'collapse' : '';
 	    };
 
-	    this.filterReposWithAttr = function (attr) {
-	      this.filteredCurrentRepos = Github.filterReposWithAttr(attr);
+	    this.scrollTo = function (id) {
+	      $location.hash(id);
+	      $anchorScroll();
 	    };
 
-	    this.toggleView = function () {
-	      if (this.toggleText === 'Recent Github Repos') {
-	        this.toggleRepo = true;
-	        this.toggleInProgress = false;
-	        this.toggleText = 'In Progress';
-	      }
-
-	      if (this.toggleText === 'In Progress') {
-	        this.toggleInProgress = true;
-	        this.toggleRepo = false;
-	        this.toggleText = 'Recent Github Repos';
-	      }
-	    };
-
-	    this.allRepos = Github.allRepos;
-	  }]);
-	};
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function (app) {
-	  app.controller('ProjectController', ['projectService', function (projectService) {
+	    // ProjectController
 	    this.projectThumbnails = projectService.getAll();
 	    this.projectId = 0;
 	    this.projectActive = true;
@@ -42459,31 +39761,32 @@
 	};
 
 /***/ },
-/* 44 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  __webpack_require__(45)(app);
-	  __webpack_require__(47)(app);
-	  __webpack_require__(49)(app);
-	  __webpack_require__(51)(app);
-	  __webpack_require__(53)(app);
-	  __webpack_require__(55)(app);
-	  __webpack_require__(68)(app);
+	  __webpack_require__(31)(app);
+	  __webpack_require__(33)(app);
+	  __webpack_require__(35)(app);
+	  __webpack_require__(37)(app);
+	  __webpack_require__(39)(app);
+	  __webpack_require__(41)(app);
+	  __webpack_require__(43)(app);
+	  __webpack_require__(56)(app);
 	};
 
 /***/ },
-/* 45 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('navBar', {
-	    controller: 'NavController',
-	    template: __webpack_require__(46)
+	    controller: 'MainController',
+	    template: __webpack_require__(32)
 	  });
 
 	  app.controller('NavController', ['$location', function ($location) {
@@ -42496,7 +39799,6 @@
 	    this.home = true;
 	    this.projects = false;
 	    this.about = false;
-	    // this.skills = false; 
 
 	    this.currentTab = function () {
 	      this.setToFalse();
@@ -42535,13 +39837,31 @@
 	};
 
 /***/ },
-/* 46 */
+/* 32 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav id=\"navbar-main\" data-ng-init=\"$ctrl.currentTab()\">\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">DS</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a data-ng-click=\"$ctrl.go('home')\" data-ng-class=\"{'nav-selected': $ctrl.home}\"><li>HOME</li></a>\n    <a data-ng-click=\"$ctrl.go('about')\" data-ng-class=\"{'nav-selected': $ctrl.about}\"><li>ABOUT ME</li></a>\n    <a data-ng-click=\"$ctrl.go('projects')\" data-ng-class=\"{'nav-selected': $ctrl.projects}\"><li>PROJECTS</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a href=\"#/home\" data-ng-click=\"$ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a href=\"#/about\" data-ng-click=\"$ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a href=\"#/projects\" data-ng-click=\"$ctrl.toggle()\">PROJECTS</a></li>\n  </ul>\n</div>";
+	module.exports = "<nav id=\"navbar-main\">\n  <div class=\"navbar-title\">\n    <a href=\"#/home\">DS</a>\n  </div>\n  <ul id=\"navbar-list\">\n    <a data-ng-click=\"$ctrl.scrollTo('home')\" data-ng-class=\"{'nav-selected': $ctrl.home}\"><li>HOME</li></a>\n    <a data-ng-click=\"$ctrl.scrollTo('about')\" data-ng-class=\"{'nav-selected': $ctrl.about}\"><li>ABOUT ME</li></a>\n    <a data-ng-click=\"$ctrl.scrollTo('projects')\" data-ng-class=\"{'nav-selected': $ctrl.projects}\"><li>PROJECTS</li></a>\n    <a data-ng-click=\"$ctrl.scrollTo('skills')\" data-ng-class=\"{'nav-selected': $ctrl.skills}\"><li>SKILLS</li></a>\n    <a data-ng-click=\"$ctrl.scrollTo('contact')\" data-ng-class=\"{'nav-selected': $ctrl.contact}\"><li>CONTACT</li></a>\n  </ul>\n\n  <nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n      <button class=\"navbar-toggle\" data-ng-click=\"$ctrl.toggle()\" data-ng-class=\"{'nav-menu-toggle': $ctrl.isCollapsed === false}\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n    </div>\n  </nav>\n</nav>\n\n<div class=\"navbar-collapse {{$ctrl.collapsedClass}}\" id=\"navcol-1\">\n  <ul class=\"nav navbar-nav\">\n    <li class=\"active\" role=\"presentation\"><a data-ng-click=\"$ctrl.scrollTo('home'); $ctrl.toggle()\">HOME</a></li>\n    <li role=\"presentation\"><a data-ng-click=\"$ctrl.scrollTo('about'); $ctrl.toggle()\">ABOUT</a></li>\n    <li role=\"presentation\"><a data-ng-click=\"$ctrl.scrollTo('projects'); $ctrl.toggle()\">PROJECTS</a></li>\n    <li role=\"presentation\"><a data-ng-click=\"$ctrl.scrollTo('skills'); $ctrl.toggle()\">SKILLS</a></li>\n    <li role=\"presentation\"><a data-ng-click=\"$ctrl.scrollTo('contact'); $ctrl.toggle()\">CONTACT</a></li>\n  </ul>\n</div>";
 
 /***/ },
-/* 47 */
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (app) {
+	  app.component('home', {
+	    template: __webpack_require__(34)
+	  });
+	};
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"home-container\" id=\"home\">\n  <header class=\"header-container\">\n    <div class=\"intro-wrapper hidden-xs\">\n      <h4 class=\"intro-subhead\">Software Developer</h4>\n      <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n      <div class=\"links\">\n        <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n        <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n        <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>  \n      </div>\n    </div>\n  </header>\n</div>";
+
+/***/ },
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42553,7 +39873,7 @@
 
 	  app.component('project', {
 	    controller: 'projectController',
-	    template: __webpack_require__(48),
+	    template: __webpack_require__(36),
 	    bindings: {
 	      projectData: '<',
 	      id: '<'
@@ -42562,195 +39882,173 @@
 	};
 
 /***/ },
-/* 48 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"project-component\">\n  <div class=\"image-wrapper\">\n    <div class=\"project-image\" ng-style=\"{'background-image': 'url(' + $ctrl.project.thumbnailUrl + ')'}\"></div>\n  </div>\n\n  <div class=\"project-details\">\n    <h3><a ng-href=\"{{$ctrl.project.deployedUrl}}\" target=\"_blank\">{{$ctrl.project.name}}</a> {{$ctrl.project.date}} <a style=\"margin-right: 3px; margin-left: 3px;\" ng-repeat=\"(key, url) in $ctrl.project.urls\" ng-href=\"{{url}}\" target=\"_blank\"><i class=\"project-link fa {{key}}\"></i></a> \n    </h3> \n    <p class=\"project-description\">{{$ctrl.project.description}}</p>\n    <h3>Project employs</h3>\n    <ul class=\"employs-list\">\n      <li data-ng-repeat=\"property in $ctrl.project.employs\" class=\"employs-property\">{{property}}</li>\n    </ul>\n  </div>\n</div>";
 
 /***/ },
-/* 49 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('projectsComponent', {
-	    template: __webpack_require__(50),
-	    controller: 'ProjectController'
+	    template: __webpack_require__(38),
+	    controller: 'MainController'
 	  });
 	};
 
 /***/ },
-/* 50 */
+/* 38 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"projects-component\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">Projects</h3>\n    <div class=\"projects\">\n      <div class=\"project-thumbnail-container\">\n        <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n          <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n        </div>\n      </div>\n      <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n        <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n        <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = [];\"><i class=\"fa fa-undo\"></i></a>\n        <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n      </div>\n\n      <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n        <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n      </div>\n    </div>\n  </div>\n\n  <skills></skills>\n</div>";
+	module.exports = "<div class=\"projects-component\" id=\"projects\">\n  <div class=\"container\">\n    <div class=\"projects\">\n      <h3 class=\"section-title\">Projects</h3>\n      <div class=\"project-thumbnail-container\">\n        <div ng-repeat=\"projectThumb in $ctrl.projectThumbnails\">\n          <img ng-src=\"{{projectThumb.thumbnailUrl}}\" class=\"project-thumbnail thumbnail\" alt=\"project thumbnail\" data-ng-class=\"{'selected': $ctrl.projectId == $index}\" ng-bind=\"projectThumb.name\" data-ng-click=\"$ctrl.toggleThumbnail($index); $ctrl.viewProject($index)\" data-project=\"project\">\n        </div>\n      </div>\n      <div class=\"project-controls\" ng-show=\"$ctrl.projectActive\">\n        <a ng-click=\"$ctrl.prev()\"><i class=\"fa fa-arrow-circle-left\"></i></a>\n        <a ng-click=\"$ctrl.projectActive = false; $ctrl.projectId = undefined; $ctrl.projects = [];\"><i class=\"fa fa-undo\"></i></a>\n        <a ng-click=\"$ctrl.next()\"><i class=\"fa fa-arrow-circle-right\"></i></a>\n      </div>\n\n      <div class=\"project-wrapper\" data-ng-repeat=\"project in $ctrl.projects\">\n        <project project-data=\"project\" id=\"$ctrl.projectId\" class=\"fade\"></project>\n      </div>\n    </div>\n  </div>\n</div>";
 
 /***/ },
-/* 51 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('contactInfo', {
-	    template: __webpack_require__(52),
-	    controller: function controller() {}
+	    template: __webpack_require__(40)
 	  });
 	};
 
 /***/ },
-/* 52 */
+/* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"contact-wrapper\">\n  <div class=\"container\">\n    <div class=\"contact\">\n      <h3 class=\"contact-title\">Contact</h3>\n      <div class=\"headshot\"></div>\n        <ul class=\"contact-info\">\n          <li><span class=\"contact-intro\"><i class=\"fa fa-user\"> Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i> Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i> Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i> Location </span><span class=\"location\">Seattle, WA</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i> Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n          <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n          <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n        </ul>\n    </div>\n  </div>\n</div>";
+	module.exports = "<div class=\"contact-wrapper\" id=\"contact\">\n  <div class=\"container\">\n    <div class=\"contact\">\n      <h3 class=\"section-title\">Contact</h3>\n      <div class=\"headshot\"></div>\n        <ul class=\"contact-info\">\n          <li><span class=\"contact-intro\"><i class=\"fa fa-user\"> Name </i></span><span class=\"name\">Dylan Sanders</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-envelope\"></i> Email </span><a class=\"email\" href=\"mailto:dylanjsanders1@gmail.com\">dylanjsanders1@gmail.com</a></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-phone\"></i> Phone </span><span class=\"phone\">(206) 724-4453</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-map-marker\"></i> Location </span><span class=\"location\">Seattle, WA</span></li>\n          <li><span class=\"contact-intro\"><i class=\"fa fa-file-text\"></i> Resume </span><a href=\"https://bit.ly/DylanSandersResume\" target=\"_blank\">Download</a></li>\n          <li class=\"contact-links\">Also find me at <span class=\"contact-intro\"><a href=\"github.com/dylanjsa90\"><i class=\"fa fa-github\"></i></a> \n          <a href=\"linkedin.com/dylanjsanders\"><i class=\"fa fa-linkedin\"></i></a> <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a></span></li>\n        </ul>\n    </div>\n  </div>\n</div>";
 
 /***/ },
-/* 53 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
-	  app.controller('AboutController', function () {});
-
 	  app.component('aboutComponent', {
-	    controller: 'AboutController',
-	    template: __webpack_require__(54)
+	    template: __webpack_require__(42)
 	  });
 	};
 
 /***/ },
-/* 54 */
+/* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"about-component\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">ABOUT</h3>\n    <p class=\"bio\">I'm a software developer with a focus on web development. My interest in software development was sparked as I was finishing my Anthropology degree at UW. I took a few intro CSE courses which ultimately led me to Codefellows to learn full-stack web development where I can utilize the skills I learned from Anthropology to build web apps that focus on ease of use and fluid user experiences for the app's specific audience.</p>\n  </div>\n  <contact-info></contact-info> \n</div>\n\n";
+	module.exports = "<div id=\"about\" class=\"about-component\">\n  <div class=\"container\">\n    <h3 class=\"about-title\">ABOUT</h3>\n    <h2>A Bit About Me</h2>\n    <div class=\"bio\">\n      <p>I'm a software developer with a focus on web development. I love solving problems and am constantly learning and exploring new technologies.</p>\n    </div>\n    <h2>Education</h2>  \n    <div class=\"edu\">\n      <h3 class=\"edu-name\">Code Fellows</h3>\n      <h4>September 2016</h4>\n      <h3 class=\"edu-result\">Certificate in Advanced JavaScript Development</h3>\n    </div>\n    <div class=\"edu\">\n      <h3 class=\"edu-name\">University of Washington</h3>\n      <h4>June 2015</h4>\n      <h3 class=\"edu-result\">Bachelor's Degree</h3>\n    </div>\n  </div>\n</div>\n\n";
 
 /***/ },
-/* 55 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.controller('SkillController', function () {
-	    this.skillLogos = [__webpack_require__(56), __webpack_require__(57), __webpack_require__(58), __webpack_require__(59), __webpack_require__(60), __webpack_require__(61), __webpack_require__(62), __webpack_require__(63), __webpack_require__(64), __webpack_require__(65), __webpack_require__(66)];
+	    this.skillLogos = [__webpack_require__(44), __webpack_require__(45), __webpack_require__(46), __webpack_require__(47), __webpack_require__(48), __webpack_require__(49), __webpack_require__(50), __webpack_require__(51), __webpack_require__(52), __webpack_require__(53), __webpack_require__(54)];
 	    this.logoIndex = ['JavaScript', 'Node.js', 'MongoDB', 'React', 'Redux', 'jQuery', 'CSS3', 'HTML5', 'Angular', 'webpack', 'Bootstrap'];
 	  });
 
 	  app.component('skills', {
 	    controller: 'SkillController',
-	    template: __webpack_require__(67)
+	    template: __webpack_require__(55)
 	  });
 	};
 
 /***/ },
-/* 56 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/32e1e05a1be1599842f488647e1d04f0-javascript.png";
 
 /***/ },
-/* 57 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/38c3a911493bf29320caa2cb901e0ecb-nodejs-dark.png";
 
 /***/ },
-/* 58 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/e23e16dbe61a5d49fea2144bbb6e7488-MongoDB.jpg";
 
 /***/ },
-/* 59 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/37fe8322b169ddbdeabf75930e886ac6-react.png";
 
 /***/ },
-/* 60 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/302f0b555a5c64dfecafd29b610381e7-redux.png";
 
 /***/ },
-/* 61 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/a3af0655fc9a481401550b5be0e86cab-jquery.png";
 
 /***/ },
-/* 62 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/fbe01551b3091103d2655e6be9d8cd9f-css.png";
 
 /***/ },
-/* 63 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/2e4ed85a249e0d819df884d55176c16c-html.png";
 
 /***/ },
-/* 64 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/9db278d630f5fabd8e7ba16c2e329a3a-angular.png";
 
 /***/ },
-/* 65 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/c500a3801d8356a86da86a06c3d13a4d-webpack.png";
 
 /***/ },
-/* 66 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "image/6fbceffed54c931c463a0e80f2e0faef-bootstrap.png";
 
 /***/ },
-/* 67 */
+/* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"skills-container\">\n  <div class=\"container\">\n    <h3>Technical Skills</h3>\n    <ul class=\"skill-icons\">\n      <li data-ng-repeat=\"icon in $ctrl.skillLogos track by $index\">\n        <img data-ng-src=\"{{icon}}\" class=\"skill-icon\">\n        {{$ctrl.logoIndex[$index]}}\n      </li>\n    </ul>\n  </div>\n</div>";
+	module.exports = "<div class=\"skills-container\" id=\"skills\">\n  <div class=\"container\">\n    <h3 class=\"section-title\">Technical Skills</h3>\n    <ul class=\"skill-icons\">\n      <li data-ng-repeat=\"icon in $ctrl.skillLogos track by $index\">\n        <img data-ng-src=\"{{icon}}\" class=\"skill-icon\">\n        {{$ctrl.logoIndex[$index]}}\n      </li>\n    </ul>\n  </div>\n</div>";
 
 /***/ },
-/* 68 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function (app) {
 	  app.component('footerComponent', {
-	    template: __webpack_require__(69)
+	    template: __webpack_require__(57)
 	  });
 	};
 
 /***/ },
-/* 69 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer id=\"footer\">\n  <div class=\"container footer-component\">\n    <p class=\"footer-info\">&copy 2016 Dylan Sanders <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github\"></i></a> | \n    <a href=\"https://linkedin.com/in/dylanjsanders\" target=\"_blank\"><i class=\"fa fa-linkedin\"></i></a> |\n    <a href=\"http://codepen.io/dylansa90/\" target=\"_blank\"><i class=\"fa fa-codepen\"></i></a>\n    </p> \n  </div>\n</footer>";
-
-/***/ },
-/* 70 */
-/***/ function(module, exports) {
-
-	module.exports = "  <div class=\"component-wrapper home-container\">\n    <header class=\"header-container\">\n    <div class=\"intro-wrapper hidden-xs\">\n      <h4 class=\"intro-subhead\">Software Developer</h4>\n      <h1 class=\"intro-heading\">D&nbsp;y&nbsp;l&nbsp;a&nbsp;n &nbsp; S&nbsp;a&nbsp;n&nbsp;d&nbsp;e&nbsp;r&nbsp;s</h1>\n      <div class=\"links\">\n        <a href=\"https://github.com/dylanjsa90\" target=\"_blank\"><i class=\"fa fa-github-square fa-2x\" style=\"color: black;\"></i></a>\n        <a href=\"https://linkedin.com/in/dylanjsanders\"><i class=\"fa fa-linkedin-square fa-2x\"></i></a>\n        <a href=\"http://www.dylanjsanders.com\"><i class=\"fa fa-folder-open fa-2x\" style=\"color: green;\"></i></a>\n        \n        </div>\n      </div>\n    </header>\n\n    <!--<div class=\"home-nav\">\n      <ul>\n        <li>More <a href=\"#/about\" class=\"home-links\">About me</a></li>\n        <li>View <a href=\"#/projects\" class=\"home-links\">Projects</a></li>\n      </ul>\n    </div>-->\n  </div>\n\n\n";
-
-/***/ },
-/* 71 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"component-wrapper\">\n  <about-component></about-component>\n</div>\n";
-
-/***/ },
-/* 72 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"component-wrapper\">\n  <projects-component></projects-component>\n</div>\n";
 
 /***/ }
 /******/ ]);
