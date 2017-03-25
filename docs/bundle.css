@@ -5741,10 +5741,13 @@ nav-bar {
             justify-content: flex-end; }
   .nav.navbar-nav {
     margin-top: 70px;
+    width: 40%;
     position: fixed;
     top: 0px;
     right: 10px;
-    background-color: black; }
+    background-color: rgba(0, 0, 0, 0.8); }
+  .navbar-title a {
+    box-sizing: border-box; }
   #navcol-1.navbar-collapse ul li {
     margin: 0;
     padding: 2%;
